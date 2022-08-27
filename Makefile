@@ -15,7 +15,7 @@ SRCS_DIR				= ./src/
 INCS					= -I include
 
 SRCS					= $(SRCS_DIR)main.c \
-						  $(SRCS_DIR)parsing/parser.c
+						  $(SRCS_DIR)/parsing/parser.c
 					
 OBJS					= $(SRCS:.c=.o) $(src/parsing:.c=.o) 
 
