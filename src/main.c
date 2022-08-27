@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	main(void)
+int	main(char	**envp)
 {
 	while (1)
 		readline("TODO: display current working directory $");
