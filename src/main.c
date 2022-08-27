@@ -6,18 +6,18 @@
 /*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:27:35 by lanlan            #+#    #+#             */
-/*   Updated: 2022/08/27 16:53:23 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/08/27 17:21:17 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
-	while (1)
+	while (argc || argv || envp)
 	{
 		readline(cwd);
 	}
