@@ -14,9 +14,10 @@ SRCS_DIR				= ./src/
 
 INCS					= -I include
 
-SRCS					= $(SRCS_DIR)main.c
+SRCS					= $(SRCS_DIR)main.c \
+						  $(SRCS_DIR)parsing/parser.c
 					
-OBJS					= $(SRCS:.c=.o)
+OBJS					= $(SRCS:.c=.o) $(src/parsing:.c=.o) 
 
 .c.o :
 	$(CC) $(CFLAGS) -I $(INCS_DIR) -o $@ -c $?
