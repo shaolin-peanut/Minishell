@@ -6,7 +6,7 @@
 /*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by lanlan            #+#    #+#             */
-/*   Updated: 2022/08/27 17:45:06 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/08/27 17:50:50 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_prompt
 // parsing/
 // parser.c
 void	parser(char	*str);
+static t_prompt	init_prompt(char **envp);
 
 // utils
 char	**ft_matrixdup(char **matrix);
