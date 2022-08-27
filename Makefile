@@ -1,24 +1,43 @@
-NAME		=	minishell
+NAME					= minishell
 
-HEADER		=	./include/
+CC						= gcc
+CFLAGS					= -Wall -Werror -Wextra
+AR						= ar rcs
+RM						= rm -rf
 
-CC			=	gcc
+LIBFT_DIR				= ./libft/
+LIBFT_FLAGS				= -L ./$(LIBFT_DIR) -lft
+LIBFT_FILE				= $(LIBFT_DIR)libft.a
 
-CFLAGS		=	-Werror -Wall -Wextra -g -I $(HEADER)
+INCS_DIR				= ./include/
+SRCS_DIR				= ./src/
 
-SRCS		=	src/main.c
+INCS					= -I include
 
-OBJS		=	$(SRCS:.c=.o)
+SRCS					= $(SRCS_DIR)main.c
+					
+OBJS					= $(SRCS:.c=.o)
 
-all			:	$(NAME)
+.c.o :
+	$(CC) $(CFLAGS) -I $(INCS_DIR) -o $@ -c $?
 
-$(NAME)		:	$(OBJS) $(HEADER)
-				$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+$(NAME) : $(OBJS)
+	make -C $(LIBFT_DIR)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT_FLAGS) -I $(INCS_DIR)
 
-clean		:
-				rm -rf $(OBJS)
+all : $(NAME)
 
-fclean		:	clean
-				rm -rf $(NAME)
+clean :
+	make -C $(LIBFT_DIR) clean
+	$(RM) $(OBJS) $(OBJS_BONUS) minishell.dSYM
 
-re			:	fclean all
+fclean : clean
+	make -C $(LIBFT_DIR) fclean
+	$(RM) $(NAME) minishell.dSYM
+
+re : fclean all
+
+norm :
+	norminette $(SRCS) $(INCS_DIR)*.h
+
+PHONY	: all clean fclean re
