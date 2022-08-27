@@ -1,6 +1,4 @@
-int	main(int argc, char **argv)
+int	main()
 {
-	if (argv[0] == 0)
-		argc += 1;
-	return(argc);
+	return (0);
 }
