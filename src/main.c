@@ -6,7 +6,7 @@
 /*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:27:35 by lanlan            #+#    #+#             */
-/*   Updated: 2022/08/27 14:19:25 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/08/27 16:53:23 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 int	main(void)
 {
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
 	while (1)
-		readline("TODO: display current working directory $");
+	{
+		readline(cwd);
+	}
 	return (0);
 }
