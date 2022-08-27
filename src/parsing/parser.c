@@ -2,5 +2,11 @@
 
 void	parser(char	*str)
 {
-	(void) str;
+	int	i;
+
+	i = -1;
+	while (str[++])
+	{
+		write(1, &str[++], 1);
+	}
 }
