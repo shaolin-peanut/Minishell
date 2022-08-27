@@ -6,7 +6,7 @@
 /*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:27:35 by lanlan            #+#    #+#             */
-/*   Updated: 2022/08/27 13:33:07 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/08/27 14:17:14 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	main(void)
 {
-	ft_putstr_fd("TODO: display current working directory", 1);
-	ft_putstr_fd("$", 1);
+	readline("TODO: display current working directory $");
 	return (0);
 }
