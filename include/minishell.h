@@ -18,4 +18,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+// parsing/
+// parser.c
+void	parser(char	*str);
 #endif
