@@ -16,5 +16,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	while (argc || argv || envp)
 		readline("TODO: display current working directory $");
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	while (1)
+	{
+		readline(cwd);
+	}
 	return (0);
 }
