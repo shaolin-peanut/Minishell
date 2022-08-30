@@ -28,6 +28,9 @@ typedef struct s_prompt
 // parser.c
 void	parser(char	*str);
 
-// utils
+// utils/
+// matrix.c
 char	**ft_matrixdup(char **matrix);
+// type_check.c
+int		is_cmd(char *str);
 #endif

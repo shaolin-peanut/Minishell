@@ -15,9 +15,10 @@ SRCS_DIR				= ./src/
 INCS					= -I include
 
 SRCS					= $(SRCS_DIR)main.c \
-						  $(SRCS_DIR)/parsing/parser.c
+						  $(SRCS_DIR)/parsing/parser.c \
 						$(SRCS_DIR)/parsing/prompt.c \
-						$(SRCS_DIR)/utils/matrix.c
+						$(SRCS_DIR)/utils/matrix.c \
+						$(SRCS_DIR)/utils/type_check.c
 					
 OBJS					= $(SRCS:.c=.o)
 
