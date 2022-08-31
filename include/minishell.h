@@ -31,6 +31,13 @@ void	parser(char	*str);
 // utils/
 // matrix.c
 char	**ft_matrixdup(char **matrix);
-// type_check.c
-int		is_cmd(char *str);
+// lexical_checks_A.c
+int		is_space_tab(char *str, int i);
+int		is_squote(char *str, int i);
+int		idquote(char *str, int i);
+int		is_dollar_sign(char *str, int i);
+int		is_word(char *str, int i);
+// extraction.c
+int		word_extraction(char *str, int i);
+int		var_substitution(char *str, int i);
 #endif
