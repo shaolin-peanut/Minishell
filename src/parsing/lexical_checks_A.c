@@ -43,15 +43,6 @@ int	is_dollar_sign(char	*str, int i)
 
 int	is_word(char	*str, int i)
 {
-/*	if (ft_isalnum(str[i]))
-	{
-		while (!is_space_tab(str, i) && ft_isalnum(str[i]) && str[i] != '\0')
-		{
-			if (is_space_tab(str, i))
-				break;
-			i++;
-		}
-	}*/
 	if (!ft_isalnum(str[i]))
 			return (0);
 	while (ft_isalnum(str[i]) && str[i])

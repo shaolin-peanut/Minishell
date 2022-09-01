@@ -16,20 +16,14 @@ int		lexical_scan(char	*str, int i)
 	}
 	else if (is_dollar_sign(str, i))
 	{
-		if (is_word(str, ++i))
-		{
+		i++;
+		if (is_word(str, i))
 			i += var_substitution(str, i);
-		}
-		else
-		{
-			printf("Lone dollar sign found\n");
-			i++;
-		}
 	}
 //	else if (i += is_space_tab(str, i) > prev_i)
 //		write(1, "..\n", 3);
-	else
-		i++;
+	//else/* if (is_space_tab(str, i))*/
+	//	i++;
 	return (i);
 }
 
@@ -38,9 +32,9 @@ void	parser(char	*str)
 	int	i;
 	char	*trimmed_str;
 
-	i = 0;
+	i = -1;
 	trimmed_str = ft_strtrim(str, " ");
-	while (trimmed_str[i] != '\0')
+	while (trimmed_str[++i] != '\0')
 		i = lexical_scan(trimmed_str, i);
 }
 // each iteration of the loop, the check function will 
