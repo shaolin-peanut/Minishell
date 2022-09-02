@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/02 11:56:10 by sbars             #+#    #+#             */
+/*   Updated: 2022/09/02 12:35:19 by sbars            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 int		lexical_scan(char	*str, int i)
@@ -22,20 +34,22 @@ int		lexical_scan(char	*str, int i)
 	}
 //	else if (i += is_space_tab(str, i) > prev_i)
 //		write(1, "..\n", 3);
-	//else/* if (is_space_tab(str, i))*/
-	//	i++;
+	else/* if (is_space_tab(str, i))*/
+		i++;
 	return (i);
 }
 
 void	parser(char	*str)
 {
 	int	i;
-	char	*trimmed_str;
+	//char	*trimmed_str;
 
-	i = -1;
-	trimmed_str = ft_strtrim(str, " ");
-	while (trimmed_str[++i] != '\0')
-		i = lexical_scan(trimmed_str, i);
+	i = 0;
+	//trimmed_str = ft_strtrim(str, " ");
+	//free(str);
+	while (str[i])
+		i = lexical_scan(str, i);
+	free(str);
 }
 // each iteration of the loop, the check function will 
 // sequentially check if any of the types are present, there

@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 19:02:32 by sbars             #+#    #+#             */
-/*   Updated: 2022/08/30 17:44:36 by sbars            ###   ########.fr       */
+/*   Updated: 2022/09/02 12:35:24 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_word(char	*str, int i)
 {
 	if (!ft_isalnum(str[i]))
 			return (0);
-	while (ft_isalnum(str[i]) && str[i])
+	while (ft_isalnum(str[i]) && str[i] != '\0')
 		i++;
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 19:02:32 by sbars             #+#    #+#             */
-/*   Updated: 2022/08/30 17:44:36 by sbars            ###   ########.fr       */
+/*   Updated: 2022/09/02 12:35:26 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	var_substitution(char *str, int i)
 	int	before;
 
 	before = i;
-	while (ft_isalnum(str[i]) && str[i] != '\0')
+	while (ft_isalnum(str[i]) && str[i] != '\0' && !is_space_tab(str, i))
 		i++;
 	printf("Variable found %s, i = %d, before = %d\n", ft_substr(str, before, i - before), i, before);
 	return (i);
@@ -59,7 +59,7 @@ int	word_extraction(char *str, int i)
 	}*/
 
 	before = i;
-	while (ft_isalnum(str[i]) && str[i] != '\0' && !is_space_tab(str, i))
+	while (ft_isalnum(str[i]) && str[i] != '\0')
 	{
 		write(1, &str[i], 1);
 		i++;
