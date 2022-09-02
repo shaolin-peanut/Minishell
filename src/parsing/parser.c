@@ -6,55 +6,41 @@
 /*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:10 by sbars             #+#    #+#             */
-/*   Updated: 2022/09/02 12:35:19 by sbars            ###   ########.fr       */
+/*   Updated: 2022/09/02 17:42:57 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int		lexical_scan(char	*str, int i)
+// In these functions, the printf can easily be replaced by "create_x_token" functions
+int		lexical_scan(char	**str, int i)
 {
-	// identification functions calculate the new index. But the previous index is always saved
-	if ((is_word(str, i)))
+	if (is_word(str, i))
+		printf("word found: %s\n", str[i]);
+	else if (is_dollar(str[i][0]))
 	{
-		// if (is_cmd)
-		// 	create_cmd(str + i)
-		// if (is_file)
-		//  create_file(str + i)
-	//	while (++prev_i < i - 1)
-	//		write(1, &str[prev_i], 1);
-	//	write(1, "\n", 1);
-		i += word_extraction(str, i);
+		if (is_var(str, i))
+		{
+			str[i] = var_substitution(str, i);
+			printf("var found: %s\n", str[i]);
+		}
 	}
-	else if (is_dollar_sign(str, i))
-	{
-		i++;
-		if (is_word(str, i))
-			i += var_substitution(str, i);
-	}
-//	else if (i += is_space_tab(str, i) > prev_i)
-//		write(1, "..\n", 3);
-	else/* if (is_space_tab(str, i))*/
-		i++;
-	return (i);
+	else
+		printf("something else found %s\n", str[i]);
+	return (1);
 }
 
 void	parser(char	*str)
 {
 	int	i;
-	//char	*trimmed_str;
+	char	**split_str;
 
-	i = 0;
-	//trimmed_str = ft_strtrim(str, " ");
-	//free(str);
-	while (str[i])
-		i = lexical_scan(str, i);
+	i = -1;
+	split_str = ft_split(str, ' ');
 	free(str);
+	while (split_str[++i] != NULL)
+		lexical_scan(split_str, i);
+	// chain = tokenizer(split_str);
+	// return (chain);
+	free(split_str);
 }
-// each iteration of the loop, the check function will 
-// sequentially check if any of the types are present, there
-// can be more than one item parsed by execution of that function, 
-// if there are more than one control path which is entered.
-// In any case, i is progressing through the string as it is parsed,
-// and the next iteration will land to a new fresh check of the 
-// remaining characters	

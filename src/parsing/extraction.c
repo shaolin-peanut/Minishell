@@ -6,66 +6,29 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 19:02:32 by sbars             #+#    #+#             */
-/*   Updated: 2022/09/02 12:35:26 by sbars            ###   ########.fr       */
+/*   Updated: 2022/09/02 17:43:09 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*int	is_squote(char	*str, int i)
+// Below you can see the very redundant explanations I make to myself to be sure I understand. Will clean those up when 100% done with them - Sam
+
+// Save the pointer to a temporary placeholder, incremented to skip the $
+// Allocate new space for the string value, so that it stays consistent with the str[i] space malloced by ft_substr in ft_split.
+// Send the name of the variable (w/o the $) to getenv, output goes to value
+// free(str[i]) which is now to be discarded (except if value is NULL)
+// return value, which is gonna take the place of the now freed (str[i])
+// No error-checking, just substituing var name with NULL, when var doesn't exist. That's bash does, it doesn't care, just doesn't print anything but executes anything that comes after it.
+char	*var_substitution(char **str, int i)
 {
-	if (str[i] == 39)
-		return (1);
-	return (0);
-}
+	char	*value;
+	char	*tmp;
 
-int	is_dquote(char	*str, int i)
-{
-	if (str[i] == 34)
-		return (1);
-	return (0);
-}
-
-int	is_dollar_sign(char	*str, int i)
-{
-	if (str[i] == '$')
-		return (1);
-	else
-		return (0);
-}*/
-
-int	var_substitution(char *str, int i)
-{
-	int	before;
-
-	before = i;
-	while (ft_isalnum(str[i]) && str[i] != '\0' && !is_space_tab(str, i))
-		i++;
-	printf("Variable found %s, i = %d, before = %d\n", ft_substr(str, before, i - before), i, before);
-	return (i);
-}
-
-int	word_extraction(char *str, int i)
-{
-	int	before;
-/*	if (ft_isalnum(str[i]))
-	{
-		while (!is_space_tab(str, i) && ft_isalnum(str[i]) && str[i] != '\0')
-		{
-			if (is_space_tab(str, i))
-				break;
-			i++;
-		}
-	}*/
-
-	before = i;
-	while (ft_isalnum(str[i]) && str[i] != '\0')
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	write(1, "\n", 1);
-	printf(" i = %d, before = %d, i - before = %d\n", i, before, i - before);
-//	printf("Word found %s\n", ft_substr(str, before, i - before));
-	return (i);
+	tmp = str[i];
+	tmp++;
+	value = (char *) malloc(sizeof(char) * ((int) ft_strlen(str[i]) - 1));
+	value = getenv(tmp);
+	free(str[i]);
+	return (value);
 }
