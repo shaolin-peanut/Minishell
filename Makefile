@@ -18,8 +18,10 @@ SRCS					= $(SRCS_DIR)main.c \
 						  $(SRCS_DIR)/parsing/parser.c \
 						$(SRCS_DIR)/parsing/prompt.c \
 						$(SRCS_DIR)/parsing/lexical_checks_A.c \
+						$(SRCS_DIR)/parsing/lexical_checks_B.c \
 						$(SRCS_DIR)/parsing/extraction.c \
-						$(SRCS_DIR)/utils/matrix.c
+						$(SRCS_DIR)/utils/matrix.c \
+						$(SRCS_DIR)/utils/error.c
 					
 OBJS					= $(SRCS:.c=.o)
 

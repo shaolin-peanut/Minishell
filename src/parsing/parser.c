@@ -6,17 +6,21 @@
 /*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:10 by sbars             #+#    #+#             */
-/*   Updated: 2022/09/02 17:42:57 by sbars            ###   ########.fr       */
+/*   Updated: 2022/09/08 17:00:12 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 // In these functions, the printf can easily be replaced by "create_x_token" functions
-int		lexical_scan(char	**str, int i)
+int	lexical_scan(char	**str, int i, t_meta	*pkg)
 {
 	if (is_word(str, i))
+	{
 		printf("word found: %s\n", str[i]);
+		if (!is_cmd(str, i) && !is_builtin(str, i))
+			return (errormsg("Command not found", pkg));
+	}
 	else if (is_dollar(str[i][0]))
 	{
 		if (is_var(str, i))
@@ -30,7 +34,7 @@ int		lexical_scan(char	**str, int i)
 	return (1);
 }
 
-void	parser(char	*str)
+int	parser(char	*str, t_meta	*pkg)
 {
 	int	i;
 	char	**split_str;
@@ -39,8 +43,15 @@ void	parser(char	*str)
 	split_str = ft_split(str, ' ');
 	free(str);
 	while (split_str[++i] != NULL)
-		lexical_scan(split_str, i);
+	{
+		if (!lexical_scan(split_str, i, pkg))
+		{
+			free(split_str);
+			return (0);
+		}
+	}
 	// chain = tokenizer(split_str);
 	// return (chain);
 	free(split_str);
+	return (1);
 }
