@@ -41,7 +41,7 @@ int	is_var(char	**str, int i)
 	j = 0;
 	if (!ft_isalnum(str[i][++j]))
 		return (0);
-	while (str[i][++j] && ft_isalnum(str[i][j]))
+	while (ft_isalnum(str[i][++j]))
 		;
 	return (j);
 }
