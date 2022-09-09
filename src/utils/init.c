@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexical_checks_B.c                                 :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 11:56:03 by sbars             #+#    #+#             */
-/*   Updated: 2022/09/09 19:22:00 by sbars            ###   ########.fr       */
+/*   Created: 2022/09/09 19:19:40 by sbars             #+#    #+#             */
+/*   Updated: 2022/09/09 19:21:25 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
-int	is_cmd(char	**str, int i, t_meta *pkg)
+char	**paths_finder
 {
+	int	i;
+	char	**tmp;
+	char	**paths;
+
 	i = -1;
-
-
-	if (pkg->paths = NULL)
-		pkg->paths = paths_finder(truc);
-	while (paths[++i])
+// This actually is the paths_finder command, something else that should be done before... Or maybe only done when at least one command is found. If pkg->paths is null, run paths_finder.
+	while (pkg->envp[++i])
 	{
-		
+		if (ft_strncmp(pkg->envp[i], "PATH=", 5))
+		{
+			tmp = ft_split(pkg->envp[i], '=');
+			paths = ft_split(tmp, ':');
+			free(tmp);
+			return (paths);
+		}
 	}
-	(void) str;
-	(void) i;
-	return (1);
-}
-
-int	is_builtin(char **str, int i, t_meta *pkg)
-{
-	(void) str;
-	(void) i;
 	return (0);
 }

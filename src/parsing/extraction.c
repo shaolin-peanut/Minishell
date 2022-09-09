@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 19:02:32 by sbars             #+#    #+#             */
-/*   Updated: 2022/09/02 17:43:09 by sbars            ###   ########.fr       */
+/*   Updated: 2022/09/09 19:19:18 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,25 @@
 // free(str[i]) which is now to be discarded (except if value is NULL)
 // return value, which is gonna take the place of the now freed (str[i])
 // No error-checking, just substituing var name with NULL, when var doesn't exist. That's bash does, it doesn't care, just doesn't print anything but executes anything that comes after it.
-char	*var_substitution(char **str, int i)
+int	var_substitution(char *str, int i)
 {
 	char	*value;
 	char	*tmp;
 
-	tmp = str[i];
+	tmp = str;
 	tmp++;
 	value = (char *) malloc(sizeof(char) * ((int) ft_strlen(str[i]) - 1));
 	value = getenv(tmp);
 	free(str[i]);
-	return (value);
+	if (value)
+		printf("var found: %s\n", value);
+	else
+		printf("");
+	return (ft_strlen(value));
+}
+
+int	cmd_extraction(char *str, int i)
+{
+	(void) str;
+	(void) i;
 }
