@@ -6,7 +6,7 @@
 /*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:27:35 by lanlan            #+#    #+#             */
-/*   Updated: 2022/09/10 18:51:49 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/09/10 21:41:15 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,25 @@ static t_prompt	init_prompt(char **envp)
 	return (prompt);
 }
 
-char	*get_prompt(void)
+char	*get_prompt(t_prompt prompt)
 {
-	char	*cwd;
-	char	*str;
+	char	*temp;
+	char	*temp2;
+	char	*home;
 
-	cwd = getcwd(NULL, 0);
-	free(cwd);
-	str = ft_strjoin(cwd, " $ ");
-	return (str);
+	(void) prompt;
+	// temp = get_user(prompt);
+	temp = ft_strdup("lanlan");
+	temp2 = ft_strjoin(temp, "@minishell");
+	free(temp);
+	// home = get_home(prompt);
+	home = ft_strdup("home");
+	temp = ft_strjoin(temp2, home);
+	free(home);
+	free(temp2);
+	temp2 = ft_strjoin(temp, "$ ");
+	free(temp);
+	return (temp2);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -40,10 +50,12 @@ int	main(int argc, char **argv, char **envp)
 	prompt = init_prompt(envp);
 	while (argc || argv || envp)
 	{
-		prompt_str = get_prompt();
-		readline(prompt_str);
+		prompt_str = get_prompt(prompt);
+		if (prompt_str)
+			readline(prompt_str);
+		else
+			readline("guest@minishell $ ");
+		free(prompt_str);
 	}
-	free(prompt_str);
-	(void) prompt;
 	return (0);
 }
