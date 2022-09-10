@@ -34,29 +34,42 @@ int	is_dquote(char	c)
 	return (0);
 }
 
-int	is_var(char	**str, int i)
+int	is_var(char	*str, int i)
 {
-	int	j;
+	int	temp_i;
 
-	j = 0;
-	if (!ft_isalnum(str[i][++j]))
+	temp_i = i;
+	if (str[temp_i] != '$')
 		return (0);
-	while (ft_isalnum(str[i][++j]))
-		;
-	return (j);
+	temp_i++;
+	while (str[i] && !is_blank(str, temp_i) && !is_operator(str, temp_i) && !is_dollar(str[i]))
+	{
+		temp_i++;
+	}
+	if (temp_i > i)
+		return (temp_i);
+	else
+		return (0);
 }
 
-int	is_word(char	**str, int i)
+int	is_word(char	*str, int i)
 {
-	int	j;
+	int	i_backup;
 
-	j = -1;
-	if (str[i] == NULL)
-		return (0);
-	while (str[i][++j])
+	i_backup = i;
+	while (str[i] && !is_blank(str, i) && !is_operator(str, i))
 	{
-		if (!ft_isalnum(str[i][j]))
-			return (0);
+		i++;
 	}
-	return (j);
+	if (i_backup < i)
+	{
+		//printf("is_word found a %d len word: %s\n", i - i_backup, str + i_backup);
+		return (i);
+	}
+	else
+	{
+		//printf("is_word didn't find a word here: %s\n", str + i_backup);
+		return (0);
+	}
+	return (i);
 }

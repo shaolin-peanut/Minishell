@@ -13,51 +13,37 @@
 #include "../include/minishell.h"
 
 // In these functions, the printf can easily be replaced by "create_x_token" functions
-int	lexical_scan(char	**str, int i, t_meta	*pkg)
+int	lexical_scan(char	*str, int i, t_meta	*pkg)
 {
+	// The only way I can simplify this down to small function, is to have big abstractions that are as big as possible, buckets, that lead to smaller buckets. I try to find similar characteristics, how to group elements in the most efficient way.
 	if (is_word(str, i))
-	{
-		//printf("word found: %s\n", str[i]);
-		if (is_cmd(str, i))
-			i = cmd_extraction(str, i);
-		else if (is_builtin(str, i))
-			i = builtin_extraction(str, i);
-		else
-			return (errormsg("Command not found", pkg));
-	}
-	else if (is_dollar(str[i][0]))
-	{
-		if (is_var(str, i))
-		{
-			i = var_substitution(str, i);
-			printf("var found: %s\n", str[i]);
-		}
-		else if (is_dollar_question(str, i))
-			i = dollar_question_extraction(str, i);
-		else
-			i = lone_dollar_sign(str, i);
-	}
-//	else if (is_operator(str, i))
+		i = process_word(str, i, pkg);
+	else if (is_dollar(str[i]))
+		i = process_dollar(str, i, pkg);
+	else if (is_operator(str, i))
+		i = process_operator(str, i, pkg);
 	else
-		printf("something else found %s\n", str[i]);
-	return (1);
+		printf("something else found %s\n", (str + i));
+	return (i);
 }
 
 int	parser(char	*str, t_meta	*pkg)
 {
 	int	i;
 
-	i = -1;
-	while (str[++i])
+	i = 0;
+	while (str[i] != '\0')
 	{
-		if (!lexical_scan(str, i, pkg))
+		i = lexical_scan(str, i, pkg);
+		if (i == -1)
 		{
-			free(split_str);
+			free(str);
 			return (0);
 		}
+		i++;
 	}
 	// chain = tokenizer(split_str);
 	// return (chain);
-	free(split_str);
+	free(str);
 	return (1);
 }

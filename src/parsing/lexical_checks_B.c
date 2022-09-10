@@ -12,25 +12,37 @@
 
 #include "../../include/minishell.h"
 
-int	is_cmd(char	**str, int i, t_meta *pkg)
+int	is_blank(char *str, int i)
 {
-	i = -1;
-
-
-	if (pkg->paths = NULL)
-		pkg->paths = paths_finder(truc);
-	while (paths[++i])
-	{
-		
-	}
-	(void) str;
-	(void) i;
-	return (1);
+	if (str[i] == ' ' || str[i] == '	')
+		return (1);
+	return (0);
 }
 
-int	is_builtin(char **str, int i, t_meta *pkg)
+int is_redirection(char *str, int i)
 {
-	(void) str;
-	(void) i;
+	if (str[i] == '<' || str[i] == '>' || (str[i] == '>' && str[i + 1] == '>'))
+		return (1);
 	return (0);
+}
+
+int is_heredoc(char *str, int i)
+{
+	if (str[i] == '<' && str[i + 1] == '<')
+		return (1);
+	return (0);
+}
+
+int	is_operator(char *str, int i)
+{
+	if (str[i] == '|' || is_redirection(str, i))
+		return (1);
+	return (0);
+}
+
+int	is_dollar_question(char *str, int i)
+{
+	if (str[i] != '$' || str[i + 1] != '?')
+		return (0);
+	return (1);
 }

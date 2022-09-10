@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include "parser.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -27,26 +28,29 @@ typedef struct s_prompt
 typedef struct s_meta
 {
 	t_prompt	*prompt;
+	char	**paths;
 }			t_meta;
 
 // parsing/
-// parser.c
-int		parser(char	*str, t_meta	*pkg);
-// lexical_checks_A.c
-int		is_squote(char c);
-int		is_dquote(char c);
-int		is_dollar(char c);
-int		is_var(char **str, int i);
-int		is_word(char **str, int i);
-// lexical_checks_B.c
-int		is_cmd(char	**str, int i);
-int		is_builtin(char **str, int i);
+int		parser(char *str, t_meta *pkg);
 // extraction.c
-char	*var_substitution(char **str, int i);
+int		var_substitution(char *str, int i);
+int		cmd_extraction(char *str, int i);
+int		create_builtin_token(char *str, int i);
+int		dollar_question_exec(char *str, int i);
+int		lone_dollar_sign(char *str, int i);
+// processing.c
+int		process_word(char *str, int i, t_meta *pkg);
+int		process_operator(char *str, int i, t_meta *pkg);
+int		process_dollar(char *str, int i, t_meta *pkg);
 
 // utils/
 // matrix.c
 char	**ft_matrixdup(char **matrix);
 // error.c
 int		errormsg(char *str, t_meta	*pkg);
+// init.c
+t_meta	*init_meta(t_prompt *prompt);
+char	**init_paths(t_meta	*pkg);
+
 #endif
