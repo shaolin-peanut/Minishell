@@ -6,7 +6,7 @@
 /*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:27:35 by lanlan            #+#    #+#             */
-/*   Updated: 2022/09/10 17:45:28 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/09/10 18:51:49 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_prompt	init_prompt(char **envp)
 	return (prompt);
 }
 
-char	*get_prompt()
+char	*get_prompt(void)
 {
 	char	*cwd;
 	char	*str;
