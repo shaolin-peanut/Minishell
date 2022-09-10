@@ -6,7 +6,7 @@
 /*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:27:35 by lanlan            #+#    #+#             */
-/*   Updated: 2022/08/27 17:53:14 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/09/10 17:45:28 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,29 @@ static t_prompt	init_prompt(char **envp)
 	return (prompt);
 }
 
+char	*get_prompt()
+{
+	char	*cwd;
+	char	*str;
+
+	cwd = getcwd(NULL, 0);
+	free(cwd);
+	str = ft_strjoin(cwd, " $ ");
+	return (str);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	char		*cwd;
 	t_prompt	prompt;
+	char		*prompt_str;
 
 	prompt = init_prompt(envp);
-	cwd = getcwd(NULL, 0);
 	while (argc || argv || envp)
 	{
-		readline(cwd);
+		prompt_str = get_prompt();
+		readline(prompt_str);
 	}
-	free(cwd);
+	free(prompt_str);
+	(void) prompt;
 	return (0);
 }
