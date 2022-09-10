@@ -6,16 +6,17 @@
 /*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:27:35 by lanlan            #+#    #+#             */
-/*   Updated: 2022/09/10 21:41:15 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/09/10 22:05:56 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_prompt	init_prompt(char **envp)
+static t_prompt	init_prompt(char **argv, char **envp)
 {
 	t_prompt	prompt;
 
+	(void) argv;
 	prompt.commands = NULL;
 	prompt.envp = ft_matrixdup(envp);
 	return (prompt);
@@ -30,10 +31,10 @@ char	*get_prompt(t_prompt prompt)
 	(void) prompt;
 	// temp = get_user(prompt);
 	temp = ft_strdup("lanlan");
-	temp2 = ft_strjoin(temp, "@minishell");
+	temp2 = ft_strjoin(temp, "@minishell ");
 	free(temp);
 	// home = get_home(prompt);
-	home = ft_strdup("home");
+	home = getcwd(NULL, 0);
 	temp = ft_strjoin(temp2, home);
 	free(home);
 	free(temp2);
@@ -47,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	t_prompt	prompt;
 	char		*prompt_str;
 
-	prompt = init_prompt(envp);
+	prompt = init_prompt(argv, envp);
 	while (argc || argv || envp)
 	{
 		prompt_str = get_prompt(prompt);
