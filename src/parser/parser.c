@@ -23,7 +23,7 @@ int	lexical_scan(char	*str, int i, t_meta	*pkg)
 	else if (is_operator(str, i))
 		i = process_operator(str, i, pkg);
 	else
-		printf("something else found %s\n", (str + i));
+		i++;
 	return (i);
 }
 
