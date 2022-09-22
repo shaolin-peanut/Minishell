@@ -29,6 +29,8 @@ typedef struct s_meta
 {
 	t_prompt	*prompt;
 	char	**paths;
+	int		i;
+	int		i_backup;
 }			t_meta;
 
 // parsing/

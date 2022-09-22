@@ -19,6 +19,7 @@ t_meta	*init_meta(t_prompt	*prompt)
 	meta = NULL;
 	meta = (t_meta *) malloc(sizeof(meta) * 1);
 	meta->prompt = prompt;
+	meta->i = 0;
 	return (meta);
 }
 
@@ -36,11 +37,10 @@ char	**init_paths(t_meta	*pkg)
 	while (e[++i])
 	{
 		// if the first five characters of i line of envp starts with PATH=, it's the right one
-		if (ft_strncmp(e[i], "PATH=", 5))
+		if (ft_strncmp(e[i], "PATH=", 5) == 0)
 		{
-			printf("PATHS FOUND: %s", e[i]);
 			tmp = ft_split(e[i], '=');
-			printf("splitted: %s", tmp[1]);
+			//printf("splitted: %s\n", tmp[1]);
 			paths = ft_split(tmp[1], ':');
 			free(tmp);
 			return (paths);

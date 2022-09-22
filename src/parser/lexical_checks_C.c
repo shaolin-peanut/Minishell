@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int	is_cmd(char	*str, char *name, t_meta *pkg)
+int	is_cmd(char *name, t_meta *pkg)
 {
 	int	i;
 
@@ -8,8 +8,8 @@ int	is_cmd(char	*str, char *name, t_meta *pkg)
 	char	*tmp;
 	char	*tmp2;
 
+	tmp = NULL;
 	tmp2 = NULL;
-	(void) str;
 	if (pkg->paths == NULL)
 		pkg->paths = init_paths(pkg);
 	while (pkg->paths[++i])
@@ -18,7 +18,7 @@ int	is_cmd(char	*str, char *name, t_meta *pkg)
 		tmp2 = ft_strjoin(tmp, name);
 		if (access(tmp2, X_OK) == 0)
 		{
-			printf("Cmd found!: %s\nbinary path: %s", name, tmp2);
+			printf("Cmd found!: %s\nbinary path: %s\n", name, tmp2);
 			free(tmp);
 			free(tmp2);
 			return (1);

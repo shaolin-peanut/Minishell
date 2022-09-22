@@ -22,8 +22,6 @@ int	lexical_scan(char	*str, int i, t_meta	*pkg)
 		i = process_dollar(str, i, pkg);
 	else if (is_operator(str, i))
 		i = process_operator(str, i, pkg);
-	else
-		i++;
 	return (i);
 }
 
@@ -34,6 +32,7 @@ int	parser(char	*str, t_meta	*pkg)
 	i = 0;
 	while (str[i] != '\0')
 	{
+		printf("PARSER index:%d->%c$\n---\n", i, str[i]);
 		i = lexical_scan(str, i, pkg);
 		if (i == -1)
 		{

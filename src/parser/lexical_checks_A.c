@@ -20,16 +20,9 @@ int is_dollar(char c)
 		return (0);
 }	
 
-int	is_squote(char c)
+int	is_quote(char c)
 {
-	if (c == 39)
-		return (1);
-	return (0);
-}
-
-int	is_dquote(char	c)
-{
-	if (c == 34)
+	if (c == 39 || c == 34)
 		return (1);
 	return (0);
 }
@@ -57,18 +50,24 @@ int	is_word(char	*str, int i)
 	int	i_backup;
 
 	i_backup = i;
-	while (str[i] && !is_blank(str, i) && !is_operator(str, i))
+	while (str[i] != '\0' && ft_isalnum(str[i]) && !is_blank(str, i) && !is_operator(str, i))
 	{
+		if (is_quote(str[i]))
+				i = closed_quotes_len(str, i);
 		i++;
 	}
-	if (i_backup < i)
+	if (i > i_backup)
 	{
-		//printf("is_word found a %d len word: %s\n", i - i_backup, str + i_backup);
+		// to delete
+		char	*tmp;
+		tmp = ft_substr(str, i_backup, i - i_backup);
+		//printf("is_word found a %d len word: %s\n", i - i_backup, tmp);
+		free(tmp);
+		//
 		return (i);
 	}
 	else
 	{
-		//printf("is_word didn't find a word here: %s\n", str + i_backup);
 		return (0);
 	}
 	return (i);
