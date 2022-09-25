@@ -33,14 +33,11 @@ char	**init_paths(t_meta	*pkg)
 
 	i = -1;
 	e = pkg->prompt->envp;
-// This actually is the paths_finder command, something else that should be done before... Or maybe only done when at least one command is found. If pkg->paths is null, run paths_finder.
 	while (e[++i])
 	{
-		// if the first five characters of i line of envp starts with PATH=, it's the right one
 		if (ft_strncmp(e[i], "PATH=", 5) == 0)
 		{
 			tmp = ft_split(e[i], '=');
-			//printf("splitted: %s\n", tmp[1]);
 			paths = ft_split(tmp[1], ':');
 			free(tmp);
 			return (paths);

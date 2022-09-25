@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-int	var_substitution(char *str, int i)
+
+//TODO: Make var_substitution work again with the new structure
+/*int	var_substitution(char *str, int i)
 {
 	char	*value;
 	char	*tmp;
@@ -30,14 +32,15 @@ int	var_substitution(char *str, int i)
 		printf(" ");
 		return (ft_strlen(tmp));
 	}
-}
+}*/
 
 int	cmd_extraction(char *str, int i)
 {
 	return (is_word(str, i));
 }
 
-int	create_builtin_token(char *str, int i)
+//TODO: Complete builtin and dollar-related functions
+/*int	create_builtin_token(char *str, int i)
 {
 	(void) str;
 	return (i + 1);
@@ -55,4 +58,4 @@ int	lone_dollar_sign(char *str, int i)
 	(void) str;
 	(void) i;
 	return (1);
-}
+}*/

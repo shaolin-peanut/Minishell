@@ -5,29 +5,30 @@ int	is_cmd(char *name, t_meta *pkg)
 	int	i;
 
 	i = -1;
-	char	*tmp;
-	char	*tmp2;
+	char	*path_and_slash;
+	char	*full_path;
 
-	tmp = NULL;
-	tmp2 = NULL;
+	path_and_slash = NULL;
+	full_path = NULL;
 	if (pkg->paths == NULL)
 		pkg->paths = init_paths(pkg);
 	while (pkg->paths[++i])
 	{
-		tmp = ft_strjoin(pkg->paths[i], "/");
-		tmp2 = ft_strjoin(tmp, name);
-		if (access(tmp2, X_OK) == 0)
+		path_and_slash = ft_strjoin(pkg->paths[i], "/");
+		full_path = ft_strjoin(path_and_slash, name);
+		if (access(full_path, X_OK) == 0)
 		{
-			printf("Cmd found!: %s\nbinary path: %s\n", name, tmp2);
-			free(tmp);
-			free(tmp2);
+			printf("Cmd found!: %s\nbinary path: %s\n", name, full_path);
+			free(path_and_slash);
+			free(full_path);
 			return (1);
 		}
 	}
 	return (0);
 }
 
-int	is_builtin(char *str, char *word, t_meta *pkg)
+//TODO: Debug and complete is_builtin
+/*int	is_builtin(char *str, char *word, t_meta *pkg)
 {
 	int i;
 	char	*list[8];
@@ -51,5 +52,4 @@ int	is_builtin(char *str, char *word, t_meta *pkg)
 	(void) str;
 	(void) pkg;
 	return (0);
-}
-
+}*/
