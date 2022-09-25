@@ -34,9 +34,11 @@
 	}
 }*/
 
-int	cmd_extraction(char *str, int i)
+int	cmd_extraction(char *str, int i, char *word)
 {
-	return (is_word(str, i));
+	(void) str;
+	(void) i;
+	return (ft_strlen(word) - 1);
 }
 
 //TODO: Complete builtin and dollar-related functions

@@ -37,7 +37,7 @@ typedef struct s_meta
 int		parser(char *str, t_meta *pkg);
 // extraction.c
 int		var_substitution(char *str, int i);
-int		cmd_extraction(char *str, int i);
+int		cmd_extraction(char *str, int i, char *word);
 int		create_builtin_token(char *str, int i);
 int		dollar_question_exec(char *str, int i);
 int		lone_dollar_sign(char *str, int i);
