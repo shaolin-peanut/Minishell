@@ -17,7 +17,7 @@ t_meta	*init_meta(t_prompt	*prompt)
 	t_meta	*meta;
 
 	meta = NULL;
-	meta = (t_meta *) malloc(sizeof(meta) * 1);
+	meta = (t_meta *) malloc(sizeof(t_meta) * 1);
 	meta->prompt = prompt;
 	meta->i = 0;
 	return (meta);

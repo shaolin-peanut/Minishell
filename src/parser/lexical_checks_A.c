@@ -48,16 +48,5 @@ int	is_quote(char c)
 
 int	is_word(char	*str, int i)
 {
-	int	i_backup;
-
-	i_backup = i;
-	while (str[i] != '\0' && ft_isalnum(str[i]) && !is_blank(str, i) && !is_operator(str, i))
-	{
-//		if (is_quote(str[i]))
-//				i = closed_quotes_len(str, i);
-		i++;
-	}
-	if (i > i_backup)
-		return (i);
-	return (0);
+	return (str[i] != '\0' && ft_isalnum(str[i]) && !is_blank(str, i) && !is_operator(str, i));
 }

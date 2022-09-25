@@ -1,10 +1,23 @@
 #include "../../include/minishell.h"
 
+// TODO: Add support for word cut by quotes such as 
+// ec'ho' or gr"e"p which have to work
+static int	end_of_word_index(char *str, int i)
+{
+	while (str[i] != '\0' && ft_isalnum(str[i]) && !is_blank(str, i) && !is_operator(str, i))
+	{
+		//if (is_quote(str[i]))
+		//i = closed_quotes_len(str, i);
+		i++;
+	}
+	return (i);
+}
+
 int	process_word(char *str, int i, t_meta *pkg)
 {
 	char	*word;
 	
-	word = ft_substr(str, i, is_word(str, i));
+	word = ft_substr(str, i, end_of_word_index(str, i));
 	printf("process_word: value of i %d\n", i);
 	printf("process_word (len:%ld): %s$\n", ft_strlen(word), word);
 	if (is_cmd(word, pkg))
