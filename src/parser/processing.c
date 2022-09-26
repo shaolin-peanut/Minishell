@@ -18,8 +18,8 @@ int	process_word(char *str, int i, t_meta *pkg)
 	char	*word;
 	
 	word = ft_substr(str, i, end_of_word_index(str, i));
-	printf("process_word: value of i %d\n", i);
-	printf("process_word (len:%ld): %s$\n", ft_strlen(word), word);
+	//printf("process_word: value of i %d\n", i);
+	//printf("process_word (len:%ld): %s$\n", ft_strlen(word), word);
 	if (is_cmd(word, pkg))
 		i += cmd_extraction(str, i, word);
 	//else if (is_builtin(str, word, pkg))
@@ -30,7 +30,7 @@ int	process_word(char *str, int i, t_meta *pkg)
 		check_file_context(str, i);
 		OR just store the word in a "word" token to use later when analyzing redirections for example
 	*/
-	printf("process_word: value of i %d\n---\n", i);
+	//printf("process_word: value of i %d\n---\n", i);
 	free(word);
 	return (i);
 }
