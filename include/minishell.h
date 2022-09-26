@@ -6,7 +6,7 @@
 /*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by lanlan            #+#    #+#             */
-/*   Updated: 2022/09/09 19:22:11 by sbars            ###   ########.fr       */
+/*   Updated: 2022/09/25 21:47:00 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_prompt
 {
 	t_list	*commands;
 	char	**envp;
+	pid_t	pid;
 }			t_prompt;
 
 typedef struct s_meta
@@ -33,8 +34,11 @@ typedef struct s_meta
 	int		i_backup;
 }			t_meta;
 
-// parsing/
+// parser/
+// parser.c
 int		parser(char *str, t_meta *pkg);
+// prompt.c
+char	*get_prompt(t_prompt prompt);
 // extraction.c
 int		var_substitution(char *str, int i);
 int		cmd_extraction(char *str, int i, char *word);

@@ -12,6 +12,10 @@
 
 #include "../include/minishell.h"
 
+/* reads the command line such as “ls ­al”
+puts it into a data structure called Command Table
+that will store the commands that will be executed.*/
+
 int	lexical_scan(char	*str, int i, t_meta	*pkg)
 {
 	if (is_word(str, i))
