@@ -28,17 +28,15 @@ int	main(int argc, char **argv, char **envp)
 	t_meta		*pkg;
 	char		*prompt_str;
 
-	prompt = init_prompt(envp);
 	pkg = init_meta(&prompt);
-
 	prompt = init_prompt(argv, envp);
 	while (argc || argv || envp)
 	{
 		prompt_str = get_prompt(prompt);
 		if (prompt_str)
-			parser(readline(prompt_str));
+			parser(readline(prompt_str), pkg);
 		else
-			parser(readline("guest@minishell $ "));
+			parser(readline("guest@minishell $ "), pkg);
 		free(prompt_str);
 //	chain = parser(readline(cwd));
 //	if (chain != NULL)
