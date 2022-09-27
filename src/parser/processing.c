@@ -7,6 +7,8 @@ static int	end_of_word_index(char *str, int i)
 	//while (str[i] != '\0' && ft_isalnum(str[i]) && !is_blank(str, i) && !is_operator(str, i))
 	while (is_word(str, i))
 	{
+		if (is_blank(str, i))
+			return (i - 1);
 		//if (is_blank(str, i) || is_operator(str, i) || !ft_isalnum(str[i]))
 		//if (is_quote(str[i]))
 		//i = closed_quotes_len(str, i);

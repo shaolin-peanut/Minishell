@@ -14,7 +14,7 @@
 
 int	is_blank(char *str, int i)
 {
-	if (str[i] == ' ' || str[i] == '	')
+	if (str[i] == 32 || str[i] == 9)
 		return (1);
 	return (0);
 }
