@@ -18,7 +18,7 @@ int	is_cmd(char *name, t_meta *pkg)
 		full_path = ft_strjoin(path_and_slash, name);
 		if (access(full_path, X_OK) == 0)
 		{
-			//printf("Cmd found!: %s\nbinary path: %s\n", name, full_path);
+			printf("Cmd found!: %s\nbinary path: %s\n", name, full_path);
 			free(path_and_slash);
 			free(full_path);
 			return (1);
