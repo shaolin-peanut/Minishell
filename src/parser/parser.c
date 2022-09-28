@@ -10,34 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /* reads the command line such as “ls ­al”
 puts it into a data structure called Command Table
 that will store the commands that will be executed.*/
 
-int	lexical_scan(char	*str, int i, t_meta	*pkg)
+int lexical_scan(char *str, int i, t_meta *pkg)
 {
 	if (is_word(str, i))
 		i = process_word(str, i, pkg);
-//TODO: debug and finish writing all the functions commented out below.
-	/*else if (is_do	llar(str[i]))
-		i = process_dollar(str, i, pkg);
+	// TODO: debug and finish writing all the functions commented out below.
+	// else if (is_dollar(str[i]))
+	//	i = process_dollar(str, i, pkg);
 	else if (is_operator(str, i))
-		i = process_operator(str, i, pkg);*/
+		i = process_operator(str, i, pkg);
 	return (i);
 }
 
-int	parser(char	*str, t_meta	*pkg)
+int parser(char *str, t_meta *pkg)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (str[i] != '\0')
-	{ 
+	{
 		printf("PARSER str[%d]->'%c'\n---\n", i, str[i]);
 		i = lexical_scan(str, i, pkg);
-		//TODO: Figure out if you need the unused error management thing below. If not, delete.
+		// TODO: Figure out if you need the unused error management thing below. If not, delete.
 		/*if (i == -1)
 		{
 			free(str);

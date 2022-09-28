@@ -41,18 +41,29 @@ int	process_word(char *str, int i, t_meta *pkg)
 }
 
 //TODO: Complete process_operator()
-/*
+
 int	process_operator(char *str, int i, t_meta *pkg)
 {
 	(void) pkg;
 	printf("operator found %c\n", str[i]);
-	if (is_redirection(str, i))
+	if (str[i] == '|')
+	{
+
+	}
+	else if (is_heredoc(str, i))
+	{
+		i += 2;
+		printf("that's a heredoc, crazy\n");
+		//handle_heredoc expansion/lookup
+	}
+	else if (is_redirection(str, i))
 	{
 		i++;
 		printf("redirection found\n");
+		//create_redirection_token;
 	}
 	return (i);
-}*/
+}
 
 //TODO: Debug process_dollar() in all three situations where it has to work
 /*int	process_dollar(char *str, int i, t_meta *pkg)

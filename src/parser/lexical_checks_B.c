@@ -35,7 +35,7 @@ int is_heredoc(char *str, int i)
 
 int	is_operator(char *str, int i)
 {
-	if (str[i] == '|' || is_redirection(str, i))
+	if (str[i] == '|' || is_redirection(str, i) || is_heredoc(str, i))
 		return (1);
 	return (0);
 }

@@ -10,6 +10,7 @@ int		is_blank(char *str, int i);
 int		is_redirection(char *str, int i);
 int		is_operator(char *str, int i);
 int		is_dollar_question(char *str, int i);
+int     is_heredoc(char *str, int i);
 // lexical_checks_C.c
 int		is_cmd(char *word, t_meta *pkg);
 int		is_builtin(char *str, char *word, t_meta *pkg);
