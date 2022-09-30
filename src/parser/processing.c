@@ -2,7 +2,7 @@
 
 // TODO: Add support for word cut by quotes such as 
 // ec'ho' or gr"e"p which have to work
-static int	end_of_word_index(char *str, int i)
+/*static int	end_of_word_index(char *str, int i)
 {
 	//while (str[i] != '\0' && ft_isalnum(str[i]) && !is_blank(str, i) && !is_operator(str, i))
 	while (is_word(str, i))
@@ -15,11 +15,11 @@ static int	end_of_word_index(char *str, int i)
 		i++;
 	}
 	return (i - 1);
-}
+}*/
 
 int	check_is_word(char	*str, int i)
 {
-	return (!is_blank(str, i) && !is_operator(str, i) && !is_dollar_question(str, i) && !is_quote(str[i]));
+	return (str[i] != '\0' && !is_blank(str, i) && !is_operator(str, i) && !is_dollar_question(str, i) && !is_quote(str[i]));
 }
 
 int	process_word(char *str, t_meta *pkg)
@@ -29,29 +29,25 @@ int	process_word(char *str, t_meta *pkg)
 
 	word = NULL;
 	i = pkg->i;
-	while (check_is_word(str, i))
+	while (check_is_word(str, i) && str[i])
 		i++;
-	if (i > pkg->i)
-	{
-		i = 0;
-		word = (char *) malloc(sizeof(char) * i + 1);
-		while (check_is_word(str, pkg->i))
-			word[++i] = str[pkg->i++];
-	}
-	printf("end_of_word_index: %d\n", end_of_word_index(str, pkg->i));
-	printf("process_word: value of i %d\n", pkg->i);
+	word = (char *) malloc(sizeof(char) * i + 1);
+	word[i] = '\0';
+	i = 0;
+	while (check_is_word(str, pkg->i) && str[i] != '\0')
+		word[i++] = str[pkg->i++];
 	printf("process_word (len:%ld): %s$\n", ft_strlen(word), word);
+	pkg->i--;
+	//printf("end_of_word_index: %d\n", end_of_word_index(str, pkg->i));
+	printf("process_word: value of i %d\n", pkg->i);
 	if (is_cmd(word, pkg))
-		pkg->i += cmd_extraction(str, pkg->i, word);
+		cmd_extraction(str, pkg->i, word);
 	//else if (is_builtin(str, word, pkg))
 	//	i += create_builtin_token(str, i);
-	else
-		pkg->i += ft_strlen(word) - 1;
 	/*else if (is_file(str, i, pkg))
 		check_file_context(str, i);
 		OR just store the word in a "word" token to use later when analyzing redirections for example
 	*/
-	printf("process_word: value of i %d\n---\n", pkg->i);
 	free(word);
 	return (pkg->i);
 }
@@ -74,7 +70,6 @@ int	process_operator(char *str,t_meta *pkg)
 	}
 	else if (is_redirection(str, pkg->i))
 	{
-		pkg->i++;
 		printf("redirection found\n");
 		//create_redirection_token;
 	}
