@@ -39,16 +39,7 @@ typedef struct s_meta
 int		parser(char *str, t_meta *pkg);
 // prompt.c
 char	*get_prompt(t_prompt prompt);
-// extraction.c
-int		var_substitution(char *str, int i);
-int		cmd_extraction(char *str, int i, char *word);
-int		create_builtin_token(char *str, int i);
-int		dollar_question_exec(char *str, int i);
-int		lone_dollar_sign(char *str, int i);
-// processing.c
-int		process_word(char *str, t_meta *pkg);
-int		process_operator(char *str, t_meta *pkg);
-int		process_dollar(char *str, t_meta *pkg);
+// For further parser prototypes, see parser.h
 
 // utils/
 // matrix.c

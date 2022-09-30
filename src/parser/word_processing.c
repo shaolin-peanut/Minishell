@@ -1,6 +1,28 @@
 #include "../../include/minishell.h"
 
-int	cmd_check_and_process(char *name, t_meta *pkg)
+void	word_type_processing(t_meta *pkg, char *str, char *word)
+{
+
+	if (cmd_check_and_process(str, word, pkg))
+	{
+		;
+	}
+	else if (builtin_check_and_process(str, word, pkg))
+	{
+		;
+	}
+		//else
+	//	ft_strlen(word) - 1;
+	//else if (is_builtin(str, word, pkg))
+	//	i += create_builtin_token(str, i);
+	/*else if (is_file(str, i, pkg))
+		check_file_context(str, i);
+		OR just store the word in a "word" token to use later when analyzing redirections for example
+	*/
+
+}
+
+int	cmd_check_and_process(char *str, char *name, t_meta *pkg)
 {
 	int	i;
 
@@ -8,6 +30,7 @@ int	cmd_check_and_process(char *name, t_meta *pkg)
 	char	*path_and_slash;
 	char	*full_path;
 
+	(void) str;
 	path_and_slash = NULL;
 	full_path = NULL;
 	if (pkg->paths == NULL)
@@ -18,8 +41,9 @@ int	cmd_check_and_process(char *name, t_meta *pkg)
 		full_path = ft_strjoin(path_and_slash, name);
 		if (access(full_path, X_OK) == 0)
 		{
-			printf("> Cmd found!: %s\n> binary path: %s\n", name, full_path);
 			free(path_and_slash);
+			create_cmd_token(str, full_path, pkg);
+			printf("> Cmd found!: %s\n> binary path: %s\n", name, full_path);
 			free(full_path);
 			return (1);
 		}
@@ -32,10 +56,11 @@ int	cmd_check_and_process(char *name, t_meta *pkg)
 //TODO: Debug and complete is_builtin
 int	builtin_check_and_process(char *str, char *word, t_meta *pkg)
 {
+	(void) str,
 	(void) pkg;
-	(void) str;
 	(void) word;
-/*	int i;
+	/*
+	int i;
 	char	*list[8];
 	
 	i = -1;
@@ -57,4 +82,5 @@ int	builtin_check_and_process(char *str, char *word, t_meta *pkg)
 	(void) str;
 	(void) pkg;
 	return (0);*/
+	return (0);
 }

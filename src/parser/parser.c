@@ -21,7 +21,8 @@ int lexical_scan(char *str, t_meta *pkg)
 	if (is_word(str, pkg->i))
 		pkg->i = process_word(str, pkg);
 	// TODO: debug and finish writing all the functions commented out below.
-	// else if (is_dollar(str[i]))
+	else if (is_dollar(str[pkg->i]))
+		pkg->i = process_dollar(str, pkg);
 	//	i = process_dollar(str, i, pkg);
 	else if (is_operator(str, pkg->i))
 		pkg->i = process_operator(str, pkg);
