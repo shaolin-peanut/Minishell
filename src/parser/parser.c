@@ -32,7 +32,7 @@ int parser(char *str, t_meta *pkg)
 {
 	while (str[pkg->i] != '\0')
 	{
-		printf("PARSER str[%d]->'%c'\n---\n", pkg->i, str[pkg->i]);
+		printf("STR[%d]:'%c'======\n", pkg->i, str[pkg->i]);
 		pkg->i = lexical_scan(str, pkg);
 		// TODO: Figure out if you need the unused error management thing below. If not, delete.
 		/*if (i == -1)

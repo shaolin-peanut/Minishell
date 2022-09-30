@@ -19,29 +19,33 @@
 
 int	check_is_word(char	*str, int i)
 {
-	return (str[i] != '\0' && !is_blank(str, i) && !is_operator(str, i) && !is_dollar_question(str, i) && !is_quote(str[i]));
+	return (ft_isalpha(str[i]) && str[i] != '\0' && !is_blank(str, i) && !is_operator(str, i) && !is_dollar_question(str, i) && !is_quote(str[i]));
 }
 
 int	process_word(char *str, t_meta *pkg)
 {
 	char	*word;
-	int		i;
+	int		index;
+	int		len;
 
 	word = NULL;
-	i = pkg->i;
-	while (check_is_word(str, i) && str[i])
-		i++;
-	word = (char *) malloc(sizeof(char) * i + 1);
-	word[i] = '\0';
-	i = 0;
-	while (check_is_word(str, pkg->i) && str[i] != '\0')
-		word[i++] = str[pkg->i++];
-	printf("process_word (len:%ld): %s$\n", ft_strlen(word), word);
+	index = pkg->i;
+	len = 0;
+	while (check_is_word(str, index++))
+		len++;
+	word = (char *) malloc(sizeof(char) * len + 1);
+	word[len] = '\0';
+	index = 0;
+	while (check_is_word(str, pkg->i))
+		word[index++] = str[pkg->i++];
 	pkg->i--;
+	printf("process_word (len:%ld): %s$\n", ft_strlen(word), word);
 	//printf("end_of_word_index: %d\n", end_of_word_index(str, pkg->i));
 	printf("process_word: value of i %d\n", pkg->i);
 	if (is_cmd(word, pkg))
 		cmd_extraction(str, pkg->i, word);
+	//else
+	//	ft_strlen(word) - 1;
 	//else if (is_builtin(str, word, pkg))
 	//	i += create_builtin_token(str, i);
 	/*else if (is_file(str, i, pkg))
