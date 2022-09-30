@@ -1,5 +1,14 @@
 typedef struct s_meta t_meta;
 
+typedef struct s_lex_node t_lex_node;
+
+struct s_lex_node
+{
+	t_lex_node	*prev;
+	char		*str;
+	t_lex_node	*next;
+};
+
 // lexical_checks_A.c
 int		is_quote(char c);
 int		is_dollar(char c);

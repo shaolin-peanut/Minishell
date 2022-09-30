@@ -17,52 +17,68 @@ static int	end_of_word_index(char *str, int i)
 	return (i - 1);
 }
 
-int	process_word(char *str, int i, t_meta *pkg)
+int	check_is_word(char	*str, int i)
+{
+	return (!is_blank(str, i) && !is_operator(str, i) && !is_dollar_question(str, i) && !is_quote(str[i]));
+}
+
+int	process_word(char *str, t_meta *pkg)
 {
 	char	*word;
-	
-	printf("end_of_word_index: %d\n", end_of_word_index(str, i));
-	word = ft_substr(str, i, end_of_word_index(str, i) + 1);
-	printf("process_word: value of i %d\n", i);
+	int		i;
+
+	word = NULL;
+	i = pkg->i;
+	while (check_is_word(str, i))
+		i++;
+	if (i > pkg->i)
+	{
+		i = 0;
+		word = (char *) malloc(sizeof(char) * i + 1);
+		while (check_is_word(str, pkg->i))
+			word[++i] = str[pkg->i++];
+	}
+	printf("end_of_word_index: %d\n", end_of_word_index(str, pkg->i));
+	printf("process_word: value of i %d\n", pkg->i);
 	printf("process_word (len:%ld): %s$\n", ft_strlen(word), word);
 	if (is_cmd(word, pkg))
-		i += cmd_extraction(str, i, word);
+		pkg->i += cmd_extraction(str, pkg->i, word);
 	//else if (is_builtin(str, word, pkg))
 	//	i += create_builtin_token(str, i);
 	else
-		i += ft_strlen(word) - 1;
+		pkg->i += ft_strlen(word) - 1;
 	/*else if (is_file(str, i, pkg))
 		check_file_context(str, i);
 		OR just store the word in a "word" token to use later when analyzing redirections for example
 	*/
-	printf("process_word: value of i %d\n---\n", i);
+	printf("process_word: value of i %d\n---\n", pkg->i);
 	free(word);
-	return (i);
+	return (pkg->i);
 }
 
 //TODO: Complete process_operator()
 
-int	process_operator(char *str, int i, t_meta *pkg)
+int	process_operator(char *str,t_meta *pkg)
 {
 	(void) pkg;
-	printf("operator found %c\n", str[i]);
-	if (str[i] == '|')
+	printf("operator found %c\n", str[pkg->i]);
+	if (str[pkg->i] == '|')
 	{
-
+		printf("found pipe\n");
 	}
-	else if (is_heredoc(str, i))
+	else if (is_heredoc(str, pkg->i))
 	{
-		i += 2;
+		pkg->i += 1;
 		printf("that's a heredoc, crazy\n");
 		//handle_heredoc expansion/lookup
 	}
-	else if (is_redirection(str, i))
+	else if (is_redirection(str, pkg->i))
 	{
-		i++;
+		pkg->i++;
 		printf("redirection found\n");
 		//create_redirection_token;
 	}
-	return (i);
+	return (pkg->i);
 }
 
 //TODO: Debug process_dollar() in all three situations where it has to work
