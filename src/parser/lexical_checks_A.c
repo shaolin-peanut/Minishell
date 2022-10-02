@@ -18,7 +18,7 @@ int is_dollar(char c)
 		return (1);
 	else
 		return (0);
-}	
+}
 
 int	is_quote(char c)
 {

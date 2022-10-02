@@ -6,7 +6,7 @@ int	process_word(char *str, t_meta *pkg)
 
 	word = NULL;
 	word = return_word(str, pkg);
-	word_type_processing(pkg, str, word);
+	word_type_processing(pkg, word);
 	free(word);
 	return (pkg->i);
 }
@@ -44,8 +44,6 @@ int	process_dollar(char *str, t_meta *pkg)
 		(void) pkg;
 		//pkg-> = var_substitution();
 	if (is_dollar_question(str, pkg->i))
-		(void) pkg;
-	else if (is_var(str, pkg->i))
 		(void) pkg;
 	else
 		(void) pkg;

@@ -31,6 +31,7 @@ int lexical_scan(char *str, t_meta *pkg)
 
 int parser(char *str, t_meta *pkg)
 {
+	pkg->str = str;
 	while (str[pkg->i] != '\0')
 	{
 		printf("STR[%d]:'%c'\n", pkg->i, str[pkg->i]);

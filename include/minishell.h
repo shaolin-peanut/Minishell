@@ -30,6 +30,7 @@ typedef struct s_meta
 {
 	t_prompt	*prompt;
 	char	**paths;
+	char	*str;
 	int		i;
 	int		i_backup;
 }			t_meta;

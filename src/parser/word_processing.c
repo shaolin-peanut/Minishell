@@ -20,29 +20,21 @@ char	*return_word(char *str, t_meta *pkg)
 	return (word);
 }
 
-void	word_type_processing(t_meta *pkg, char *str, char *word)
+void	word_type_processing(t_meta *pkg, char *word)
 {
+	char	*tmp;
 
-	if (cmd_check_and_process(str, word, pkg))
-	{
-		;
-	}
-	else if (builtin_check_and_process(str, word, pkg))
-	{
-		;
-	}
-		//else
-	//	ft_strlen(word) - 1;
-	//else if (is_builtin(str, word, pkg))
-	//	i += create_builtin_token(str, i);
-	/*else if (is_file(str, i, pkg))
-		check_file_context(str, i);
-		OR just store the word in a "word" token to use later when analyzing redirections for example
-	*/
-
+	tmp = is_cmd(word, pkg);
+	if (is_builtin(word, pkg))
+		create_builtin_token(word, pkg);
+	else if (tmp)
+		create_cmd_token(word, tmp, pkg);
+	else
+		create_alien_word_token(word, pkg);
+	free(tmp);
 }
 
-int	cmd_check_and_process(char *str, char *name, t_meta *pkg)
+char	*is_cmd(char *name, t_meta *pkg)
 {
 	int	i;
 
@@ -50,7 +42,6 @@ int	cmd_check_and_process(char *str, char *name, t_meta *pkg)
 	char	*path_and_slash;
 	char	*full_path;
 
-	(void) str;
 	path_and_slash = NULL;
 	full_path = NULL;
 	if (pkg->paths == NULL)
@@ -62,25 +53,19 @@ int	cmd_check_and_process(char *str, char *name, t_meta *pkg)
 		if (access(full_path, X_OK) == 0)
 		{
 			free(path_and_slash);
-			create_cmd_token(str, full_path, pkg);
-			printf("> Cmd found!: %s\n> binary path: %s\n", name, full_path);
-			free(full_path);
-			return (1);
+			return (full_path);
 		}
 	}
-	return (0);
+	return (NULL);
 }
 
 
 
 //TODO: Debug and complete is_builtin
-int	builtin_check_and_process(char *str, char *word, t_meta *pkg)
+int	is_builtin(char *word, t_meta *pkg)
 {
-	(void) str,
 	(void) pkg;
-	(void) word;
-	/*
-	int i;
+	/*int i;
 	char	*list[8];
 	
 	i = -1;
@@ -91,16 +76,11 @@ int	builtin_check_and_process(char *str, char *word, t_meta *pkg)
 	list[4] = "unset";
 	list[5] = "env";
 	list[6] = "exit";
-	list[7] = NULL;
-	while (list[++i] != NULL)
-	{
-		if (ft_strncmp(list[i], word, ft_strlen(list[i])))
-			return (1);
-	}
-
-	(void) word;
-	(void) str;
-	(void) pkg;
-	return (0);*/
+	list[7] = NULL;*/
+	if (ft_strncmp(word, "echo", 5) == 0 || ft_strncmp(word, "cd", 3) == 0 
+		|| ft_strncmp(word, "pwd", 4) == 0 || ft_strncmp(word, "export", 7 ) == 0
+		|| ft_strncmp(word, "unset", 6) == 0 || ft_strncmp(word, "env", 4) == 0 
+		|| ft_strncmp(word, "exit", 5) == 0)
+		return (1);
 	return (0);
 }

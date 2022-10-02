@@ -26,10 +26,12 @@ int		process_operator(char *str, t_meta *pkg);
 int		process_dollar(char *str, t_meta *pkg);
 // word_processing.c
 char	*return_word(char *str, t_meta *pkg);
-void	word_type_processing(t_meta *pkg, char *str, char *word);
-int		cmd_check_and_process(char *str, char *word, t_meta *pkg);
-int		builtin_check_and_process(char *str, char *word, t_meta *pkg);
+void	word_type_processing(t_meta *pkg, char *word);
+char	*is_cmd(char *name, t_meta *pkg);
+int		is_builtin(char *word, t_meta *pkg);
 // quotes.c
 int		closed_quotes_len(char *str, int i);
 // create_tokens.c
-int		create_cmd_token(char *str, char *full_path, t_meta *pkg);
+int		create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);
+int		create_builtin_token(char *cmd_name, t_meta *pkg);
+int		create_alien_word_token(char *word, t_meta *pkg);
