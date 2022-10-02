@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int	cmd_check_and_process(char *name, t_meta *pkg)
+int	cmd_check_and_process(char *str, char *word, t_meta *pkg)
 {
 	int	i;
 

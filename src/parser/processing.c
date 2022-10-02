@@ -3,21 +3,9 @@
 int	process_word(char *str, t_meta *pkg)
 {
 	char	*word;
-	int		len;
 
 	word = NULL;
-	len = 0;
-	while (is_word(str, pkg->i++))
-		len++;
-	word = (char *) malloc(sizeof(char) * len + 1);
-	word[len] = '\0';
-	pkg->i = pkg->i - len - 1;
-	len = 0;
-	while (is_word(str, pkg->i))
-		word[len++] = str[pkg->i++];
-	pkg->i--;
-	printf("> word: (len:%ld): %s$\n", ft_strlen(word), word);
-	printf("> word: i = %d\n", pkg->i);
+	word = return_word(str, pkg);
 	word_type_processing(pkg, str, word);
 	free(word);
 	return (pkg->i);

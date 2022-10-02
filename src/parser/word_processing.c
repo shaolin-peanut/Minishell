@@ -1,5 +1,25 @@
 #include "../../include/minishell.h"
 
+char	*return_word(char *str, t_meta *pkg)
+{
+	char	*word;
+	int		len;
+
+	word = NULL;
+	len = 0;
+	while (is_word(str, pkg->i + len))
+		len++;
+	word = (char *) malloc(sizeof(char) * len + 1);
+	word[len] = '\0';
+	len = 0;
+	while (is_word(str, pkg->i))
+		word[len++] = str[pkg->i++];
+	pkg->i--;
+	printf("> word: (len:%ld): %s$\n", ft_strlen(word), word);
+	//printf("> word: i = %d\n", pkg->i);
+	return (word);
+}
+
 void	word_type_processing(t_meta *pkg, char *str, char *word)
 {
 
