@@ -1,9 +1,11 @@
 #include "../../include/minishell.h"
 
-
+// Should find the highest scope closed_quotes and return it
 char    *process_quotes(char *word, t_meta *pkg)
 {
-    char    *before_quote;
+    (void) word;
+    (void) pkg;
+ /*   char    *before_quote;
     char    *quote_content;
     char    *after_quote;
     char    *temp;
@@ -28,10 +30,26 @@ char    *process_quotes(char *word, t_meta *pkg)
                 after_quote = ft_substr(word, i, ft_strlen(word) - i);
         }
         i++;
-    }
+    }*/
+    return (0);
 }
 
-char    *return_quote_content(char *word, int i, t_meta *pkg)
+int quote_in_word(char *str)
+{
+    return (ft_strchr(str, 39) || ft_strchr(str, 34));
+}
+
+// if one of these two numbers is uneven, quotes are not closed somewhere
+int quotes_unclosed(char c, int a, int b)
+{
+    if (c == 39)
+        a++;
+    else if (c == 34)
+        b++;
+    return (a % 2 || b % 2);
+}
+
+/*char    *return_quote_content(char *word, int i, t_meta *pkg)
 {
     char    *ret;
     char    *old;
@@ -54,26 +72,9 @@ char    *return_quote_content(char *word, int i, t_meta *pkg)
         }
         temp_i++;
     }
-}
+}*/
 
-
-
-
-int is_quote_closed(int type, t_meta *pkg)
-{
-    int temp_i;
-
-    temp_i = pkg->i;
-    while (pkg->str[temp_i] != '\0')
-    {
-        if (type == pkg->str[temp_i])
-            return (1);
-        temp_i++;
-    }
-    return (0);
-}
-
-int how_many_closed_quotes(t_meta *pkg)
+/*int how_many_closed_quotes(t_meta *pkg)
 {
     char    *str;
     int     i;
@@ -100,4 +101,4 @@ int how_many_closed_quotes(t_meta *pkg)
         return (CLOSED_AND_UNCLOSED_QUOTES);
     else
         return (UNCLOSED_QUOTES);
-}
+}*/

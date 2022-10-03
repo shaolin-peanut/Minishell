@@ -4,18 +4,24 @@ char	*return_word(char *str, t_meta *pkg)
 {
 	char	*word;
 	int		len;
+	int		sc;
+	int		dc;
 
 	word = NULL;
 	len = 0;
-	while (is_word(str, pkg->i + len))
+	sc = 0;
+	dc = 0;
+	while (is_word(str, pkg->i + len) || (quotes_unclosed(str[pkg->i], sc, dc)))
 		len++;
 	word = (char *) malloc(sizeof(char) * len + 1);
 	word[len] = '\0';
 	len = 0;
-	while (is_word(str, pkg->i))
-			word[len++] = str[pkg->i++];
+	sc = 0;
+	dc = 0;
+	while (is_word(str, pkg->i) || quotes_unclosed(str[pkg->i], sc, dc))
+		word[len++] = str[pkg->i++];
 	pkg->i--;
-	if (ft_strchr(word, 39) || ft_strchr(word, 34))
+	while (quote_in_word(word))
 		word = process_quotes(word, pkg);
 	printf("> word: (len:%ld): %s$\n", ft_strlen(word), word);
 	return (word);

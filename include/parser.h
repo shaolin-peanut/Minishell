@@ -33,7 +33,9 @@ char	*return_word(char *str, t_meta *pkg);
 char	*is_cmd(char *name, t_meta *pkg);
 int		is_builtin(char *word, t_meta *pkg);
 // quotes.c
+int		quotes_unclosed(char c, int a, int b);
 char	*process_quotes(char *word, t_meta *pkg);
+int		quote_in_word(char *str);
 // create_tokens.c
 int		create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);
 int		create_builtin_token(char *cmd_name, t_meta *pkg);
