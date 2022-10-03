@@ -22,6 +22,7 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/parser/word_processing.c \
 						$(SRCS_DIR)/parser/processing.c \
 						$(SRCS_DIR)/parser/create_tokens.c \
+						$(SRCS_DIR)/parser/quotes.c \
 						$(SRCS_DIR)/utils/matrix.c \
 						$(SRCS_DIR)/utils/init.c \
 						$(SRCS_DIR)/utils/error.c

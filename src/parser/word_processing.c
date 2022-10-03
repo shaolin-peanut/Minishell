@@ -13,25 +13,12 @@ char	*return_word(char *str, t_meta *pkg)
 	word[len] = '\0';
 	len = 0;
 	while (is_word(str, pkg->i))
-		word[len++] = str[pkg->i++];
+			word[len++] = str[pkg->i++];
 	pkg->i--;
+	if (ft_strchr(word, 39) || ft_strchr(word, 34))
+		word = process_quotes(word, pkg);
 	printf("> word: (len:%ld): %s$\n", ft_strlen(word), word);
-	//printf("> word: i = %d\n", pkg->i);
 	return (word);
-}
-
-void	word_type_processing(t_meta *pkg, char *word)
-{
-	char	*tmp;
-
-	tmp = is_cmd(word, pkg);
-	if (is_builtin(word, pkg))
-		create_builtin_token(word, pkg);
-	else if (tmp)
-		create_cmd_token(word, tmp, pkg);
-	else
-		create_alien_word_token(word, pkg);
-	free(tmp);
 }
 
 char	*is_cmd(char *name, t_meta *pkg)
