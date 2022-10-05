@@ -46,6 +46,7 @@ int parser(char *str, t_meta *pkg)
 	}
 	// chain = tokenizer(str);
 	// return (chain);
+	pkg->str = NULL;
 	free(str);
 	return (1);
 }

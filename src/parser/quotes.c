@@ -34,19 +34,59 @@ char    *process_quotes(char *word, t_meta *pkg)
     return (0);
 }
 
-int quote_in_word(char *str)
+
+/*int iterate_quote_content(t_meta *pkg)
 {
-    return (ft_strchr(str, 39) || ft_strchr(str, 34));
+
+    while (pkg->str[temp_i] != '\0')
+    {
+        if (pkg->str[temp_i] == type && ft_strchr(pkg->str + temp_i + 1, type))
+            return (temp_i);
+        else
+            temp_i++;
+    }
+    return (temp_i);
+}*/
+
+int quote_len(t_meta *pkg, int len)
+{
+    int type;
+    
+    type = pkg->str[pkg->i + len];
+    len++;
+    while (pkg->str[pkg->i + len] != '\0')
+    {
+        if (pkg->str[pkg->i + len] == type)
+            return (len);
+        len++;   
+    }
+    return (len);
 }
 
-// if one of these two numbers is uneven, quotes are not closed somewhere
-int quotes_unclosed(char c, int a, int b)
+// add_quote content will add the content of a quote
+// to the word string 
+int add_quote_content(char *word, int i, t_meta *pkg)
 {
-    if (c == 39)
-        a++;
-    else if (c == 34)
-        b++;
-    return (a % 2 || b % 2);
+    int type;
+
+    type = pkg->str[i];
+    pkg->i++;
+    while (pkg->str[pkg->i] != '\0')
+    {
+        if (pkg->str[pkg->i] == type)
+            return (i);
+        else
+            word[i] = pkg->str[pkg->i];
+        i++;
+        pkg->i++;
+    }
+    printf("quotes.c: add_quote_content word index: %d\n", i);
+    return (i);
+}
+
+int quote_in_word(char *word)
+{
+    return (ft_strchr(word, 39) || ft_strchr(word, 34));
 }
 
 /*char    *return_quote_content(char *word, int i, t_meta *pkg)

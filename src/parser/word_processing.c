@@ -1,28 +1,55 @@
 #include "../../include/minishell.h"
 
+int	word_len(char *str, t_meta *pkg)
+{
+	int	len;
+	int	qc;
+	
+	len = 0;
+	qc = 0;
+	while (is_word(str, pkg->i + len)/* || (quotes_unclosed(str[pkg->i], sc, dc))*/)
+	{
+		if (is_quote(str[pkg->i + len]))
+		{
+			qc++;
+			len = quote_len(pkg, len);
+			printf("quote length: %d\n", len);
+		}
+		else
+		{
+			len++;
+		}
+	}
+	return (len - (2 * qc));
+}
+
+// What should return_word do?
+// 1. Capture entire words and stop at delimiters like blanks and operators
+// 2. Identify quotes, extract the content of them, and concatenate with the rest
+// 3. Correctly allocate memory for, and fill in, the 'word' variable
 char	*return_word(char *str, t_meta *pkg)
 {
 	char	*word;
 	int		len;
-	int		sc;
-	int		dc;
+	int		i;
 
+	i = 0;
 	word = NULL;
-	len = 0;
-	sc = 0;
-	dc = 0;
-	while (is_word(str, pkg->i + len) || (quotes_unclosed(str[pkg->i], sc, dc)))
-		len++;
+	len = word_len(str, pkg);
+	printf("> word_len output: %d\n", len);
 	word = (char *) malloc(sizeof(char) * len + 1);
 	word[len] = '\0';
-	len = 0;
-	sc = 0;
-	dc = 0;
-	while (is_word(str, pkg->i) || quotes_unclosed(str[pkg->i], sc, dc))
-		word[len++] = str[pkg->i++];
+	//while (is_word(str, pkg->i) || quotes_unclosed(str[pkg->i], sc, dc))
+	while (i < len)
+	{
+		if (is_quote(str[pkg->i]))
+			i = add_quote_content(word, i, pkg);
+		else
+			word[i++] = str[pkg->i++];
+	}
 	pkg->i--;
-	while (quote_in_word(word))
-		word = process_quotes(word, pkg);
+	//while (quote_in_word(word))
+	//	word = process_quotes(word, pkg);
 	printf("> word: (len:%ld): %s$\n", ft_strlen(word), word);
 	return (word);
 }
