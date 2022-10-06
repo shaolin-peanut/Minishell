@@ -25,17 +25,22 @@ static t_prompt	init_prompt(char **argv, char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_prompt	prompt;
+	t_meta		*pkg;
 	char		*prompt_str;
 
+	pkg = init_meta(&prompt);
 	prompt = init_prompt(argv, envp);
 	while (argc || argv || envp)
 	{
 		prompt_str = get_prompt(prompt);
 		if (prompt_str)
-			readline(prompt_str);
+			parser(readline(prompt_str), pkg);
 		else
-			readline("guest@minishell $ ");
+			parser(readline("guest@minishell $ "), pkg);
 		free(prompt_str);
+//	chain = parser(readline(cwd));
+//	if (chain != NULL)
+//     executor(chain);
 	}
 	return (0);
 }
