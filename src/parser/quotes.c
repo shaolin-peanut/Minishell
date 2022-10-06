@@ -57,7 +57,7 @@ int quote_len(t_meta *pkg, int len)
     while (pkg->str[pkg->i + len] != '\0')
     {
         if (pkg->str[pkg->i + len] == type)
-            return (len);
+            return (len - 1);
         len++;   
     }
     return (len);

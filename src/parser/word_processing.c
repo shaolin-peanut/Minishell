@@ -1,5 +1,6 @@
 #include "../../include/minishell.h"
 
+// This function should figure out the length of the word, including any scenario of words with quotes.
 int	word_len(char *str, t_meta *pkg)
 {
 	int	len;
@@ -9,18 +10,18 @@ int	word_len(char *str, t_meta *pkg)
 	qc = 0;
 	while (is_word(str, pkg->i + len)/* || (quotes_unclosed(str[pkg->i], sc, dc))*/)
 	{
-		if (is_quote(str[pkg->i + len]))
+		if (is_quote(str[pkg->i + len]) && str[pkg->i + len + 1] != '\0')
 		{
 			qc++;
 			len = quote_len(pkg, len);
-			printf("quote length: %d\n", len);
+			//printf("quote length: %d\n", len);
 		}
-		else
+		else 
 		{
 			len++;
 		}
 	}
-	return (len - (2 * qc));
+	return (len - qc);
 }
 
 // What should return_word do?

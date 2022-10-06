@@ -29,6 +29,7 @@ int		process_word(char *str, t_meta *pkg);
 int		process_operator(char *str, t_meta *pkg);
 int		process_dollar(char *str, t_meta *pkg);
 // word_processing.c
+int		word_len(char *str, t_meta *pkg);
 char	*return_word(char *str, t_meta *pkg);
 char	*is_cmd(char *name, t_meta *pkg);
 int		is_builtin(char *word, t_meta *pkg);
