@@ -8,12 +8,12 @@ int	process_word(char *str, t_meta *pkg)
 	word = NULL;
 	word = return_word(str, pkg);
 	tmp = is_cmd(word, pkg);
-/*	if (is_builtin(word, pkg))
+	if (is_builtin(word, pkg))
 		create_builtin_token(word, pkg);
 	else if (tmp)
 		create_cmd_token(word, tmp, pkg);
 	else
-		create_alien_word_token(word, pkg);*/
+		create_alien_word_token(word, pkg);	
 	free(tmp);
 	free(word);
 	return (pkg->i);

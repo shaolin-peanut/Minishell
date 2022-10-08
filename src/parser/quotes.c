@@ -57,14 +57,15 @@ int quote_len(t_meta *pkg, int len)
     while (pkg->str[pkg->i + len] != '\0')
     {
         if (pkg->str[pkg->i + len] == type)
-            return (len - 1);
+            return (len - 2);
         len++;   
     }
     return (len);
 }
 
-// add_quote content will add the content of a quote
-// to the word string 
+// add_quote content, must add ALL characters to the string word,
+// the character within pkg->str, starting from the index pkg->i
+// which  
 int add_quote_content(char *word, int i, t_meta *pkg)
 {
     int type;
@@ -77,6 +78,7 @@ int add_quote_content(char *word, int i, t_meta *pkg)
             return (i);
         else
             word[i] = pkg->str[pkg->i];
+        printf("|| word[%d] now: %c ||\n", i - 1, pkg->str[pkg->i - 1]);
         i++;
         pkg->i++;
     }
