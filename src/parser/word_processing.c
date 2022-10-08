@@ -36,26 +36,19 @@ char	*return_word(char *str, t_meta *pkg)
 	int		i;
 
 	i = 0;
-	word = NULL;
 	len = word_len(str, pkg);
-	printf("WORD_LEN OUTPUT: %d!!\n", len);
+	word = NULL;
 	word = (char *) malloc(sizeof(char) * len);
 	word[len] = '\0';
-	//while (is_word(str, pkg->i) || quotes_unclosed(str[pkg->i], sc, dc))
 	while (i < len)
 	{ 
 		if (is_quote(str[pkg->i]))
 			i = add_quote_content(word, i, pkg);
 		else if (is_word(str, pkg->i))
-		{
 			word[i++] = str[pkg->i++];
-			//printf("|| word[%d] now: %c ||\n", i - 1, word[i - 1]);
-		}
 	}
 	pkg->i--;
-	//while (quote_in_word(word))
-	//	word = process_quotes(word, pkg);
-	printf("> word: (len:%ld): %s$\n", ft_strlen(word), word);
+	printf("> word \"%s\"(%ld chars): \n", word, ft_strlen(word));
 	return (word);
 }
 
