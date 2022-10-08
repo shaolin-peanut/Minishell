@@ -48,22 +48,31 @@ char    *process_quotes(char *word, t_meta *pkg)
     return (temp_i);
 }*/
 
-int quote_len(t_meta *pkg, int len)
+int quote_len(t_meta *pkg, int *iterator)
 {
-    int type;
+    char type;
+    int len;
     // temp, remove after testing;
-    int len_backup;
+    //int len_backup;
     
-    type = pkg->str[pkg->i + len];
-    len++;
-    len_backup = len;
-    while (pkg->str[pkg->i + len] != '\0')
+    type = pkg->str[*iterator];
+    *iterator += 1;
+    len = 0;
+    //len_backup = len;
+while (pkg->str[*iterator] != '\0')
     {
-        if (pkg->str[pkg->i + len] == type)
-            return (len - 2);
-        len++;   
+        if (pkg->str[*iterator] == type)
+        {
+            *iterator += 1;
+            return (len);
+        }
+        else
+        {
+            *iterator += 1;
+            len++; 
+        }
     }
-    printf("Len results: word[%d]=%c, word[%d]=%c", len_backup, pkg->str[pkg->i + len_backup], len, pkg->str[pkg->i + len]);
+//    printf("Len results: word[%d]=%c, word[%d]=%c\n", len_backup, pkg->str[pkg->i + len_backup], len, pkg->str[pkg->i + len]);
     return (len);
 }
 
@@ -74,14 +83,21 @@ int add_quote_content(char *word, int i, t_meta *pkg)
 {
     int type;
 
-    type = pkg->str[i];
+// woaw spotted a big mistake here, I was passing i instead of pkg->i !!
+// wrong index can fuck it all up
+    type = pkg->str[pkg->i];
     pkg->i++;
     while (pkg->str[pkg->i] != '\0')
     {
         if (pkg->str[pkg->i] == type)
+        {
+            pkg->i++;
             return (i);
+        }
         else
+        {
             word[i] = pkg->str[pkg->i];
+        }
         printf("|| word[%d] now: %c ||\n", i - 1, pkg->str[pkg->i - 1]);
         i++;
         pkg->i++;

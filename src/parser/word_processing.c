@@ -5,25 +5,24 @@
 // - other quotees within
 int	word_len(char *str, t_meta *pkg)
 {
-	int	len;
-	int	qc;
+	int	counter;
+	int	iterator;
 	
-	len = 0;
-	qc = 0;
-	while (is_word(str, pkg->i + len)/* || (quotes_unclosed(str[pkg->i], sc, dc))*/)
+	counter = 0;
+	iterator = pkg->i;
+	while (is_word(str, iterator))
 	{
-		if (is_quote(str[pkg->i + len]) && str[pkg->i + len + 1] != '\0')
-		{
-			qc++;
-			len = quote_len(pkg, len);
-			//printf("quote length: %d\n", len);
-		}
+		if (is_quote(str[iterator]) && (str[iterator + 1] != '\0'))
+			counter += quote_len(pkg, &iterator);
+		//else if ((str[iterator + 1] ==  '\0'))
+		//	return (counter);
 		else 
 		{
-			len++;
+			counter++;
+			iterator++;
 		}
 	}
-	return (len - qc);
+	return (counter);
 }
 
 // What should return_word do?
@@ -39,18 +38,18 @@ char	*return_word(char *str, t_meta *pkg)
 	i = 0;
 	word = NULL;
 	len = word_len(str, pkg);
-	printf("> len of word: %d\n", len);
-	word = (char *) malloc(sizeof(char) * len + 1);
+	printf("WORD_LEN OUTPUT: %d!!\n", len);
+	word = (char *) malloc(sizeof(char) * len);
 	word[len] = '\0';
 	//while (is_word(str, pkg->i) || quotes_unclosed(str[pkg->i], sc, dc))
 	while (i < len)
 	{ 
 		if (is_quote(str[pkg->i]))
 			i = add_quote_content(word, i, pkg);
-		else
+		else if (is_word(str, pkg->i))
 		{
 			word[i++] = str[pkg->i++];
-			printf("|| word[%d] now: %c ||\n", i - 1, str[pkg->i - 1]);
+			//printf("|| word[%d] now: %c ||\n", i - 1, word[i - 1]);
 		}
 	}
 	pkg->i--;

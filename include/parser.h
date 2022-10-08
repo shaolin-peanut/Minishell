@@ -9,10 +9,6 @@ struct s_lex_node
 	t_lex_node	*next;
 };
 
-#define QUOTES_CLOSED 2
-#define CLOSED_AND_UNCLOSED_QUOTES 1
-#define UNCLOSED_QUOTES 0
-
 // lexical_checks_A.c
 int		is_quote(char c);
 int		is_dollar(char c);
@@ -34,12 +30,10 @@ char	*return_word(char *str, t_meta *pkg);
 char	*is_cmd(char *name, t_meta *pkg);
 int		is_builtin(char *word, t_meta *pkg);
 // quotes.c
-int		quotes_unclosed(char c, int a, int b);
 char	*process_quotes(char *word, t_meta *pkg);
 int		quote_in_word(char *str);
-int		iterate_quote_content(t_meta *pkg);
 int		add_quote_content(char *word, int i, t_meta *pkg);
-int		quote_len(t_meta *pkg, int len);
+int		quote_len(t_meta *pkg, int *counter);
 // create_tokens.c
 int		create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);
 int		create_builtin_token(char *cmd_name, t_meta *pkg);
