@@ -51,15 +51,19 @@ char    *process_quotes(char *word, t_meta *pkg)
 int quote_len(t_meta *pkg, int len)
 {
     int type;
+    // temp, remove after testing;
+    int len_backup;
     
     type = pkg->str[pkg->i + len];
     len++;
+    len_backup = len;
     while (pkg->str[pkg->i + len] != '\0')
     {
         if (pkg->str[pkg->i + len] == type)
             return (len - 2);
         len++;   
     }
+    printf("Len results: word[%d]=%c, word[%d]=%c", len_backup, pkg->str[pkg->i + len_backup], len, pkg->str[pkg->i + len]);
     return (len);
 }
 

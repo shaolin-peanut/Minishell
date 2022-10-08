@@ -1,6 +1,8 @@
 #include "../../include/minishell.h"
 
-// This function should figure out the length of the word, including any scenario of words with quotes.
+// Scenarios to take into account
+// - quotes before the alphanumerical characters, quotes after
+// - other quotees within
 int	word_len(char *str, t_meta *pkg)
 {
 	int	len;
