@@ -1,24 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   processing.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
+/*   Updated: 2022/10/10 14:26:38 by sbars            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	process_word(char *str, t_meta *pkg)
 {
 	char	*word;
-	char	*tmp;
+	char	*path;
 
 	word = NULL;
 	word = return_word(str, pkg);
-	tmp = is_cmd(word, pkg);
+	path = is_cmd(word, pkg);
 	if (is_builtin(word, pkg))
 		create_builtin_token(word, pkg);
-	else if (tmp)
-		create_cmd_token(word, tmp, pkg);
+	else if (path)
+		create_cmd_token(word, path, pkg);
 	else
 		create_alien_word_token(word, pkg);	
-	free(tmp);
+	free(path);
 	free(word);
 	return (pkg->i);
 }
-// Next step of the execution is in word_type_processing
 
 int	process_operator(char *str,t_meta *pkg)
 {
@@ -27,6 +38,7 @@ int	process_operator(char *str,t_meta *pkg)
 	if (str[pkg->i] == '|')
 	{
 		;
+		// create_pipe_token(pkg, etc));
 	}
 	else if (is_heredoc(str, pkg->i))
 	{
@@ -41,7 +53,6 @@ int	process_operator(char *str,t_meta *pkg)
 	return (pkg->i);
 }
 
-//TODO: Debug process_dollar() in all three situations where it has to work
 int	process_dollar(char *str, t_meta *pkg)
 {
 

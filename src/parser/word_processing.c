@@ -1,8 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   word_processing.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
+/*   Updated: 2022/10/10 14:26:54 by sbars            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-// Scenarios to take into account
-// - quotes before the alphanumerical characters, quotes after
-// - other quotees within
 int	word_len(char *str, t_meta *pkg)
 {
 	int	counter;
@@ -13,9 +22,9 @@ int	word_len(char *str, t_meta *pkg)
 	while (is_word(str, iterator))
 	{
 		if (is_quote(str[iterator]) && (str[iterator + 1] != '\0'))
+		{
 			counter += quote_len(pkg, &iterator);
-		//else if ((str[iterator + 1] ==  '\0'))
-		//	return (counter);
+		}
 		else 
 		{
 			counter++;
@@ -25,10 +34,9 @@ int	word_len(char *str, t_meta *pkg)
 	return (counter);
 }
 
-// What should return_word do?
-// 1. Capture entire words and stop at delimiters like blanks and operators
-// 2. Identify quotes, extract the content of them, and concatenate with the rest
-// 3. Correctly allocate memory for, and fill in, the 'word' variable
+// Counts the length of the word, including when it is made of one or more quotes,
+// allocates memory for that length, then copies characters from the main string
+// to the word string, omitting the quotes and copying the rest
 char	*return_word(char *str, t_meta *pkg)
 {
 	char	*word;
@@ -79,10 +87,16 @@ char	*is_cmd(char *name, t_meta *pkg)
 
 
 
-//TODO: Debug and complete is_builtin
 int	is_builtin(char *word, t_meta *pkg)
 {
 	(void) pkg;
+	// Reason I'm keeping the list below commented, is because
+	// this function could, on top of checking if the command is a builtin
+	// return a digit telling us which builtin it is.
+	// To associate a digit with a builtin, just have to do some defines
+	// #define ECHO 101
+	// #define CD 102
+	// etc, then it's useable in if conditions (if tmp = ECHO, run echo), potential time/space-saver
 	/*int i;
 	char	*list[8];
 	

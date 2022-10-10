@@ -33,15 +33,15 @@ int	main(int argc, char **argv, char **envp)
 	{
 		pkg = init_meta(&prompt);
 		prompt_str = get_prompt(prompt);
+//		chain = parser(readline(cwd));
 		if (prompt_str)
 			parser(readline(prompt_str), pkg);
 		else
 			parser(readline("guest@minishell $ "), pkg);
+//		if (chain != NULL)
+//     		executor(chain);
 		free(prompt_str);
 		free(pkg);
-//	chain = parser(readline(cwd));
-//	if (chain != NULL)
-//     executor(chain);
 	}
 	return (0);
 }
