@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	process_word(char *str, t_meta *pkg)
+void	process_word(char *str, t_meta *pkg)
 {
 	char	*word;
 	char	*path;
@@ -28,10 +28,9 @@ int	process_word(char *str, t_meta *pkg)
 		create_alien_word_token(word, pkg);	
 	free(path);
 	free(word);
-	return (pkg->i);
 }
 
-int	process_operator(char *str,t_meta *pkg)
+void	process_operator(char *str,t_meta *pkg)
 {
 	(void) pkg;
 	printf("> operator: %c\n", str[pkg->i]);
@@ -50,10 +49,9 @@ int	process_operator(char *str,t_meta *pkg)
 		;
 		//create_redirection_token;
 	}
-	return (pkg->i);
 }
 
-int	process_dollar(char *str, t_meta *pkg)
+void	process_dollar(char *str, t_meta *pkg)
 {
 
 	printf("> dollar: %s\n", str + pkg->i);
@@ -64,5 +62,4 @@ int	process_dollar(char *str, t_meta *pkg)
 		(void) pkg;
 	else
 		(void) pkg;
-	return (pkg->i);
 }
