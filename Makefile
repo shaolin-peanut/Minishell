@@ -26,7 +26,8 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/parser/quotes.c \
 						$(SRCS_DIR)/utils/matrix.c \
 						$(SRCS_DIR)/utils/init.c \
-						$(SRCS_DIR)/utils/error.c
+						$(SRCS_DIR)/utils/error.c \
+						$(SRCS_DIR)/utils/memory.c
 					
 OBJS					= $(SRCS:.c=.o)
 
@@ -35,7 +36,7 @@ OBJS					= $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
 	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) -lreadline -o $(NAME) $(OBJS) $(LIBFT_FLAGS) -I $(INCS_DIR)
+	$(CC) $(CFLAGS) -fsanitize=address -lreadline -o $(NAME) $(OBJS) $(LIBFT_FLAGS) -I $(INCS_DIR)
 
 all : $(NAME)
 
