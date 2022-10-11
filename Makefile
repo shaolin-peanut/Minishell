@@ -19,6 +19,7 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/parser/prompt.c \
 						$(SRCS_DIR)/parser/lexical_checks_A.c \
 						$(SRCS_DIR)/parser/lexical_checks_B.c \
+						$(SRCS_DIR)/parser/lexical_checks_C.c \
 						$(SRCS_DIR)/parser/word_processing.c \
 						$(SRCS_DIR)/parser/processing.c \
 						$(SRCS_DIR)/parser/create_tokens.c \
