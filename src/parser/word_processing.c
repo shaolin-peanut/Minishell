@@ -60,6 +60,37 @@ char	*return_word(char *str, t_meta *pkg)
 	return (word);
 }
 
+int		is_absolute_path(char *word, t_meta *pkg)
+{
+	int	i;
+	
+	i = -1;
+	(void) pkg;
+	if (access(word, X_OK) == 0)
+		return (1);
+	else
+		return (0);
+	return (1);
+}
+
+char	*is_relative_path(char *word, t_meta *pkg)
+{
+	char	*current_directory;
+	char	*tmp;
+	char	*full_path;
+
+	current_directory = getcwd(NULL, 0);
+	if (!current_directory)
+		return (0);
+	tmp = ft_strjoin(current_directory, "/");
+	full_path = ft_strjoin(tmp, word);
+	free(tmp);
+	if (is_absolute_path(full_path, pkg))
+		return (full_path);
+	else
+		return (NULL);
+}
+
 char	*is_cmd(char *name, t_meta *pkg)
 {
 	int	i;
@@ -72,15 +103,32 @@ char	*is_cmd(char *name, t_meta *pkg)
 	full_path = NULL;
 	if (pkg->paths == NULL)
 		pkg->paths = init_paths(pkg);
-	while (pkg->paths[++i])
+	if (is_absolute_path(name, pkg))
 	{
-		path_and_slash = ft_strjoin(pkg->paths[i], "/");
-		full_path = ft_strjoin(path_and_slash, name);
-		if (access(full_path, X_OK) == 0)
+		return(name);
+	}
+	else if (is_relative_path(name, pkg))
+	{
+		return (is_relative_path(name, pkg));
+	}
+	else
+	{
+		while (pkg->paths[++i])
 		{
-			free(path_and_slash);
-			return (full_path);
-		}
+			path_and_slash = ft_strjoin(pkg->paths[i], "/");
+			full_path = ft_strjoin(path_and_slash, name);
+			if (access(full_path, X_OK) == 0)
+			{
+				free(path_and_slash);
+				return (full_path);
+			}
+			else
+			{
+				free(path_and_slash);
+				free(full_path);
+			}
+	}
+
 	}
 	return (NULL);
 }

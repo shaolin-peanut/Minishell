@@ -16,15 +16,14 @@
 and creates tokens with all data necessary to understand the token's 
 relationships with its neighbors */
 
-int lexical_scan(char *str, t_meta *pkg)
+void lexical_scan(char *str, t_meta *pkg)
 {
 	if (is_word(str, pkg->i))
-		pkg->i = process_word(str, pkg);
+		process_word(str, pkg);
 	else if (is_dollar(str[pkg->i]))
-		pkg->i = process_dollar(str, pkg);
+		process_dollar(str, pkg);
 	else if (is_operator(str, pkg->i))
-		pkg->i = process_operator(str, pkg);
-	return (pkg->i);
+		process_operator(str, pkg);
 }
 
 int parser(char *str, t_meta *pkg)
@@ -33,7 +32,7 @@ int parser(char *str, t_meta *pkg)
 	while (str[pkg->i] != '\0')
 	{
 		printf("STR[%d]:'%c'\n", pkg->i, str[pkg->i]);
-		pkg->i = lexical_scan(str, pkg);
+		lexical_scan(str, pkg);
 		pkg->i++;
 	}
 	// chain = tokenizer(str);
