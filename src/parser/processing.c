@@ -26,8 +26,7 @@ void	process_word(char *str, t_meta *pkg)
 		create_cmd_token(word, path, pkg);
 	else
 		create_alien_word_token(word, pkg);	
-	free(path);
-	free(word);
+    free(word);
 }
 
 void	process_operator(char *str,t_meta *pkg)

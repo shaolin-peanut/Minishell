@@ -15,6 +15,11 @@
 int create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 {
     printf("> Cmd found!: %s\n> binary path: %s\n", cmd_name, full_path);
+    if (full_path)
+    {
+        free(full_path);
+        full_path = NULL;
+    }
     (void) pkg;
     return (0);
 }

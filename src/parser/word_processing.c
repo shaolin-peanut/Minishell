@@ -46,9 +46,9 @@ char	*return_word(char *str, t_meta *pkg)
 	i = 0;
 	len = word_len(str, pkg);
 	word = NULL;
-	word = (char *) malloc(sizeof(char) * len);
+	word = (char *) malloc(sizeof(char) * len + 1);
 	word[len] = '\0';
-	while (i < len)
+	while (i < len && pkg->str[pkg->i])
 	{ 
 		if (is_quote(str[pkg->i]))
 			i = add_quote_content(word, i, pkg);
@@ -62,8 +62,6 @@ char	*return_word(char *str, t_meta *pkg)
 
 char	*is_cmd(char *name, t_meta *pkg)
 {
-	if (pkg->paths == NULL)
-		pkg->paths = init_paths(pkg);
 	if (is_absolute_path(name, pkg))
 		return(name);
 	else if (is_relative_path(name, pkg))

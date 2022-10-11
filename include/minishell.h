@@ -50,7 +50,7 @@ int		errormsg(char *str, t_meta	*pkg);
 // init.c
 t_meta	*init_meta(t_prompt *prompt);
 char	**init_paths(t_meta	*pkg);
-// parsing_utils.c
-int		last_strchr_index(char *str, char c);
+// memory.c
+void	free_all(t_meta *pkg);
 
 #endif

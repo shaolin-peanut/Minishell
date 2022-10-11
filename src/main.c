@@ -41,6 +41,8 @@ int	main(int argc, char **argv, char **envp)
 //		if (chain != NULL)
 //     		executor(chain);
 		free(prompt_str);
+		//free_all(pkg);
+		free(pkg->paths);
 		free(pkg);
 	}
 	return (0);
