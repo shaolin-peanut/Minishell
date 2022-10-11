@@ -6,47 +6,38 @@
 /*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:10 by sbars             #+#    #+#             */
-/*   Updated: 2022/09/09 19:22:06 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/10 14:26:30 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-/* reads the command line such as “ls ­al”
-puts it into a data structure called Command Table
-that will store the commands that will be executed.*/
+/* Reads the line given by readline(), interpret whatever input is given
+and creates tokens with all data necessary to understand the token's 
+relationships with its neighbors */
 
-int	lexical_scan(char	*str, int i, t_meta	*pkg)
+void lexical_scan(char *str, t_meta *pkg)
 {
-	if (is_word(str, i))
-		i = process_word(str, i, pkg);
-//TODO: debug and finish writing all the functions commented out below.
-	/*else if (is_do	llar(str[i]))
-		i = process_dollar(str, i, pkg);
-	else if (is_operator(str, i))
-		i = process_operator(str, i, pkg);*/
-	return (i);
+	if (is_word(str, pkg->i))
+		process_word(str, pkg);
+	else if (is_dollar(str[pkg->i]))
+		process_dollar(str, pkg);
+	else if (is_operator(str, pkg->i))
+		process_operator(str, pkg);
 }
 
-int	parser(char	*str, t_meta	*pkg)
+int parser(char *str, t_meta *pkg)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{ 
-		//printf("PARSER str[%d]->'%c'\n---\n", i, str[i]);
-		i = lexical_scan(str, i, pkg);
-		//TODO: Figure out if you need the unused error management thing below. If not, delete.
-		/*if (i == -1)
-		{
-			free(str);
-			return (0);
-		}*/
-		i++;
+	pkg->str = str;
+	while (str[pkg->i] != '\0')
+	{
+		printf("STR[%d]:'%c'\n", pkg->i, str[pkg->i]);
+		lexical_scan(str, pkg);
+		pkg->i++;
 	}
 	// chain = tokenizer(str);
 	// return (chain);
+	pkg->str = NULL;
 	free(str);
 	return (1);
 }

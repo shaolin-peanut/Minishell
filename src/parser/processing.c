@@ -1,64 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   processing.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
+/*   Updated: 2022/10/10 14:26:38 by sbars            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-// TODO: Add support for word cut by quotes such as 
-// ec'ho' or gr"e"p which have to work
-static int	end_of_word_index(char *str, int i)
-{
-	while (str[i] != '\0' && ft_isalnum(str[i]) && !is_blank(str, i) && !is_operator(str, i))
-	{
-		//if (is_quote(str[i]))
-		//i = closed_quotes_len(str, i);
-		i++;
-	}
-	return (i);
-}
-
-int	process_word(char *str, int i, t_meta *pkg)
+void	process_word(char *str, t_meta *pkg)
 {
 	char	*word;
-	
-	word = ft_substr(str, i, end_of_word_index(str, i));
-	//printf("process_word: value of i %d\n", i);
-	//printf("process_word (len:%ld): %s$\n", ft_strlen(word), word);
-	if (is_cmd(word, pkg))
-		i += cmd_extraction(str, i, word);
-	//else if (is_builtin(str, word, pkg))
-	//	i += create_builtin_token(str, i);
+	char	*path;
+
+	word = NULL;
+	word = return_word(str, pkg);
+	path = is_cmd(word, pkg);
+	if (is_builtin(word, pkg))
+		create_builtin_token(word, pkg);
+	else if (path)
+		create_cmd_token(word, path, pkg);
 	else
-		i += ft_strlen(word) - 1;
-	/*else if (is_file(str, i, pkg))
-		check_file_context(str, i);
-		OR just store the word in a "word" token to use later when analyzing redirections for example
-	*/
-	//printf("process_word: value of i %d\n---\n", i);
+		create_alien_word_token(word, pkg);	
+	free(path);
 	free(word);
-	return (i);
 }
 
-//TODO: Complete process_operator()
-/*
-int	process_operator(char *str, int i, t_meta *pkg)
+void	process_operator(char *str,t_meta *pkg)
 {
 	(void) pkg;
-	printf("operator found %c\n", str[i]);
-	if (is_redirection(str, i))
+	printf("> operator: %c\n", str[pkg->i]);
+	if (str[pkg->i] == '|')
 	{
-		i++;
-		printf("redirection found\n");
+		;
+		// create_pipe_token(pkg, etc));
 	}
-	return (i);
-}*/
+	else if (is_heredoc(str, pkg->i))
+	{
+		pkg->i += 1;
+		//handle_heredoc expansion/lookup
+	}
+	else if (is_redirection(str, pkg->i))
+	{
+		;
+		//create_redirection_token;
+	}
+}
 
-//TODO: Debug process_dollar() in all three situations where it has to work
-/*int	process_dollar(char *str, int i, t_meta *pkg)
+void	process_dollar(char *str, t_meta *pkg)
 {
-	(void) pkg;
-	printf("dollar being processed: %s\n", str + i);
-	if (is_dollar_question(str, i))
-		i += dollar_question_exec(str, i);
-	else if (is_var(str, i))
-		i += var_substitution(str, i);
+
+	printf("> dollar: %s\n", str + pkg->i);
+	if (is_var(str, pkg->i))
+		(void) pkg;
+		//pkg-> = var_substitution();
+	if (is_dollar_question(str, pkg->i))
+		(void) pkg;
 	else
-		i += lone_dollar_sign(str, i);
-	return (i);
-}*/
+		(void) pkg;
+}

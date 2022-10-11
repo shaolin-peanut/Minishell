@@ -1,8 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexical_checks_C.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 11:56:03 by sbars             #+#    #+#             */
+/*   Updated: 2022/10/10 14:27:11 by sbars            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../../include/minishell.h"
 
-int	is_cmd(char *name, t_meta *pkg)
+int		is_absolute_path(char *word, t_meta *pkg)
 {
-	int	i;
+	(void) pkg;
+	if (access(word, X_OK) == 0)
+		return (1);
+	else
+		return (0);
+	return (1);
+}
+
+char	*is_relative_path(char *word, t_meta *pkg)
+{
+	char	*current_directory;
+	char	*tmp;
+	char	*full_path;
+
+	current_directory = getcwd(NULL, 0);
+	if (!current_directory)
+		return (0);
+	tmp = ft_strjoin(current_directory, "/");
+	full_path = ft_strjoin(tmp, word);
+	free(tmp);
+	if (is_absolute_path(full_path, pkg))
+		return (full_path);
+	else
+		return (NULL);
+}
+
+char    *is_binary_name(char *word, t_meta *pkg)
+{
+    int	i;
 
 	i = -1;
 	char	*path_and_slash;
@@ -10,46 +49,21 @@ int	is_cmd(char *name, t_meta *pkg)
 
 	path_and_slash = NULL;
 	full_path = NULL;
-	if (pkg->paths == NULL)
-		pkg->paths = init_paths(pkg);
-	while (pkg->paths[++i])
+    
+    while (pkg->paths[++i])
 	{
 		path_and_slash = ft_strjoin(pkg->paths[i], "/");
-		full_path = ft_strjoin(path_and_slash, name);
+		full_path = ft_strjoin(path_and_slash, word);
 		if (access(full_path, X_OK) == 0)
 		{
-			//printf("Cmd found!: %s\nbinary path: %s\n", name, full_path);
+			free(path_and_slash);
+			return (full_path);
+		}
+		else
+		{
 			free(path_and_slash);
 			free(full_path);
-			return (1);
 		}
-	}
-	return (0);
+    }
+    return (NULL);	
 }
-
-//TODO: Debug and complete is_builtin
-/*int	is_builtin(char *str, char *word, t_meta *pkg)
-{
-	int i;
-	char	*list[8];
-	
-	i = -1;
-	list[0] = "echo";
-	list[1] = "cd";
-	list[2] = "pwd";
-	list[3] = "export";
-	list[4] = "unset";
-	list[5] = "env";
-	list[6] = "exit";
-	list[7] = NULL;
-	while (list[++i] != NULL)
-	{
-		if (ft_strncmp(list[i], word, ft_strlen(list[i])))
-			return (1);
-	}
-
-	(void) word;
-	(void) str;
-	(void) pkg;
-	return (0);
-}*/

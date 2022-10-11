@@ -6,7 +6,7 @@
 /*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:03 by sbars             #+#    #+#             */
-/*   Updated: 2022/09/09 19:22:00 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/10 14:27:11 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_blank(char *str, int i)
 {
-	if (str[i] == ' ' || str[i] == '	')
+	if (str[i] == 32 || str[i] == 9)
 		return (1);
 	return (0);
 }
@@ -35,7 +35,7 @@ int is_heredoc(char *str, int i)
 
 int	is_operator(char *str, int i)
 {
-	if (str[i] == '|' || is_redirection(str, i))
+	if (str[i] == '|' || is_redirection(str, i) || is_heredoc(str, i))
 		return (1);
 	return (0);
 }
