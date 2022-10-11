@@ -13,9 +13,6 @@
 
 int		is_absolute_path(char *word, t_meta *pkg)
 {
-	int	i;
-	
-	i = -1;
 	(void) pkg;
 	if (access(word, X_OK) == 0)
 		return (1);
