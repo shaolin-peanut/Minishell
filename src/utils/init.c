@@ -9,7 +9,6 @@
 /*   Updated: 2022/09/09 19:21:25 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
 t_meta	*init_meta(t_prompt	*prompt)
@@ -34,14 +33,17 @@ char	**init_paths(t_meta	*pkg)
 
 	i = -1;
 	e = pkg->prompt->envp;
-	while (e[++i])
+	tmp = NULL;
+	paths = NULL;
+	while (pkg->prompt->envp[++i])
 	{
-		if (ft_strncmp(e[i], "PATH=", 5) == 0)
+		if (ft_strncmp(pkg->prompt->envp[i], "PATH=", 5) == 0)
 		{
-			tmp = ft_split(e[i], '=');
+			tmp = ft_split(pkg->prompt->envp[i], '=');
 			paths = ft_split(tmp[1], ':');
 			free(tmp);
-			return (paths);
+			if (paths)
+				return (paths);
 		}
 	}
 	return (0);

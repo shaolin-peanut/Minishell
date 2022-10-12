@@ -23,7 +23,7 @@ int     is_heredoc(char *str, int i);
 // lexical_checks_C.c
 char    *is_binary_name(char *word, t_meta *pkg);
 char	*is_relative_path(char *word, t_meta *pkg);
-int		is_absolute_path(char *word, t_meta *pkg);
+int		is_absolute_path(char *path, t_meta *pkg);
 // processing.c
 void	process_word(char *str, t_meta *pkg);
 void	process_operator(char *str, t_meta *pkg);

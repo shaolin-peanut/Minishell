@@ -36,7 +36,7 @@ OBJS					= $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
 	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) -fsanitize=address -lreadline -o $(NAME) $(OBJS) $(LIBFT_FLAGS) -I $(INCS_DIR)
+	$(CC) $(CFLAGS) -lreadline -o $(NAME) $(OBJS) $(LIBFT_FLAGS) -I $(INCS_DIR)
 
 all : $(NAME)
 

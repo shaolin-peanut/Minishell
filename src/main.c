@@ -28,9 +28,9 @@ int	main(int argc, char **argv, char **envp)
 	t_meta		*pkg;
 	char		*prompt_str;
 
-	prompt = init_prompt(argv, envp);
 	while (argc || argv || envp)
 	{
+		prompt = init_prompt(argv, envp);
 		pkg = init_meta(&prompt);
 		prompt_str = get_prompt(prompt);
 //		chain = parser(readline(cwd));
@@ -41,9 +41,9 @@ int	main(int argc, char **argv, char **envp)
 //		if (chain != NULL)
 //     		executor(chain);
 		free(prompt_str);
-		//free_all(pkg);
-		free(pkg->paths);
-		free(pkg);
+		free_all(pkg);
+		//free(pkg->paths);
+		//free(pkg);
 	}
 	return (0);
 }

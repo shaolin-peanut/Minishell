@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
-int		is_absolute_path(char *word, t_meta *pkg)
+int		is_absolute_path(char *path, t_meta *pkg)
 {
 	(void) pkg;
-	if (access(word, X_OK) == 0)
+	if (access(path, X_OK) == 0)
 		return (1);
 	else
 		return (0);
@@ -24,17 +24,15 @@ int		is_absolute_path(char *word, t_meta *pkg)
 char	*is_relative_path(char *word, t_meta *pkg)
 {
 	char	*current_directory;
-	char	*tmp;
+	char	*path_and_slash;
 	char	*full_path;
 
-	if (pkg->paths == NULL)
-		pkg->paths = init_paths(pkg);
 	current_directory = getcwd(NULL, 0);
 	if (!current_directory)
 		return (0);
-	tmp = ft_strjoin(current_directory, "/");
-	full_path = ft_strjoin(tmp, word);
-	free(tmp);
+	path_and_slash = ft_strjoin(current_directory, "/");
+	full_path = ft_strjoin(path_and_slash, word);
+	free(path_and_slash);
 	if (is_absolute_path(full_path, pkg))
 		return (full_path);
 	else
@@ -51,20 +49,27 @@ char    *is_binary_name(char *word, t_meta *pkg)
 	i = -1;
 	char	*path_and_slash;
 	char	*full_path;
+	char	**paths;
 
-	if (pkg->paths == NULL)
-		pkg->paths = init_paths(pkg);
 	path_and_slash = NULL;
 	full_path = NULL; 
-    while (pkg->paths[++i] != NULL)
+	paths = pkg->paths;
+    while (*(pkg->paths + ++i))
 	{
-		path_and_slash = ft_strjoin(pkg->paths[i], "/");
+		path_and_slash = ft_strjoin(paths[i], "/");
+		//printf("path_and_slash: %s\n", path_and_slash);
 		full_path = ft_strjoin(path_and_slash, word);
-		free(path_and_slash);
-		if (access(full_path, X_OK) == 0)
+		//printf("full_path: %s\n", full_path);
+		//free(path_and_slash);
+		//path_and_slash = NULL;
+		if (is_absolute_path(full_path, pkg))
+//		if (access(full_path, X_OK) == 0)
 			return (full_path);
 		else
+		{
 			free(full_path);
+			full_path = NULL;
+		}
     }
     return (NULL);	
 }

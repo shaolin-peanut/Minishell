@@ -62,12 +62,19 @@ char	*return_word(char *str, t_meta *pkg)
 
 char	*is_cmd(char *name, t_meta *pkg)
 {
+	char	*tmp;
+
+	tmp = NULL;
+	if (pkg->paths == NULL)
+		pkg->paths = init_paths(pkg);
 	if (is_absolute_path(name, pkg))
 		return(name);
-	else if (is_relative_path(name, pkg))
-		return (is_relative_path(name, pkg));
-	else if (is_binary_name(name, pkg))
-		return(is_binary_name(name, pkg));
+	tmp = is_relative_path(name, pkg);
+	if (tmp)
+		return (tmp);
+	tmp = is_binary_name(name, pkg);
+	if (tmp)
+		return(tmp);
 	return (NULL);
 }
 
