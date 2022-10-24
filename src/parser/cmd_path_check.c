@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexical_checks_C.c                                 :+:      :+:    :+:   */
+/*   cmd_path_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:56:03 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 12:19:08 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/24 14:02:33 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_absolute_path(char *path, t_meta *pkg)
+int	is_absolute_path(char *path)
 {
-	(void) pkg;
 	if (access(path, X_OK) == 0)
 		return (1);
 	else
 		return (0);
-	return (1);
 }
 
-char	*is_relative_path(char *word, t_meta *pkg)
+char	*is_relative_path(char *word)
 {
 	char	*current_directory;
 	char	*path_and_slash;
@@ -34,7 +32,7 @@ char	*is_relative_path(char *word, t_meta *pkg)
 	path_and_slash = ft_strjoin(current_directory, "/");
 	full_path = ft_strjoin(path_and_slash, word);
 	free(path_and_slash);
-	if (is_absolute_path(full_path, pkg))
+	if (is_absolute_path(full_path))
 		return (full_path);
 	else
 	{
@@ -54,11 +52,11 @@ char	*is_binary_name(char *word, t_meta *pkg)
 	path_and_slash = NULL;
 	full_path = NULL;
 	paths = pkg->paths;
-	while (*(pkg->paths + ++i))
+	while (paths[++i])
 	{
 		path_and_slash = ft_strjoin(paths[i], "/");
 		full_path = ft_strjoin(path_and_slash, word);
-		if (is_absolute_path(full_path, pkg))
+		if (is_absolute_path(full_path))
 			return (full_path);
 		else
 		{

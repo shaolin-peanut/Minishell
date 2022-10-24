@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 13:53:13 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/24 14:02:39 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int		is_heredoc(char *str, int i);
 void	expand_heredoc(t_meta *pkg);
 // cmd_path_check.c
 char	*is_binary_name(char *word, t_meta *pkg);
-char	*is_relative_path(char *word, t_meta *pkg);
-int		is_absolute_path(char *path, t_meta *pkg);
+char	*is_relative_path(char *word);
+int		is_absolute_path(char *path);
 // processing.c
 void	process_word(char *str, t_meta *pkg);
 void	process_operator(char *str, t_meta *pkg);

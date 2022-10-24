@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 13:48:35 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/24 14:03:18 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ char	*is_cmd(char *name, t_meta *pkg)
 	path = NULL;
 	if (pkg->paths == NULL)
 		pkg->paths = init_paths(pkg);
-	if (is_absolute_path(name, pkg))
+	if (is_absolute_path(name))
 		return (name);
-	path = is_relative_path(name, pkg);
+	path = is_relative_path(name);
 	if (path != NULL)
 		return (path);
 	path = is_binary_name(name, pkg);
