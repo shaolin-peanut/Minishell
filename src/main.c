@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:27:35 by lanlan            #+#    #+#             */
-/*   Updated: 2022/09/25 21:46:42 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/10/24 13:30:10 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	main(int argc, char **argv, char **envp)
 //     		executor(chain);
 		free(prompt_str);
 		free_all(pkg);
-		//free(pkg->paths);
-		//free(pkg);
 	}
 	return (0);
 }
