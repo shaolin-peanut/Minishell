@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 13:39:07 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/24 14:07:50 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,13 @@ void	process_operator(char *str, t_meta *pkg)
 	(void) pkg;
 	printf("> operator: %c\n", str[pkg->i]);
 	if (str[pkg->i] == '|')
-	{
-		; // create_pipe_token(pkg, etc));
-	}
+		;
+// create_pipe_token(pkg, etc));
 	else if (is_heredoc(str, pkg->i))
-	{
 		expand_heredoc(pkg);
-		pkg->i += 1; //handle_heredoc expansion/lookup
-	}
 	else if (is_redirection(str, pkg->i))
-	{
-		; //create_redirection_token;
-	}
+		;
+//create_redirection_token;
 }
 
 void	process_dollar(char *str, t_meta *pkg)
