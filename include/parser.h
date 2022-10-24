@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 13:10:57 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/24 13:53:13 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 typedef struct s_meta		t_meta;
 
-typedef struct s_lex_node	t_lex_node;
+/*typedef struct s_lex_node	t_lex_node;
 
 struct s_lex_node
 {
 	t_lex_node	*prev;
 	char		*str;
 	t_lex_node	*next;
-};
+};*/
 
 // basic_char_checks.c
 int		is_blank(char *str, int i);

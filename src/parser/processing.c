@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 11:49:46 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/24 13:39:07 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,21 @@ void	process_word(char *str, t_meta *pkg)
 	word = return_word(str, pkg);
 	path = is_cmd(word, pkg);
 	if (is_builtin(word, pkg))
+	{
+		if (path)
+			free(path);
 		create_builtin_token(word, pkg);
+	}
 	else if (path)
+	{
 		create_cmd_token(word, path, pkg);
+	}
 	else
+	{
+		if (path)
+			free(path);	
 		create_alien_word_token(word, pkg);
+	}
 	free(word);
 }
 
