@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 19:19:40 by sbars             #+#    #+#             */
-/*   Updated: 2022/09/09 19:21:25 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/24 11:46:53 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/minishell.h"
+
+#include "minishell.h"
 
 t_meta	*init_meta(t_prompt	*prompt)
 {
@@ -23,10 +24,9 @@ t_meta	*init_meta(t_prompt	*prompt)
 	return (meta);
 }
 
-
 char	**init_paths(t_meta	*pkg)
 {
-	int	i;
+	int		i;
 	char	**tmp;
 	char	**paths;
 	char	**e;

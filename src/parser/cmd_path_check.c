@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexical_checks_C.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:56:03 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/10 14:27:11 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/24 12:19:08 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/minishell.h"
 
-int		is_absolute_path(char *path, t_meta *pkg)
+#include "minishell.h"
+
+int	is_absolute_path(char *path, t_meta *pkg)
 {
 	(void) pkg;
 	if (access(path, X_OK) == 0)
@@ -42,34 +43,28 @@ char	*is_relative_path(char *word, t_meta *pkg)
 	}
 }
 
-char    *is_binary_name(char *word, t_meta *pkg)
+char	*is_binary_name(char *word, t_meta *pkg)
 {
-    int	i;
-
-	i = -1;
+	int		i;
 	char	*path_and_slash;
 	char	*full_path;
 	char	**paths;
 
+	i = -1;
 	path_and_slash = NULL;
-	full_path = NULL; 
+	full_path = NULL;
 	paths = pkg->paths;
-    while (*(pkg->paths + ++i))
+	while (*(pkg->paths + ++i))
 	{
 		path_and_slash = ft_strjoin(paths[i], "/");
-		//printf("path_and_slash: %s\n", path_and_slash);
 		full_path = ft_strjoin(path_and_slash, word);
-		//printf("full_path: %s\n", full_path);
-		//free(path_and_slash);
-		//path_and_slash = NULL;
 		if (is_absolute_path(full_path, pkg))
-//		if (access(full_path, X_OK) == 0)
 			return (full_path);
 		else
 		{
 			free(full_path);
 			full_path = NULL;
 		}
-    }
-    return (NULL);	
+	}
+	return (NULL);
 }

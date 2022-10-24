@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexical_checks_B.c                                 :+:      :+:    :+:   */
+/*   compound_char_checks.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:03 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/10 14:27:11 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/24 13:12:27 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_blank(char *str, int i)
+int	is_word(char	*str, int i)
 {
-	if (str[i] == 32 || str[i] == 9)
-		return (1);
-	return (0);
+	return (str[i] != '\0' && !is_blank(str, i)
+		&& !is_operator(str, i) && !is_dollar(str[i]));
 }
 
-int is_redirection(char *str, int i)
+int	is_var(char	*str, int i)
+{
+	return (is_dollar(str[i] && is_word(str, i + 1)));
+}
+
+int	is_redirection(char *str, int i)
 {
 	if (str[i] == '<' || str[i] == '>' || (str[i] == '>' && str[i + 1] == '>'))
 		return (1);
 	return (0);
 }
 
-int is_heredoc(char *str, int i)
+int	is_heredoc(char *str, int i)
 {
 	if (str[i] == '<' && str[i + 1] == '<')
 		return (1);
@@ -38,11 +42,4 @@ int	is_operator(char *str, int i)
 	if (str[i] == '|' || is_redirection(str, i) || is_heredoc(str, i))
 		return (1);
 	return (0);
-}
-
-int	is_dollar_question(char *str, int i)
-{
-	if (str[i] != '$' || str[i + 1] != '?')
-		return (0);
-	return (1);
 }
