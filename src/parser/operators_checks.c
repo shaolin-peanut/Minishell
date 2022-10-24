@@ -1,42 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   basic_char_checks.c                                :+:      :+:    :+:   */
+/*   operators_checks.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 19:02:32 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 15:10:43 by sbars            ###   ########.fr       */
+/*   Created: 2022/10/24 14:57:09 by sbars             #+#    #+#             */
+/*   Updated: 2022/10/24 15:09:25 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
-int	is_blank(char *str, int i)
+int	is_operator(char *str, int i)
 {
-	if (str[i] == 32 || str[i] == 9)
+	if (is_pipe(str[i]) || is_redirection(str, i) || is_heredoc(str, i))
 		return (1);
 	return (0);
 }
 
-int	is_dollar(char c)
+int	is_redirection(char *str, int i)
 {
-	if (c == '$')
+	if (str[i] == '<' || str[i] == '>' || (str[i] == '>' && str[i + 1] == '>'))
 		return (1);
-	else
-		return (0);
+	return (0);
 }
 
-int	is_dollar_question(char *str, int i)
+int	is_heredoc(char *str, int i)
 {
-	if (str[i] != '$' || str[i + 1] != '?')
-		return (0);
-	return (1);
+	if (str[i] == '<' && str[i + 1] == '<')
+		return (1);
+	return (0);
 }
 
-int	is_quote(char c)
+int	is_pipe(char c)
 {
-	if (c == 39 || c == 34)
+	if (c == '|')
 		return (1);
 	return (0);
 }

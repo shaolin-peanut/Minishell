@@ -6,33 +6,11 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 14:03:18 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/24 15:00:10 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	word_len(char *str, t_meta *pkg)
-{
-	int	counter;
-	int	iterator;
-
-	counter = 0;
-	iterator = pkg->i;
-	while (is_word(str, iterator))
-	{
-		if (is_quote(str[iterator]) && (str[iterator + 1] != '\0'))
-		{
-			counter += quote_len(pkg, &iterator);
-		}
-		else
-		{
-			counter++;
-			iterator++;
-		}
-	}
-	return (counter);
-}
 
 // Counts the length of the word, including when it is made of one or more quote
 // allocates memory for that length, then copies characters from the main string
@@ -58,6 +36,28 @@ char	*return_word(char *str, t_meta *pkg)
 	pkg->i--;
 	printf("> word \"%s\"(%ld chars): \n", word, ft_strlen(word));
 	return (word);
+}
+
+int	word_len(char *str, t_meta *pkg)
+{
+	int	counter;
+	int	iterator;
+
+	counter = 0;
+	iterator = pkg->i;
+	while (is_word(str, iterator))
+	{
+		if (is_quote(str[iterator]) && (str[iterator + 1] != '\0'))
+		{
+			counter += quote_len(pkg, &iterator);
+		}
+		else
+		{
+			counter++;
+			iterator++;
+		}
+	}
+	return (counter);
 }
 
 // This command does several things

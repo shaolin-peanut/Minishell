@@ -18,6 +18,7 @@ SRCS					= $(SRCS_DIR)main.c \
 						  $(SRCS_DIR)/parser/parser.c \
 						$(SRCS_DIR)/parser/prompt.c \
 						$(SRCS_DIR)/parser/basic_char_checks.c \
+						$(SRCS_DIR)/parser/operators_checks.c \
 						$(SRCS_DIR)/parser/compound_char_checks.c \
 						$(SRCS_DIR)/parser/cmd_path_check.c \
 						$(SRCS_DIR)/parser/word_processing.c \
