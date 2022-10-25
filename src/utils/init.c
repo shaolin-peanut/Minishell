@@ -30,10 +30,8 @@ char	**init_paths(t_meta	*pkg)
 	int		i;
 	char	**tmp;
 	char	**paths;
-	char	**e;
 
 	i = -1;
-	e = pkg->prompt->envp;
 	tmp = NULL;
 	paths = NULL;
 	while (pkg->prompt->envp[++i])
