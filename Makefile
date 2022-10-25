@@ -17,16 +17,19 @@ INCS					= -I include
 SRCS					= $(SRCS_DIR)main.c \
 						  $(SRCS_DIR)/parser/parser.c \
 						$(SRCS_DIR)/parser/prompt.c \
-						$(SRCS_DIR)/parser/lexical_checks_A.c \
-						$(SRCS_DIR)/parser/lexical_checks_B.c \
-						$(SRCS_DIR)/parser/lexical_checks_C.c \
+						$(SRCS_DIR)/parser/basic_char_checks.c \
+						$(SRCS_DIR)/parser/operators_checks.c \
+						$(SRCS_DIR)/parser/compound_char_checks.c \
+						$(SRCS_DIR)/parser/cmd_path_check.c \
 						$(SRCS_DIR)/parser/word_processing.c \
 						$(SRCS_DIR)/parser/processing.c \
 						$(SRCS_DIR)/parser/create_tokens.c \
 						$(SRCS_DIR)/parser/quotes.c \
+						$(SRCS_DIR)/parser/heredoc.c \
 						$(SRCS_DIR)/utils/matrix.c \
 						$(SRCS_DIR)/utils/init.c \
-						$(SRCS_DIR)/utils/error.c
+						$(SRCS_DIR)/utils/error.c \
+						$(SRCS_DIR)/utils/memory.c
 					
 OBJS					= $(SRCS:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by lanlan            #+#    #+#             */
-/*   Updated: 2022/09/25 21:47:00 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/10/24 11:35:10 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ typedef struct s_prompt
 typedef struct s_meta
 {
 	t_prompt	*prompt;
-	char	**paths;
-	char	*str;
-	int		i;
-	int		i_backup;
+	char		**paths;
+	char		*str;
+	int			i;
+	int			i_backup;
 }			t_meta;
 
 // parser/
@@ -50,7 +50,7 @@ int		errormsg(char *str, t_meta	*pkg);
 // init.c
 t_meta	*init_meta(t_prompt *prompt);
 char	**init_paths(t_meta	*pkg);
-// parsing_utils.c
-int		last_strchr_index(char *str, char c);
+// memory.c
+void	free_all(t_meta *pkg);
 
 #endif

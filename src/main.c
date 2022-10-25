@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:27:35 by lanlan            #+#    #+#             */
-/*   Updated: 2022/09/25 21:46:42 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/10/24 15:10:56 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,17 @@ int	main(int argc, char **argv, char **envp)
 	t_meta		*pkg;
 	char		*prompt_str;
 
-	prompt = init_prompt(argv, envp);
 	while (argc || argv || envp)
 	{
+		prompt = init_prompt(argv, envp);
 		pkg = init_meta(&prompt);
 		prompt_str = get_prompt(prompt);
-//		chain = parser(readline(cwd));
 		if (prompt_str)
 			parser(readline(prompt_str), pkg);
 		else
 			parser(readline("guest@minishell $ "), pkg);
-//		if (chain != NULL)
-//     		executor(chain);
 		free(prompt_str);
-		free(pkg->paths);
-		free(pkg);
+		free_all(pkg);
 	}
 	return (0);
 }
