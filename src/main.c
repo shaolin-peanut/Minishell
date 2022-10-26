@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:27:35 by lanlan            #+#    #+#             */
-/*   Updated: 2022/10/24 15:10:56 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/26 13:48:37 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_prompt	init_prompt(char **argv, char **envp)
 
 	(void) argv;
 	prompt.commands = NULL;
-	prompt.envp = ft_matrixdup(envp);
+	prompt.envp = ft_dup_matrix(envp);
 	return (prompt);
 }
 

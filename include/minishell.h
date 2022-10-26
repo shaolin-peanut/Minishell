@@ -6,7 +6,7 @@
 /*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by lanlan            #+#    #+#             */
-/*   Updated: 2022/10/26 13:46:41 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/10/26 13:48:48 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ char	*get_prompt(t_prompt prompt);
 // For further parser prototypes, see parser.h
 
 // utils/
-// matrix.c
-char	**ft_matrixdup(char **matrix);
+
 // error.c
 int		errormsg(char *str, t_meta	*pkg);
 // init.c
