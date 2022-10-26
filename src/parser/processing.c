@@ -6,12 +6,11 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/25 15:27:45 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/26 13:13:23 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 void	process_word(char *str, t_meta *pkg)
 {
@@ -53,7 +52,6 @@ void	process_operator(char *str, t_meta *pkg)
 
 void	process_dollar(char *str, t_meta *pkg)
 {
-
 	printf("> dollar: %s\n", str + pkg->i);
 	if (is_var(str, pkg->i))
 		(void) pkg;

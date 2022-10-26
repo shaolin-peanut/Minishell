@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 13:12:06 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/25 17:17:33 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/26 13:16:49 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	create_heredoc_output(t_meta *pkg)
 }
 
 // finds the delimiter and increments until
-// the char jsut after the delimiter char	*return_delimiter(t_meta *pkg)
+// the char jsut after the delimiter char	
+char	*return_delimiter(t_meta *pkg)
 {
 	printf("heredoc found at index: %d\n", pkg->i);
 	pkg->i += 2;
@@ -75,8 +76,7 @@ char	*prompt_and_return(t_meta *pkg, char *output, char *delimiter)
 		{
 			if (is_heredoc_end(pkg, delimiter))
 			{
-				free(temp);
-				output = ft_strjoin(output, )
+				output = ft_strjoin(output, temp);
 				return (output);
 			}
 		}
