@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by lanlan            #+#    #+#             */
-/*   Updated: 2022/10/24 11:35:10 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/26 13:46:41 by lanlan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/libft.h"
+# include "../libft/inc/libft.h"
 # include "parser.h"
 # include <stdio.h>
 # include <readline/readline.h>
