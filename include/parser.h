@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/25 15:23:50 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/26 16:47:40 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 # define PARSER_H
 
 typedef struct s_meta		t_meta;
-
-/*typedef struct s_lex_node	t_lex_node;
-
-struct s_lex_node
-{
-	t_lex_node	*prev;
-	char		*str;
-	t_lex_node	*next;
-};*/
 
 // basic_char_checks.c
 int		is_blank(char *str, int i);
@@ -61,5 +52,6 @@ void	create_heredoc_output(t_meta *pkg);
 int		create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);
 int		create_builtin_token(char *cmd_name, t_meta *pkg);
 int		create_alien_word_token(char *word, t_meta *pkg);
+int		create_operator_token(t_meta *pkg, int type);
 
 #endif

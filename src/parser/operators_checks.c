@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:57:09 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 15:09:25 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/26 16:49:22 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ int	is_operator(char *str, int i)
 
 int	is_redirection(char *str, int i)
 {
-	if (str[i] == '<' || str[i] == '>' || (str[i] == '>' && str[i + 1] == '>'))
-		return (1);
+	if (str[i] == '<')
+		return (TOK_REDIR_IN);
+	else if (str[i] == '>')
+		return (TOK_REDIR_OUT);
+	else if (str[i] == '>' && str[i + 1] == '>')
+		return (TOK_APPEND_OUT);
 	return (0);
 }
 

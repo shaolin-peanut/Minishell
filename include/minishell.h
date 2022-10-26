@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by lanlan            #+#    #+#             */
-/*   Updated: 2022/10/24 11:35:10 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/26 15:28:13 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "parser.h"
+# include "token.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
