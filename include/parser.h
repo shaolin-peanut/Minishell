@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/26 16:47:40 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/27 16:24:20 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 typedef struct s_meta		t_meta;
+typedef struct s_cmd		t_cmd;
 
 // basic_char_checks.c
 int		is_blank(char *str, int i);
@@ -53,5 +54,7 @@ int		create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);
 int		create_builtin_token(char *cmd_name, t_meta *pkg);
 int		create_alien_word_token(char *word, t_meta *pkg);
 int		create_operator_token(t_meta *pkg, int type);
+// token_init.c
+t_cmd	*init_cmd(t_meta	*pkg);
 
 #endif

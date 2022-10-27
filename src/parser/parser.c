@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:10 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 13:34:36 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/27 15:29:01 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	lexical_scan(char *str, t_meta *pkg)
 		process_operator(str, pkg);
 }
 
-int	parser(char *str, t_meta *pkg)
+t_token	*parser(char *str, t_meta *pkg)
 {
 	pkg->str = str;
 	while (str[pkg->i] != '\0')
@@ -35,5 +35,5 @@ int	parser(char *str, t_meta *pkg)
 		lexical_scan(str, pkg);
 		pkg->i++;
 	}
-	return (1);
+	return (NULL);
 }

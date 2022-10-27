@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 19:19:40 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 11:46:53 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/27 17:05:18 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,28 @@ t_meta	*init_meta(t_prompt	*prompt)
 	meta->paths = NULL;
 	meta->str = NULL;
 	meta->i = 0;
+	meta->chain_head = NULL;
 	return (meta);
+}
+
+t_token	*init_token(t_meta *pkg)
+{
+	t_token	*last;
+	t_token	*tok;
+
+	tok = (t_token *) malloc(sizeof(t_token) * 1);
+	if (!tok)
+		errormsg("malloc err in init_token\n", pkg);
+	tok->token = NULL;
+	tok->type = 0;
+	tok->next = NULL;
+	tok->prev = NULL;
+	last = return_last_token(pkg);
+	if (last)
+		last->next = tok;
+	else
+		pkg->chain_head = tok;
+	return (tok);
 }
 
 char	**init_paths(t_meta	*pkg)

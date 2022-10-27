@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:27:35 by lanlan            #+#    #+#             */
-/*   Updated: 2022/10/24 15:10:56 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/27 16:08:07 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 			parser(readline(prompt_str), pkg);
 		else
 			parser(readline("guest@minishell $ "), pkg);
+		executor(pkg);
 		free(prompt_str);
 		free_all(pkg);
 	}
