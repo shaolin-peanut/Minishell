@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:19:35 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/27 16:54:35 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/28 14:05:36 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_cmd	*init_cmd(t_meta	*pkg)
 {
 	t_cmd	*command;
 
-	command = (t_cmd *) malloc(sizeof(t_cmd));
+	command = (t_cmd *) malloc(sizeof(t_cmd) * 1);
 	if (!command)
 		errormsg("malloc error in init_cmd\n", pkg);
 	command->binary_path = 0;

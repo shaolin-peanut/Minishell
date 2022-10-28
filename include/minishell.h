@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by lanlan            #+#    #+#             */
-/*   Updated: 2022/10/27 16:58:31 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/28 15:18:45 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ t_token	*init_token(t_meta *pkg);
 void	free_all(t_meta *pkg);
 // list_utils.c
 t_token	*return_last_token(t_meta	*pkg);
+void	*cast_token(t_token	*token);
+char	**convert_list_to_vector(t_builder *head, int size);
+// build_argv.c
+char	**build_argument_vector(char *name, t_meta *pkg);
 // executor/
 
 // executor.c

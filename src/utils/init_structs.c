@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 19:19:40 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/27 17:05:18 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/28 13:59:20 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,14 @@ t_token	*init_token(t_meta *pkg)
 	tok->prev = NULL;
 	last = return_last_token(pkg);
 	if (last)
+	{
 		last->next = tok;
+		tok->prev = last;
+	}
 	else
+	{
 		pkg->chain_head = tok;
+	}
 	return (tok);
 }
 

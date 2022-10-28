@@ -32,7 +32,9 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/utils/init_structs.c \
 						$(SRCS_DIR)/utils/error.c \
 						$(SRCS_DIR)/utils/memory.c \
-						$(SRCS_DIR)/utils/list_utils.c
+						$(SRCS_DIR)/utils/list_utils.c \
+						$(SRCS_DIR)/utils/build_argv.c
+
 					
 OBJS					= $(SRCS:.c=.o)
 

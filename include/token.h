@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:04:28 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/27 15:34:12 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/28 14:29:19 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef	struct s_builder	t_builder;
 
 struct s_builder
 {
-	int			index;
+	int			counter;
 	char		*word;
 	t_builder	*next;
 };
