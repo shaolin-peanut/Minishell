@@ -42,7 +42,7 @@ void	process_word(char *str, t_meta *pkg)
 void	process_operator(char *str, t_meta *pkg)
 {
 	if (is_pipe(str[pkg->i]))
-		create_operator_token(pkg, TOK_PIPE);
+		create_operator_token(pkg, 5);
 	else if (is_heredoc(str, pkg->i))
 		expand_heredoc(pkg);
 	else if (is_redirection(str, pkg->i))

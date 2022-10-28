@@ -27,6 +27,15 @@
 
 typedef struct s_token	t_token;
 
+typedef	struct s_builder	t_builder;
+
+struct s_builder
+{
+	int			index;
+	char		*word;
+	t_builder	*next;
+};
+
 struct s_token
 {
 	void			*token;
