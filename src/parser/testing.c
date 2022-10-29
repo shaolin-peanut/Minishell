@@ -39,6 +39,16 @@ void	print_word(t_token	*tok)
 	printf("|> str: %s\n", w->str);
 }
 
+void	print_builtin_token(t_token	*tok)
+{
+	t_builtin	*b;
+
+	b = cast_token(tok);
+	printf("|> TOKEN:BUILTIN\n");
+	printf("|> name: %s\n", b->argv[0]);
+	print_2d_vector(b->argv);
+}
+
 void	print_all_tokens(t_meta	*pkg)
 {
 	t_token	*token;
@@ -49,6 +59,8 @@ void	print_all_tokens(t_meta	*pkg)
 		printf("---\n");
 		if (token->type == TOK_CMD)
 			print_cmd_token(token);
+		if (token->type == TOK_BUILTIN)
+			print_builtin_token(token);
 		if (token->type == TOK_OP)
 			print_operator_tok(token);
 		if (token->type == TOK_WORD)
