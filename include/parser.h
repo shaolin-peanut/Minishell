@@ -13,6 +13,8 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+#include "token.h"
+
 typedef struct s_meta		t_meta;
 typedef struct s_cmd		t_cmd;
 
@@ -52,9 +54,12 @@ void	create_heredoc_output(t_meta *pkg);
 // create_tokens.c
 int		create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);
 int		create_builtin_token(char *cmd_name, t_meta *pkg);
-int		create_alien_word_token(char *word, t_meta *pkg);
+int		create_word_token(char *word, t_meta *pkg);
 int		create_operator_token(t_meta *pkg, int type);
 // token_init.c
 t_cmd	*init_cmd(t_meta	*pkg);
+t_word	*init_word(t_meta	*pkg);
+t_op	*init_op(t_meta	*pkg);
+t_builtin	*init_builtin(t_meta	*pkg);
 
 #endif

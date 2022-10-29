@@ -24,19 +24,19 @@ void	process_word(char *str, t_meta *pkg)
 	{
 		if (path)
 			free(path);
+		// create_builtin_token(word, pkg);
 		create_builtin_token(word, pkg);
 	}
 	else if (path)
-	{
 		create_cmd_token(word, path, pkg);
-	}
 	else
 	{
 		if (path)
 			free(path);
-		create_alien_word_token(word, pkg);
+		create_word_token(word, pkg);
 	}
-	free(word);
+	// come on now, stop freeing things too early
+	// free(word);
 }
 
 void	process_operator(char *str, t_meta *pkg)

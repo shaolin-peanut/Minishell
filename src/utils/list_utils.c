@@ -30,6 +30,12 @@ void	*cast_token(t_token	*token)
 {
 	if (token->type == TOK_CMD)
 		return ((t_cmd *)token->token);
+	else if (token->type == TOK_BUILTIN)
+		return ((t_builtin *)token->token);	
+	else if (token->type == TOK_WORD)
+		return ((t_word *)token->token);
+	else if (token->type == TOK_OP)
+		return ((t_op *)token->token);
 	else
 		return (NULL);
 }

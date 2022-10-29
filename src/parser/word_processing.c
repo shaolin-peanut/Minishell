@@ -34,7 +34,7 @@ char	*return_word(char *str, t_meta *pkg)
 			word[i++] = str[pkg->i++];
 	}
 	pkg->i--;
-	printf("> word \"%s\"(%ld chars): \n", word, ft_strlen(word));
+	// printf("> word \"%s\"(%ld chars): \n", word, ft_strlen(word));
 	return (word);
 }
 

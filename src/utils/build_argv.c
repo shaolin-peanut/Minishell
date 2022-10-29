@@ -12,26 +12,22 @@
 
 #include "minishell.h"
 
-void	free_str_vector(char **vector, int size)
+void	free_str_vector(char **vector)
 {
 	int	i;
 
 	i = -1;
-	(void) size;
 	while (vector[++i])
-	// while (++i < size)
 		free(vector[i]);
 	free(vector);
 }
 
-void	print_2d_vector(char **argv, int size)
+void	print_2d_vector(char **argv)
 {
 	int	i;
 
 	i = -1;
-	(void) size;
-	printf("> argv{%s", argv[++i]);
-	// while (++i < size)
+	printf("|> argv{%s", argv[++i]);
 	while (argv[++i] != NULL)
 		printf(", %s", argv[i]);
 	printf("}\n");
@@ -51,7 +47,6 @@ t_builder	*init_builder(int *i, char *str)
 	b->next = NULL;
 	return (b);
 }
-	// Maybe malloc b->next in advance and always loop through on closure?
 
 // What happens in there?
 // Create a list of 'builder' structs
@@ -65,16 +60,18 @@ char	**build_argument_vector(char *name, t_meta *pkg)
 	t_builder	*tmp;
 	t_builder	*last;
 	int			b_i;
+	char		*s;
 
+	s = pkg->str;
 	tmp = NULL;
 	b_i = 0;
 	head = NULL;
 	head = init_builder(&b_i, name);
 	pkg->i++;
 	last = head;
-	while (is_blank(pkg->str, pkg->i) || is_word(pkg->str, pkg->i))
+	while (is_blank(s, pkg->i) || is_dollar(s[pkg->i]) || is_word(s, pkg->i))
 	{
-		if (is_word(pkg->str, pkg->i))
+		if (is_word(s, pkg->i))
 		{
 			tmp = init_builder(&b_i, return_word(pkg->str, pkg));
 			last->next = tmp;
@@ -84,8 +81,8 @@ char	**build_argument_vector(char *name, t_meta *pkg)
 	}
 	pkg->i--;
 	argument_vector = convert_list_to_vector(head, last->counter);
-	print_2d_vector(argument_vector, last->counter);
-	free_str_vector(argument_vector, last->counter);
+	// print_2d_vector(argument_vector);
+	// free_str_vector(argument_vector);
+	// free stuff not here, in program termination functions, or from errormsg
 	return (argument_vector);
 }
-//free_argv(argument_vector);

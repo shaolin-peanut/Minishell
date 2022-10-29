@@ -58,11 +58,18 @@ void	free_all(t_meta *pkg);
 t_token	*return_last_token(t_meta	*pkg);
 void	*cast_token(t_token	*token);
 char	**convert_list_to_vector(t_builder *head, int size);
+void	print_2d_vector(char **argv);
 // build_argv.c
 char	**build_argument_vector(char *name, t_meta *pkg);
 // executor/
 
 // executor.c
 void	executor(t_meta *pkg);
+
+// == TEMPORARY ==
+// testing.c
+void	print_cmd_token(t_token	*tok);
+void	print_operator_tok(t_token	*tok);
+void	print_all_tokens(t_meta	*pkg);
 
 #endif

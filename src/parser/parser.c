@@ -31,7 +31,7 @@ t_token	*parser(char *str, t_meta *pkg)
 	pkg->str = str;
 	while (str[pkg->i] != '\0')
 	{
-		printf("STR[%d]:'%c'\n", pkg->i, str[pkg->i]);
+		// printf("STR[%d]:'%c'\n", pkg->i, str[pkg->i]);
 		lexical_scan(str, pkg);
 		pkg->i++;
 	}

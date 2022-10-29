@@ -15,15 +15,15 @@
 
 # define TOK_NULL 0
 # define TOK_WORD 1
-# define TOK_QUOTE 2
-# define TOK_OP 3
+# define TOK_FILE 2
+# define TOK_BUILTIN 3
 # define TOK_CMD 4
+# define TOK_OP 55
 # define TOK_PIPE 5
 # define TOK_REDIR_IN 6
 # define TOK_REDIR_OUT 7
 # define TOK_APPEND_OUT 8
 # define TOK_HEREDOC 9
-# define TOK_FILE 10
 
 typedef struct s_token	t_token;
 
@@ -43,21 +43,30 @@ struct s_token
 	struct s_token	*next;
 	struct s_token	*prev;
 };
-
 typedef struct s_cmd
 {
 	char	*binary_path;
-	char	**cmd_argv;
+	char	**argv;
 	int		fd_in;
 	int		fd_out;
-	int		pid;
 }	t_cmd;
 
-typedef struct s_operator
+typedef struct s_builtin
+{
+	char	**argv;
+	int		fd_in;
+	int		fd_out;
+}	t_builtin;
+typedef struct s_op
 {
 	int		type;
 	int		fd_in;
 	int		fd_out;
-}	t_operator;
+}	t_op;
 
+typedef struct s_word
+{
+	int		type;
+	char	*str;
+}	t_word;
 #endif
