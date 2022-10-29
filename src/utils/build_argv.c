@@ -12,23 +12,29 @@
 
 #include "minishell.h"
 
-void	free_str_vector(char **vector)
+void	free_str_vector(char **vector, int size)
 {
 	int	i;
 
 	i = -1;
+	(void) size;
 	while (vector[++i])
+	// while (++i < size)
 		free(vector[i]);
 	free(vector);
 }
 
-void	print_2d_vector(char **argv)
+void	print_2d_vector(char **argv, int size)
 {
 	int	i;
 
 	i = -1;
+	(void) size;
+	printf("> argv{%s", argv[++i]);
+	// while (++i < size)
 	while (argv[++i] != NULL)
-		printf(">argv[%d]:%s\n", i, argv[i]);
+		printf(", %s", argv[i]);
+	printf("}\n");
 }
 
 t_builder	*init_builder(int *i, char *str)
@@ -43,7 +49,6 @@ t_builder	*init_builder(int *i, char *str)
 	b->word = NULL;
 	b->word = str;
 	b->next = NULL;
-	printf("builder->counter:%d\nbuilder->word: %s\n", b->counter, b->word);
 	return (b);
 }
 	// Maybe malloc b->next in advance and always loop through on closure?
@@ -65,23 +70,22 @@ char	**build_argument_vector(char *name, t_meta *pkg)
 	b_i = 0;
 	head = NULL;
 	head = init_builder(&b_i, name);
-	printf("head->word: %s\n", head->word);
+	pkg->i++;
 	last = head;
 	while (is_blank(pkg->str, pkg->i) || is_word(pkg->str, pkg->i))
 	{
 		if (is_word(pkg->str, pkg->i))
 		{
 			tmp = init_builder(&b_i, return_word(pkg->str, pkg));
-			pkg->i++;
 			last->next = tmp;
 			last = tmp;
 		}
-		if (is_blank(pkg->str, pkg->i))
-			pkg->i++;
+		pkg->i++;
 	}
+	pkg->i--;
 	argument_vector = convert_list_to_vector(head, last->counter);
-	print_2d_vector(argument_vector);
-	free_str_vector(argument_vector);
+	print_2d_vector(argument_vector, last->counter);
+	free_str_vector(argument_vector, last->counter);
 	return (argument_vector);
 }
 //free_argv(argument_vector);

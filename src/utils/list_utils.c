@@ -52,20 +52,20 @@ void	free_list(t_builder	*node)
 char	**convert_list_to_vector(t_builder	*head, int size)
 {
 	char		**vector;
-	t_builder	*backup;
+	t_builder	*current;
 	int			i;
 
 	i = -1;
-	backup = head;
-	vector = (char **) malloc(sizeof(char *) * size);
+	current = head;
+	vector = (char **) malloc(sizeof(char *) * size + 1);
 	if (!vector)
 		return (NULL);
 	vector[size] = NULL;
-	while (head != NULL && ++i < size)
+	while (current != NULL && ++i < size + 1)
 	{
-		vector[i] = ft_strdup(head->word);
-		head = head->next;
+		vector[i] = ft_strdup(current->word);
+		current = current->next;
 	}
-	//free_list(backup);
+	// free_list(head);
 	return (vector);
 }
