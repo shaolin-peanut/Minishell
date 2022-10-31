@@ -41,7 +41,7 @@ void	print_word(t_token	*tok)
 
 void	print_builtin_token(t_token	*tok)
 {
-	t_builtin	*b;
+	t_bltn	*b;
 
 	b = cast_token(tok);
 	printf("|> TOKEN:BUILTIN\n");

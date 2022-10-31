@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:04:28 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/28 14:29:19 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/31 14:16:18 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define TOK_APPEND_OUT 8
 # define TOK_HEREDOC 9
 
-typedef struct s_token	t_token;
+typedef struct s_token		t_token;
 
-typedef	struct s_builder	t_builder;
+typedef struct s_builder	t_builder;
 
 struct s_builder
 {
@@ -51,12 +51,13 @@ typedef struct s_cmd
 	int		fd_out;
 }	t_cmd;
 
-typedef struct s_builtin
+typedef struct s_bltn
 {
 	char	**argv;
 	int		fd_in;
 	int		fd_out;
-}	t_builtin;
+}	t_bltn;
+
 typedef struct s_op
 {
 	int		type;

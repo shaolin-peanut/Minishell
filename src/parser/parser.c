@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:10 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/27 15:29:01 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/31 15:16:34 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ t_token	*parser(char *str, t_meta *pkg)
 	pkg->str = str;
 	while (str[pkg->i] != '\0')
 	{
-		// printf("STR[%d]:'%c'\n", pkg->i, str[pkg->i]);
 		lexical_scan(str, pkg);
 		pkg->i++;
 	}
 	return (NULL);
 }
+		// printf("STR[%d]:'%c'\n", pkg->i, str[pkg->i]);

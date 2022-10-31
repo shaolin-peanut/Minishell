@@ -6,14 +6,14 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/27 16:24:20 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/31 16:00:28 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-#include "token.h"
+# include "token.h"
 
 typedef struct s_meta		t_meta;
 typedef struct s_cmd		t_cmd;
@@ -39,6 +39,8 @@ char	*is_binary_name(char *word, t_meta *pkg);
 void	process_word(char *str, t_meta *pkg);
 void	process_operator(char *str, t_meta *pkg);
 void	process_dollar(char *str, t_meta *pkg);
+// variables.c
+void	process_variable(t_meta	*pkg, char *str, int i);
 // word_processing.c
 char	*return_word(char *str, t_meta *pkg);
 int		word_len(char *str, t_meta *pkg);
@@ -60,6 +62,6 @@ int		create_operator_token(t_meta *pkg, int type);
 t_cmd	*init_cmd(t_meta	*pkg);
 t_word	*init_word(t_meta	*pkg);
 t_op	*init_op(t_meta	*pkg);
-t_builtin	*init_builtin(t_meta	*pkg);
+t_bltn	*init_builtin(t_meta	*pkg);
 
 #endif

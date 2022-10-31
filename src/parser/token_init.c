@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:19:35 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/28 14:05:36 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/31 12:10:52 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ t_cmd	*init_cmd(t_meta	*pkg)
 	return (command);
 }
 
-t_builtin	*init_builtin(t_meta	*pkg)
+t_bltn	*init_builtin(t_meta	*pkg)
 {
-	t_builtin	*builtin;
+	t_bltn	*builtin;
 
-	builtin = (t_builtin *) malloc(sizeof(t_builtin) * 1);
+	builtin = (t_bltn *) malloc(sizeof(t_bltn) * 1);
 	if (!builtin)
 		errormsg("malloc error in init-builtin\n", pkg);
 	builtin->argv = 0;

@@ -23,9 +23,10 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/parser/cmd_path_check.c \
 						$(SRCS_DIR)/parser/word_processing.c \
 						$(SRCS_DIR)/parser/processing.c \
-						$(SRCS_DIR)/parser/create_tokens.c \
+						$(SRCS_DIR)/parser/variables.c \
 						$(SRCS_DIR)/parser/quotes.c \
 						$(SRCS_DIR)/parser/heredoc.c \
+						$(SRCS_DIR)/parser/create_tokens.c \
 						$(SRCS_DIR)/parser/token_init.c \
 						$(SRCS_DIR)/parser/testing.c \
 						$(SRCS_DIR)/executor/executor.c \

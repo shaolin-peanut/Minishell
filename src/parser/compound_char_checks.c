@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:03 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/28 14:30:17 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/31 14:51:21 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ int	is_word(char	*str, int i)
 
 int	is_var(char	*str, int i)
 {
-	return (is_dollar(str[i] && is_word(str, i + 1)));
+	return (is_dollar(str[i] && is_word(str, i + 1))
+		&& !is_dollar_question(str, i));
 }

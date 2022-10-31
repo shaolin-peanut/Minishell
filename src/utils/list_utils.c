@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:36:20 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/28 15:44:43 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/31 14:15:25 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*cast_token(t_token	*token)
 	if (token->type == TOK_CMD)
 		return ((t_cmd *)token->token);
 	else if (token->type == TOK_BUILTIN)
-		return ((t_builtin *)token->token);	
+		return ((t_bltn *)token->token);
 	else if (token->type == TOK_WORD)
 		return ((t_word *)token->token);
 	else if (token->type == TOK_OP)
@@ -72,6 +72,5 @@ char	**convert_list_to_vector(t_builder	*head, int size)
 		vector[i] = ft_strdup(current->word);
 		current = current->next;
 	}
-	// free_list(head);
 	return (vector);
 }

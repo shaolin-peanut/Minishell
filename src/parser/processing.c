@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/26 16:46:58 by sbars            ###   ########.fr       */
+/*   Updated: 2022/10/31 16:00:51 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ void	process_dollar(char *str, t_meta *pkg)
 {
 	printf("> dollar: %s\n", str + pkg->i);
 	if (is_var(str, pkg->i))
-		(void) pkg;
+		process_variable(pkg, pkg->str, pkg->i);
 		//pkg-> = var_substitution();
 	if (is_dollar_question(str, pkg->i))
 		(void) pkg;
+	// just_print_last_fd_exit_status;
 	else
 		(void) pkg;
 }
