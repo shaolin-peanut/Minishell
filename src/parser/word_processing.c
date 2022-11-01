@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 15:00:10 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/01 18:04:59 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,15 @@ char	*is_cmd(char *name, t_meta *pkg)
 	if (is_absolute_path(name))
 		return (name);
 	path = is_relative_path(name);
-	if (path != NULL)
+	if (path)
 		return (path);
 	path = is_binary_name(name, pkg);
-	if (path != NULL)
+	if (path)
 		return (path);
 	return (NULL);
 }
 
-int	is_builtin(char *word, t_meta *pkg)
+bool	is_builtin(char *word, t_meta *pkg)
 {
 	(void) pkg;
 	// Reason I'm keeping the list below commented, is because

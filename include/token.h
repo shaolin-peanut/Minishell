@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:04:28 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/31 14:16:18 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/01 15:17:42 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ struct s_token
 	struct s_token	*next;
 	struct s_token	*prev;
 };
+
 typedef struct s_cmd
 {
 	char	*binary_path;

@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:10 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/31 15:16:34 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/01 14:36:11 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,14 @@ relationships with its neighbors */
 
 void	lexical_scan(char *str, t_meta *pkg)
 {
+	char	*word;
+
+	word = NULL;
 	if (is_word(str, pkg->i))
+	{
+		str = return_word(str, pkg);
 		process_word(str, pkg);
+	}
 	else if (is_dollar(str[pkg->i]))
 		process_dollar(str, pkg);
 	else if (is_operator(str, pkg->i))

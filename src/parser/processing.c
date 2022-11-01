@@ -6,35 +6,27 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/31 16:00:51 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/01 14:36:52 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	process_word(char *str, t_meta *pkg)
+void	process_word(char *word, t_meta *pkg)
 {
-	char	*word;
 	char	*path;
 
-	word = NULL;
-	word = return_word(str, pkg);
-	path = is_cmd(word, pkg);
+	path = NULL;
 	if (is_builtin(word, pkg))
 	{
-		if (path)
-			free(path);
-		// create_builtin_token(word, pkg);
 		create_builtin_token(word, pkg);
+		return ;
 	}
+	path = is_cmd(word, pkg);
+	if (!path)
+		create_word_token(word, pkg);
 	else if (path)
 		create_cmd_token(word, path, pkg);
-	else
-	{
-		if (path)
-			free(path);
-		create_word_token(word, pkg);
-	}
 	// come on now, stop freeing things too early
 	// free(word);
 }

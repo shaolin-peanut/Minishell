@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:22 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/31 14:22:41 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/01 15:14:34 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	create_builtin_token(char *name, t_meta	*pkg)
 	tok->token = init_builtin(pkg);
 	builtin = cast_token(tok);
 	builtin->argv = build_argument_vector(name, pkg);
-	builtin->fd_in = 0;
-	builtin->fd_out = builtin->fd_in + 1;
+	builtin->fd_in = STDIN_FILENO;
+	builtin->fd_out = STDOUT_FILENO;
 	return (1);
 }
 
@@ -92,7 +92,7 @@ int	create_operator_token(t_meta *pkg, int type)
 		// heredoc fd-in = expanded text between the delimiter
 		// heredoc fd-out = command before that
 	op->type = type;
-	op->fd_in = 0;
-	op->fd_out = op->fd_in + 1;
+	op->fd_in = STDIN_FILENO;
+	op->fd_out = STDOUT_FILENO;
 	return (0);
 }
