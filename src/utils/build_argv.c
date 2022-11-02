@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:39:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/01 16:14:57 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/02 18:22:15 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,19 @@ t_builder	*init_builder(int *i, char *str)
 	return (b);
 }
 
+static char	*get_next_word(char *str, t_meta *pkg)
+{
+	char		*word;
+
+	if (is_dollar(str[pkg->i]))
+	{
+		word = return_var_value(str, pkg);
+	}
+	else
+		word = return_word(str, pkg);
+	return (word);
+}
+
 // What happens in there?
 // Create a list of 'builder' structs
 // every item contains a counter which tells me how many strings we have
@@ -65,12 +78,11 @@ char	**build_argument_vector(char *name, t_meta *pkg)
 	head = init_builder(&b_i, name);
 	pkg->i++;
 	last = head;
-	while (is_blank(pkg->str, pkg->i) || is_dollar(pkg->str[pkg->i])
-		|| is_word(pkg->str, pkg->i))
+	while (pkg->str[pkg->i] != '\0' && !is_operator(pkg->str, pkg->i))
 	{
-		if (is_word(pkg->str, pkg->i))
-		{
-			tmp = init_builder(&b_i, return_word(pkg->str, pkg));
+		if (is_word(pkg->str, pkg->i) || is_dollar(pkg->str[pkg->i]))
+		{		
+			tmp = init_builder(&b_i, get_next_word(pkg->str, pkg));
 			last->next = tmp;
 			last = tmp;
 		}

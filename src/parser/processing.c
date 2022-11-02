@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/01 14:36:52 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/02 17:26:43 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	process_word(char *word, t_meta *pkg)
 		create_word_token(word, pkg);
 	else if (path)
 		create_cmd_token(word, path, pkg);
-	// come on now, stop freeing things too early
-	// free(word);
 }
 
 void	process_operator(char *str, t_meta *pkg)

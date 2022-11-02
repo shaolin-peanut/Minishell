@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/01 18:04:59 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/02 17:26:14 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*return_word(char *str, t_meta *pkg)
 			word[i++] = str[pkg->i++];
 	}
 	pkg->i--;
-	// printf("> word \"%s\"(%ld chars): \n", word, ft_strlen(word));
 	return (word);
 }
 
@@ -78,6 +77,7 @@ char	*is_cmd(char *name, t_meta *pkg)
 	path = is_relative_path(name);
 	if (path)
 		return (path);
+	free(path);
 	path = is_binary_name(name, pkg);
 	if (path)
 		return (path);
@@ -87,15 +87,7 @@ char	*is_cmd(char *name, t_meta *pkg)
 bool	is_builtin(char *word, t_meta *pkg)
 {
 	(void) pkg;
-	// Reason I'm keeping the list below commented, is because
-	// this function could, on top of checking if the command is a builtin
-	// return a digit telling us which builtin it is.
-	// To associate a digit with a builtin, just have to do some defines
-	// #define ECHO 101
-	// #define CD 102
-	// etc, then it's useable in if conditions (if tmp = ECHO, run echo), pot timesaver
-	/*int i;
-	char	*list[8];
+	/*char	*list[8];
 	
 	i = -1;
 	list[0] = "echo";

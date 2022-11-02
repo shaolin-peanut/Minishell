@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/01 18:02:08 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/02 18:10:47 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ bool	is_var(char *str, int i);
 
 // operators_checks.c
 bool	is_operator(char *str, int i);
-bool	is_redirection(char *str, int i);
+//  function below uses ints to return which type of redirection is used,
+// function is re-used, after chekcing, as paramater for create_token_operator
+int		is_redirection(char *str, int i);
 bool	is_heredoc(char *str, int i);
 bool	is_pipe(char c);
 
@@ -47,6 +49,7 @@ void	process_dollar(char *str, t_meta *pkg);
 
 // variables.c
 void	process_variable(t_meta	*pkg, char *str, int i);
+char	*return_var_value(char *str, t_meta *pkg);
 
 // word_processing.c
 char	*return_word(char *str, t_meta *pkg);

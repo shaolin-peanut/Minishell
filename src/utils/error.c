@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 15:43:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/09/08 17:10:38 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/02 17:29:29 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/minishell.h"
+
+#include "minishell.h"
 
 int	errormsg(char *str, t_meta	*pkg)
 {
