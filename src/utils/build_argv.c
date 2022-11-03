@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:39:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/02 18:22:15 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/03 16:52:03 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static char	*get_next_word(char *str, t_meta *pkg)
 
 	if (is_dollar(str[pkg->i]))
 	{
-		word = return_var_value(str, pkg);
+		word = return_var_value(str, pkg, pkg->i);
+		//pkg->i += ft_strlen(word);
 	}
 	else
 		word = return_word(str, pkg);

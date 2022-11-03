@@ -6,18 +6,18 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:59:05 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/03 14:35:42 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/03 16:18:13 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	var_name_len(char *str, t_meta *pkg)
+int	var_name_len(char *str, int index)
 {
 	int	iterator;
 	int	len;
 
-	iterator = pkg->i;
+	iterator = index;
 	len = 0;
 	while (is_word(str, iterator))
 	{
@@ -27,22 +27,27 @@ int	var_name_len(char *str, t_meta *pkg)
 	return (len);
 }
 
-char	*return_var_value(char *str, t_meta *pkg)
+// will incremnet index, instead of pkg->i,
+// index can be pkg->i, right?
+// and it can also be a copy of it, for getting len
+char	*return_var_value(char *str, t_meta *pkg, int index)
 {
 	char	*word;
 	char	*value;
 	int		len;
 	int		i;
 
+	(void) pkg;
 	i = 0;
 	value = NULL;
-	pkg->i++;
-	len = var_name_len(str, pkg);
+	//if (is_dollar(str[index]))
+	index++;
+	len = var_name_len(str, index);
 	word = NULL;
 	word = (char *) malloc(sizeof(char) * len + 1);
 	word[len] = '\0';
-	while (i < len && is_word(str, pkg->i))
-			word[i++] = str[pkg->i++];
+	while (i < len && is_word(str, index))
+			word[i++] = str[index++];
 	// set env if there's = after the arg name
 	//pkg->i--;
 	value = getenv(word);
@@ -61,7 +66,8 @@ void	process_variable(t_meta *pkg, char *str, int i)
 	(void) i;
 	value = NULL;
 	path = NULL;
-	value = return_var_value(str, pkg);
+	value = return_var_value(str, pkg, pkg->i);
+	pkg->i += ft_strlen(value);
 	if (!value)
 		return ;
 	if (is_word(value, 0))

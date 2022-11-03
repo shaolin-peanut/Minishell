@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/03 14:36:51 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/03 16:17:27 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	process_dollar(char *str, t_meta *pkg);
 
 // variables.c
 void	process_variable(t_meta	*pkg, char *str, int i);
-char	*return_var_value(char *str, t_meta *pkg);
+char	*return_var_value(char *str, t_meta *pkg, int index);
 
 // word_processing.c
 char	*return_word(char *str, t_meta *pkg);
@@ -58,7 +58,7 @@ char	*is_cmd(char *name, t_meta *pkg);
 bool	is_builtin(char *word, t_meta *pkg);
 
 // quotes.c
-int		var_name_len(char *str, t_meta *pkg);
+int		var_name_len(char *str, int index);
 int		add_var_value(char *word, int i, t_meta *pkg);
 int		quote_in_word(char *str);
 int		add_quote_content(char *word, int i, t_meta *pkg);
