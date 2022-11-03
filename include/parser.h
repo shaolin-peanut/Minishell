@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/02 18:10:47 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/03 14:36:51 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char	*is_cmd(char *name, t_meta *pkg);
 bool	is_builtin(char *word, t_meta *pkg);
 
 // quotes.c
+int		var_name_len(char *str, t_meta *pkg);
+int		add_var_value(char *word, int i, t_meta *pkg);
 int		quote_in_word(char *str);
 int		add_quote_content(char *word, int i, t_meta *pkg);
 int		quote_len(t_meta *pkg, int *counter);

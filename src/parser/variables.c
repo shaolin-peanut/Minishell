@@ -6,13 +6,13 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:59:05 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/02 18:10:52 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/03 14:35:42 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	var_name_len(char *str, t_meta *pkg)
+int	var_name_len(char *str, t_meta *pkg)
 {
 	int	iterator;
 	int	len;
@@ -27,8 +27,6 @@ static int	var_name_len(char *str, t_meta *pkg)
 	return (len);
 }
 
-// Counts the length of the word, allocates memory for that length, then copies characters from the main string
-// to the word string, omitting the quotes and copying the rest
 char	*return_var_value(char *str, t_meta *pkg)
 {
 	char	*word;
@@ -48,6 +46,7 @@ char	*return_var_value(char *str, t_meta *pkg)
 	// set env if there's = after the arg name
 	//pkg->i--;
 	value = getenv(word);
+	free(word);
 	if (value)
 		return (value);
 	else
