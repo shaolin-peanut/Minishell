@@ -16,6 +16,9 @@
 # include "token.h"
 # include <stdbool.h>
 
+# define ITER 1
+# define COUNT 0
+
 typedef struct s_meta		t_meta;
 typedef struct s_cmd		t_cmd;
 
@@ -62,7 +65,7 @@ int		var_name_len(char *str, int index);
 int		add_var_value(char *word, int i, t_meta *pkg);
 int		quote_in_word(char *str);
 int		add_quote_content(char *word, int i, t_meta *pkg);
-int		quote_len(t_meta *pkg, int *counter);
+int		*quote_len(t_meta *pkg, int *counter);
 
 // heredoc.c
 void	expand_heredoc(t_meta *pkg);

@@ -14,18 +14,14 @@
 
 int	var_name_len(char *str, int index)
 {
-	int	iterator;
 	int	len;
 
-	iterator = index;
 	len = 0;
-	if (is_dollar(str[index]) && is_word(str, index + 1))
-		iterator++;
-	while (is_word(str, iterator))
-	{
-		iterator++;
+	if (is_dollar(str[index]))
+		index++;
+	while (is_word(str, len + index) && !is_quote(str[len + index]))
 		len++;
-	}
+	printf("var_name_len:%d\n", len);
 	return (len);
 }
 
@@ -42,34 +38,33 @@ char	*return_var_value(char *str, t_meta *pkg, int index)
 	(void) pkg;
 	i = 0;
 	value = NULL;
-	//if (is_dollar(str[index]))
-	index++;
-	len = var_name_len(str, index);
+	len = 0;
+	if (is_dollar(str[index]))
+		index++;
+	while (is_word(str, len + index))
+		len++;
 	word = NULL;
 	word = (char *) malloc(sizeof(char) * len + 1);
 	word[len] = '\0';
-	while (i < len && is_word(str, index))
+	while (i < len && is_word(str, index) && !is_quote(str[index]))
 			word[i++] = str[index++];
 	// set env if there's = after the arg name
+	printf("return_var_value var name:%s$\n", word);
+	index--;
 	//pkg->i--;
 	value = getenv(word);
 	free(word);
-	if (value)
-		return (value);
-	else
-		return (NULL);
+	return (value);
 }
 
 void	process_variable(t_meta *pkg, char *str, int i)
 {
 	char	*value;
-	// char	*path;
 
 	(void) i;
 	value = NULL;
-	// path = NULL;
 	value = return_var_value(str, pkg, pkg->i);
-	pkg->i += ft_strlen(value);
+	pkg->i += var_name_len(str, i);
 	if (!value)
 		return ;
 	if (is_word(value, 0))

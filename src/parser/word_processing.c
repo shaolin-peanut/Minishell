@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+
+
 // Counts the length of the word, including when it is made of one or more quote
 // allocates memory for that length, then copies characters from the main string
 // to the word string, omitting the quotes and copying the rest
@@ -40,24 +42,29 @@ char	*return_word(char *str, t_meta *pkg)
 
 int	word_len(char *str, t_meta *pkg)
 {
-	int	counter;
-	int	iterator;
+	int	*counter_iterator;
+	int	ret;
 
-	counter = 0;
-	iterator = pkg->i;
-	while (is_word(str, iterator))
+	counter_iterator = (int *) malloc(sizeof(int) * 2);
+	counter_iterator[COUNT] = 0;
+	counter_iterator[ITER] = 0;
+	counter_iterator[ITER] = pkg->i;
+	ret = 0;
+	while (is_word(str, counter_iterator[ITER]))
 	{
-		if (is_quote(str[iterator]) && (str[iterator + 1] != '\0'))
+		if (is_quote(str[counter_iterator[ITER]]) && (str[counter_iterator[1] + 1] != '\0'))
 		{
-			counter += quote_len(pkg, &iterator);
+			counter_iterator = quote_len(pkg, counter_iterator);
 		}
 		else
 		{
-			counter++;
-			iterator++;
+			counter_iterator[COUNT]++;
+			counter_iterator[ITER]++;
 		}
 	}
-	return (counter);
+	ret = counter_iterator[COUNT];
+	free(counter_iterator);
+	return (ret);
 }
 
 // This command does several things

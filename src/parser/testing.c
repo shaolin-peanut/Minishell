@@ -36,7 +36,7 @@ void	print_word(t_token	*tok)
 
 	w = cast_token(tok);
 	printf("|> TOKEN:WORD\n");
-	printf("|> str: %s\n", w->str);
+	printf("|> str: %s$\n", w->str);
 }
 
 void	print_builtin_token(t_token	*tok)

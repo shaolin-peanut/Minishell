@@ -20,6 +20,8 @@ bool	is_word(char	*str, int i)
 
 bool	is_var(char	*str, int i)
 {
+	if (is_dollar(str[i - 1]) && is_word(str, i))
+		i--;
 	return (is_dollar(str[i]) && is_word(str, i + 1)
 		&& !is_dollar_question(str, i));
 }

@@ -17,56 +17,81 @@ int	add_var_value(char	*word, int i, t_meta *pkg)
 	char	*value;
 	int		value_i;
 
-	printf("STR[%d]: %c", pkg->i, pkg->str[pkg->i]);
-	value = return_var_value(pkg->str, pkg, pkg->i);
 	value_i = 0;
+	printf("STR[%d]: %c", pkg->i, pkg->str[pkg->i]);
+	value = NULL;
+	value = return_var_value(pkg->str, pkg, pkg->i);
+	if (!value)
+	{
+		printf("errror\n");
+		return (++i);
+	}
 	while (value[value_i] && word[i])
 		word[i++] = value[value_i++];
+	// i--;
 	return (i);
 }
 
-int	add_var_len(t_meta *pkg, int len, int i)
+int	add_var_len(t_meta *pkg, int len, int iter)
 {
 	char	*value;
+	int		copy;
 
-	if (!is_dollar(pkg->str[i]))
+	copy = iter;
+	value = NULL;
+	value = return_var_value(pkg->str, pkg, copy);
+	if (value)
+		len += ft_strlen(value);
+	else
 	{
-		errormsg("not a var in var_len\n", pkg);
-		return (0);
+		printf("no value returned\n");
+		len++;
 	}
-	value = return_var_value(pkg->str, pkg, i);
-	//pkg->i = pkg->i - ft_strlen(value);
-	//if (value)
-	len += ft_strlen(value);
 	printf("add_var_len resulting len: %d\n", len);
-	free(value);
 	return (len);
 }
 
-// This function makes a copy of pkg->i, and iterates through
-// pkg->str until a closing quote is found and all variables are expanded
-int	quote_len(t_meta *pkg, int *iterator)
+// two purposes:
+// 1. counter
+// has to be the number of characteres within the quote
+// if there are variables, the number of chars of the value of the
+// variable must be added to the total count returned.
+// 2. iterator
+// When returning, it must be index + 1 after the closing quote
+int	*quote_len(t_meta *pkg, int *c_i)
 {
 	char	type;
-	int		len;
+	char	*value;
 
-	type = pkg->str[*iterator];
-	*iterator += 1;
-	len = 0;
-	while (pkg->str[*iterator] != '\0')
+	type = pkg->str[c_i[ITER]];
+	c_i[ITER]++;
+	while (pkg->str[c_i[ITER]] != '\0')
 	{
-		if (is_var(pkg->str, *iterator))
+		if (type == 34 && is_var(pkg->str, c_i[ITER]))
 		{
-			len = add_var_len(pkg, len, *iterator);
-			//*iterator += var_name_len(pkg->str, *iterator) + 1;
-			printf ("quote_len:\n-len: %d\n-iterator: %d\n-str[i]:%c\n", len, *iterator, pkg->str[*iterator]);
+			// the length of the output word is incremented by
+			// the number of characters of the var value
+			value = return_var_value(pkg->str, pkg, c_i[ITER]);
+			if (value)
+				c_i[COUNT] = ft_strlen(value);
+			// the iterator itself, is incremented by the number of characters
+			// of the variable name, plus 1 for the dollar
+			// c_i[ITER] += var_name_len(pkg->str, c_i[ITER]) + 1;
 		}
-		if (pkg->str[*iterator++] == type)
-			return (len);
+		if (pkg->str[c_i[ITER]] == type)
+		{
+			c_i[ITER]++;
+			printf ("quote_len:\n-len: %d\n-iterator: %d\n-str[i]:%c\n", c_i[COUNT], c_i[ITER], pkg->str[c_i[ITER]]);
+			return (c_i);
+		}
 		else
-			len++;
+		{
+			c_i[COUNT]++;
+			c_i[ITER]++;
+		}
+		printf ("quote_len:\n-len: %d\n-iterator: %d\n-str[iter - 1]:%c\n", c_i[COUNT], c_i[ITER], pkg->str[c_i[ITER] - 1]);
 	}
-	return (len);
+	return (c_i);
 }
 
 // this function adds to word, the content of the variable, and skips over the
@@ -79,8 +104,11 @@ int	add_quote_content(char *word, int i, t_meta *pkg)
 	pkg->i++;
 	while (pkg->str[pkg->i] != '\0')
 	{
-		if (is_var(pkg->str, pkg->i))
+		if (type == 34 && is_var(pkg->str, pkg->i))
+		{
 			i = add_var_value(word, i, pkg);
+			pkg->i += var_name_len(pkg->str, pkg->i) + 1;
+		}
 		if (pkg->str[pkg->i] == type)
 		{
 			pkg->i++;
