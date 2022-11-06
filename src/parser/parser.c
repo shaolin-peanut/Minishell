@@ -23,8 +23,8 @@ void	lexical_scan(char *str, t_meta *pkg)
 	word = NULL;
 	if (is_word(str, pkg->i))
 	{
-		str = return_word(str, pkg);
-		process_word(str, pkg);
+		word = return_word(str, pkg);
+		process_word(word, pkg);
 	}
 	else if (is_dollar(str[pkg->i]))
 		process_dollar(str, pkg);

@@ -55,7 +55,7 @@ static char	*get_next_word(char *str, t_meta *pkg)
 	if (is_dollar(str[pkg->i]))
 	{
 		word = return_var_value(str, pkg, pkg->i);
-		//pkg->i += ft_strlen(word);
+		pkg->i += var_name_len(str, pkg->i);
 	}
 	else
 		word = return_word(str, pkg);

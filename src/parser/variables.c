@@ -19,6 +19,8 @@ int	var_name_len(char *str, int index)
 
 	iterator = index;
 	len = 0;
+	if (is_dollar(str[index]) && is_word(str, index + 1))
+		iterator++;
 	while (is_word(str, iterator))
 	{
 		iterator++;
@@ -61,11 +63,11 @@ char	*return_var_value(char *str, t_meta *pkg, int index)
 void	process_variable(t_meta *pkg, char *str, int i)
 {
 	char	*value;
-	char	*path;
+	// char	*path;
 
 	(void) i;
 	value = NULL;
-	path = NULL;
+	// path = NULL;
 	value = return_var_value(str, pkg, pkg->i);
 	pkg->i += ft_strlen(value);
 	if (!value)
