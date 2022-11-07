@@ -6,13 +6,11 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/03 16:39:06 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/07 17:04:06 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-
 
 // Counts the length of the word, including when it is made of one or more quote
 // allocates memory for that length, then copies characters from the main string
@@ -25,7 +23,12 @@ char	*return_word(char *str, t_meta *pkg)
 
 	i = 0;
 	len = word_len(str, pkg);
-	printf("word_len output:%d\n", len);
+	if (!len)
+	{
+		printf("word is zero\n");
+		return (NULL);
+	}
+	//printf("word_len output:%d\n", len);
 	word = NULL;
 	word = (char *) malloc(sizeof(char) * len + 1);
 	word[len] = '\0';
@@ -52,9 +55,12 @@ int	word_len(char *str, t_meta *pkg)
 	ret = 0;
 	while (is_word(str, counter_iterator[ITER]))
 	{
-		if (is_quote(str[counter_iterator[ITER]]) && (str[counter_iterator[1] + 1] != '\0'))
+		if (is_quote(str[counter_iterator[ITER]])
+			&& (str[counter_iterator[1] + 1] != '\0'))
 		{
 			counter_iterator = quote_len(pkg, counter_iterator);
+			if (is_quote(str[counter_iterator[ITER]]))
+				break ;
 		}
 		else
 		{

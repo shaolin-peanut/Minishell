@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:44 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/03 16:50:40 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/07 17:05:44 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	add_var_value(char	*word, int i, t_meta *pkg)
 	if (!value)
 	{
 		printf("errror\n");
-		return (++i);
+		//return (++i);
+		return (i);
 	}
 	while (value[value_i] && word[i])
 		word[i++] = value[value_i++];
-	// i--;
 	return (i);
 }
 
@@ -43,10 +43,7 @@ int	add_var_len(t_meta *pkg, int len, int iter)
 	if (value)
 		len += ft_strlen(value);
 	else
-	{
 		printf("no value returned\n");
-		len++;
-	}
 	printf("add_var_len resulting len: %d\n", len);
 	return (len);
 }
@@ -69,19 +66,18 @@ int	*quote_len(t_meta *pkg, int *c_i)
 	{
 		if (type == 34 && is_var(pkg->str, c_i[ITER]))
 		{
-			// the length of the output word is incremented by
-			// the number of characters of the var value
 			value = return_var_value(pkg->str, pkg, c_i[ITER]);
 			if (value)
-				c_i[COUNT] = ft_strlen(value);
-			// the iterator itself, is incremented by the number of characters
-			// of the variable name, plus 1 for the dollar
-			// c_i[ITER] += var_name_len(pkg->str, c_i[ITER]) + 1;
+				c_i[COUNT] += ft_strlen(value);
+			else
+				c_i[ITER]++;
+				//printf("quote_len: no value returned from return_var_value\n");
+			c_i[ITER] += var_name_len(pkg->str, c_i[ITER]) + 1;
 		}
-		if (pkg->str[c_i[ITER]] == type)
+		else if (pkg->str[c_i[ITER]] == type)
 		{
 			c_i[ITER]++;
-			printf ("quote_len:\n-len: %d\n-iterator: %d\n-str[i]:%c\n", c_i[COUNT], c_i[ITER], pkg->str[c_i[ITER]]);
+			//printf ("closing quote_len:\n-len: %d\n-iterator: %d\n-str[i]:%c\n", c_i[COUNT], c_i[ITER], pkg->str[c_i[ITER]]);
 			return (c_i);
 		}
 		else
@@ -89,7 +85,7 @@ int	*quote_len(t_meta *pkg, int *c_i)
 			c_i[COUNT]++;
 			c_i[ITER]++;
 		}
-		printf ("quote_len:\n-len: %d\n-iterator: %d\n-str[iter - 1]:%c\n", c_i[COUNT], c_i[ITER], pkg->str[c_i[ITER] - 1]);
+		//printf ("quote_len:\n-len: %d\n-iterator: %d\n-str[iter - 1]:%c\n", c_i[COUNT], c_i[ITER], pkg->str[c_i[ITER] - 1]);
 	}
 	return (c_i);
 }
@@ -109,7 +105,7 @@ int	add_quote_content(char *word, int i, t_meta *pkg)
 			i = add_var_value(word, i, pkg);
 			pkg->i += var_name_len(pkg->str, pkg->i) + 1;
 		}
-		if (pkg->str[pkg->i] == type)
+		else if (pkg->str[pkg->i] == type)
 		{
 			pkg->i++;
 			return (i);

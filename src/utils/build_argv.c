@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:39:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/03 16:52:03 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/07 17:03:16 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,13 @@ void	free_str_vector(char **vector)
 	free(vector);
 }
 
-void	print_2d_vector(char **argv)
-{
-	int	i;
-
-	i = -1;
-	printf("|> argv{%s", argv[++i]);
-	while (argv[++i] != NULL)
-		printf(", %s", argv[i]);
-	printf("}\n");
-}
-
 t_builder	*init_builder(int *i, char *str)
 {
 	t_builder	*b;
 
 	b = NULL;
+	if (!str)
+		return (NULL);
 	b = (t_builder *)malloc(sizeof(t_builder) * 1);
 	if (!b)
 		return (NULL);
@@ -62,6 +53,17 @@ static char	*get_next_word(char *str, t_meta *pkg)
 	return (word);
 }
 
+void	add_to_back_of_list(int *counter, t_builder *head, char *word)
+{
+	t_builder	*last;
+
+	last = head;
+	while (last->next != NULL)
+		last = last->next;
+	last->next = init_builder(counter, word);
+	return ;
+}
+
 // What happens in there?
 // Create a list of 'builder' structs
 // every item contains a counter which tells me how many strings we have
@@ -70,26 +72,33 @@ static char	*get_next_word(char *str, t_meta *pkg)
 char	**build_argument_vector(char *name, t_meta *pkg)
 {
 	char		**argument_vector;
+	char		*word;
 	t_builder	*head;
-	t_builder	*tmp;
 	t_builder	*last;
 	int			b_i;
 
 	b_i = 0;
 	head = init_builder(&b_i, name);
-	pkg->i++;
 	last = head;
+	pkg->i++;
 	while (pkg->str[pkg->i] != '\0' && !is_operator(pkg->str, pkg->i))
 	{
 		if (is_word(pkg->str, pkg->i) || is_dollar(pkg->str[pkg->i]))
-		{		
-			tmp = init_builder(&b_i, get_next_word(pkg->str, pkg));
-			last->next = tmp;
-			last = tmp;
+		{
+			word = get_next_word(pkg->str, pkg);
+			if (word)
+				add_to_back_of_list(&b_i, head, word);
 		}
 		pkg->i++;
 	}
 	pkg->i--;
+	while (last->next != NULL)
+		last = last->next;
 	argument_vector = convert_list_to_vector(head, last->counter);
 	return (argument_vector);
 }
+
+/*
+echo "$user"|cat -e     === takes
+
+*/

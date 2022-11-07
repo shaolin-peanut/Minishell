@@ -6,11 +6,22 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:36:20 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/31 14:15:25 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/07 15:51:49 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	print_2d_vector(char **argv)
+{
+	int	i;
+
+	i = -1;
+	printf("|> argv{%s", argv[++i]);
+	while (argv[++i] != NULL)
+		printf(", %s", argv[i]);
+	printf("}\n");
+}
 
 t_token	*return_last_token(t_meta	*pkg)
 {
