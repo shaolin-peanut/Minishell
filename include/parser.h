@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/07 15:28:54 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/08 15:47:32 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*return_var_value(char *str, t_meta *pkg, int index);
 
 // word_processing.c
 char	*return_word(char *str, t_meta *pkg);
-int		word_len(char *str, t_meta *pkg);
+int		*word_len(char *str, t_meta *pkg);
 char	*is_cmd(char *name, t_meta *pkg);
 bool	is_builtin(char *word, t_meta *pkg);
 

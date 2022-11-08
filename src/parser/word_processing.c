@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/07 17:04:06 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/08 16:50:53 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,20 @@
 char	*return_word(char *str, t_meta *pkg)
 {
 	char	*word;
-	int		len;
+	int		*c_i;
 	int		i;
 
 	i = 0;
-	len = word_len(str, pkg);
-	if (!len)
+	c_i = word_len(str, pkg);
+	if (!c_i[COUNT])
 	{
-		printf("word is zero\n");
+		pkg->i = c_i[ITER] - 1;
 		return (NULL);
 	}
-	//printf("word_len output:%d\n", len);
 	word = NULL;
-	word = (char *) malloc(sizeof(char) * len + 1);
-	word[len] = '\0';
-	while (i < len && pkg->str[pkg->i])
+	word = (char *) malloc(sizeof(char) * c_i[COUNT] + 1);
+	word[c_i[COUNT]] = '\0';
+	while (i < c_i[COUNT] && pkg->str[pkg->i])
 	{
 		if (is_quote(str[pkg->i]))
 			i = add_quote_content(word, i, pkg);
@@ -40,27 +39,24 @@ char	*return_word(char *str, t_meta *pkg)
 			word[i++] = str[pkg->i++];
 	}
 	pkg->i--;
+	free(c_i);
 	return (word);
 }
 
-int	word_len(char *str, t_meta *pkg)
+int	*word_len(char *str, t_meta *pkg)
 {
 	int	*counter_iterator;
-	int	ret;
 
 	counter_iterator = (int *) malloc(sizeof(int) * 2);
 	counter_iterator[COUNT] = 0;
 	counter_iterator[ITER] = 0;
 	counter_iterator[ITER] = pkg->i;
-	ret = 0;
 	while (is_word(str, counter_iterator[ITER]))
 	{
 		if (is_quote(str[counter_iterator[ITER]])
-			&& (str[counter_iterator[1] + 1] != '\0'))
+			&& (str[counter_iterator[ITER] + 1] != '\0'))
 		{
 			counter_iterator = quote_len(pkg, counter_iterator);
-			if (is_quote(str[counter_iterator[ITER]]))
-				break ;
 		}
 		else
 		{
@@ -68,9 +64,7 @@ int	word_len(char *str, t_meta *pkg)
 			counter_iterator[ITER]++;
 		}
 	}
-	ret = counter_iterator[COUNT];
-	free(counter_iterator);
-	return (ret);
+	return (counter_iterator);
 }
 
 // This command does several things

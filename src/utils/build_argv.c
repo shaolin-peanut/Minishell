@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:39:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/07 17:03:16 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/08 15:44:11 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,18 @@ t_builder	*init_builder(int *i, char *str)
 static char	*get_next_word(char *str, t_meta *pkg)
 {
 	char		*word;
+	int			backup_i;
 
+	backup_i = pkg->i;
 	if (is_dollar(str[pkg->i]))
 	{
 		word = return_var_value(str, pkg, pkg->i);
 		pkg->i += var_name_len(str, pkg->i);
 	}
 	else
+	{
 		word = return_word(str, pkg);
+	}
 	return (word);
 }
 

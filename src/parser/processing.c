@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/03 15:34:23 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/08 15:56:47 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	process_word(char *word, t_meta *pkg)
 	char	*path;
 
 	path = NULL;
+	if (!word)
+		errormsg("minishell: : command not found\n", pkg);
 	if (is_builtin(word, pkg))
 	{
 		create_builtin_token(word, pkg);

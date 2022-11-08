@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:44 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/07 17:05:44 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/08 16:53:08 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ int	add_var_value(char	*word, int i, t_meta *pkg)
 	value = NULL;
 	value = return_var_value(pkg->str, pkg, pkg->i);
 	if (!value)
-	{
-		printf("errror\n");
-		//return (++i);
 		return (i);
-	}
 	while (value[value_i] && word[i])
 		word[i++] = value[value_i++];
 	return (i);
@@ -60,8 +56,7 @@ int	*quote_len(t_meta *pkg, int *c_i)
 	char	type;
 	char	*value;
 
-	type = pkg->str[c_i[ITER]];
-	c_i[ITER]++;
+	type = pkg->str[c_i[ITER]++];
 	while (pkg->str[c_i[ITER]] != '\0')
 	{
 		if (type == 34 && is_var(pkg->str, c_i[ITER]))
@@ -71,13 +66,11 @@ int	*quote_len(t_meta *pkg, int *c_i)
 				c_i[COUNT] += ft_strlen(value);
 			else
 				c_i[ITER]++;
-				//printf("quote_len: no value returned from return_var_value\n");
 			c_i[ITER] += var_name_len(pkg->str, c_i[ITER]) + 1;
 		}
-		else if (pkg->str[c_i[ITER]] == type)
+		if (pkg->str[c_i[ITER]] == type)
 		{
 			c_i[ITER]++;
-			//printf ("closing quote_len:\n-len: %d\n-iterator: %d\n-str[i]:%c\n", c_i[COUNT], c_i[ITER], pkg->str[c_i[ITER]]);
 			return (c_i);
 		}
 		else
@@ -85,7 +78,6 @@ int	*quote_len(t_meta *pkg, int *c_i)
 			c_i[COUNT]++;
 			c_i[ITER]++;
 		}
-		//printf ("quote_len:\n-len: %d\n-iterator: %d\n-str[iter - 1]:%c\n", c_i[COUNT], c_i[ITER], pkg->str[c_i[ITER] - 1]);
 	}
 	return (c_i);
 }
