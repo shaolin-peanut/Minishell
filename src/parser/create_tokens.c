@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:22 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/02 17:59:43 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/08 17:00:03 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 	cmd->fd_in = STDIN_FILENO;
 	cmd->fd_out = STDOUT_FILENO;
 	//cmd->pid = NULL;
-	//printf("> Cmd found!: %s\n> binary path: %s\n", cmd_name, full_path);
 	return (0);
 }
+	//printf("> Cmd found!: %s\n> binary path: %s\n", cmd_name, full_path);
 
 int	create_builtin_token(char *name, t_meta	*pkg)
 {

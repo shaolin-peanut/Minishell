@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:44 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/08 16:53:08 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/08 16:58:17 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	add_var_value(char	*word, int i, t_meta *pkg)
 	int		value_i;
 
 	value_i = 0;
-	printf("STR[%d]: %c", pkg->i, pkg->str[pkg->i]);
 	value = NULL;
 	value = return_var_value(pkg->str, pkg, pkg->i);
 	if (!value)
@@ -27,6 +26,7 @@ int	add_var_value(char	*word, int i, t_meta *pkg)
 		word[i++] = value[value_i++];
 	return (i);
 }
+	//printf("STR[%d]: %c", pkg->i, pkg->str[pkg->i]);
 
 int	add_var_len(t_meta *pkg, int len, int iter)
 {
