@@ -35,7 +35,8 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/utils/error.c \
 						$(SRCS_DIR)/utils/memory.c \
 						$(SRCS_DIR)/utils/list_utils.c \
-						$(SRCS_DIR)/utils/build_argv.c
+						$(SRCS_DIR)/utils/build_argv.c \
+						$(SRCS_DIR)/utils/parser_utils.c
 
 					
 OBJS					= $(SRCS:.c=.o)

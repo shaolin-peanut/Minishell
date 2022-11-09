@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:39:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/08 15:44:11 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/09 16:47:10 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ t_builder	*init_builder(int *i, char *str)
 	b = (t_builder *)malloc(sizeof(t_builder) * 1);
 	if (!b)
 		return (NULL);
-	b->counter = ++(*i);
+	if (i)
+		b->counter = ++(*i);
+	else
+		b->counter = 0;
 	b->word = NULL;
 	b->word = str;
 	b->next = NULL;
@@ -57,7 +60,7 @@ static char	*get_next_word(char *str, t_meta *pkg)
 	return (word);
 }
 
-void	add_to_back_of_list(int *counter, t_builder *head, char *word)
+t_builder	*add_to_back_of_list(int *counter, t_builder *head, char *word)
 {
 	t_builder	*last;
 
@@ -65,7 +68,8 @@ void	add_to_back_of_list(int *counter, t_builder *head, char *word)
 	while (last->next != NULL)
 		last = last->next;
 	last->next = init_builder(counter, word);
-	return ;
+	last = last->next;
+	return (last);
 }
 
 // What happens in there?

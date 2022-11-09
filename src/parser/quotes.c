@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:44 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/08 16:58:17 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/09 15:36:20 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ int	*quote_len(t_meta *pkg, int *c_i)
 			return (c_i);
 		}
 		else
-		{
-			c_i[COUNT]++;
-			c_i[ITER]++;
-		}
+			smart_iter(&c_i[COUNT], &c_i[ITER], 1, 1);
 	}
 	return (c_i);
 }
@@ -105,8 +102,7 @@ int	add_quote_content(char *word, int i, t_meta *pkg)
 		else
 		{
 			word[i] = pkg->str[pkg->i];
-			i++;
-			pkg->i++;
+			smart_iter(&i, &pkg->i, 1, 1);
 		}
 	}
 	return (i);

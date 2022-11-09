@@ -6,19 +6,12 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 13:12:06 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/26 13:16:49 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/09 17:36:00 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	create_heredoc_output(t_meta *pkg)
-{
-	(void) pkg;
-}
-
-// finds the delimiter and increments until
-// the char jsut after the delimiter char	
 char	*return_delimiter(t_meta *pkg)
 {
 	printf("heredoc found at index: %d\n", pkg->i);
@@ -33,89 +26,78 @@ char	*return_delimiter(t_meta *pkg)
 	return (NULL);
 }
 
-int	is_heredoc_end(t_meta *pkg, char *delimiter)
+char	*concatenate_list_to_str(t_builder	*head)
 {
-	int	i;
-	int	j;
+	char		*output;
+	char		*tmp;
+	t_builder	*current;
+	int			len;
 
-	if (ft_strncmp((pkg->str + pkg->i), delimiter, ft_strlen(delimiter)) == 0)
-		return (1);
-	else
-		return (0);
-	if (delimiter[0] == pkg->str[pkg->i])
-		return (0);
-	i = pkg->i;
-	j = 0;
-	while (delimiter[j] != '\0')
+	output = NULL;
+	tmp = NULL;
+	len = 0;
+	current = head;
+	while (current != NULL)
 	{
-		if (pkg->str[i] != delimiter[j])
-			return (0);
-		i++;
-		j++;
+		if (current->word[0] == '\n')
+			len++;
+		else
+			len += ft_strlen(current->word);
+		current = current->next;
 	}
-	return (1);
-}
-
-char	*prompt_and_return(t_meta *pkg, char *output, char *delimiter)
-{
-	int		i;
-	char	*new_str;
-	char	*temp;
-
-	if (!output)
-		output = ft_strdup("");
-	while (1)
+	output = (char *)malloc(sizeof(char) * len + 1);
+	// append function. Find end of content, and append.
+	ft_strlcpy(output, head->word, len);
+	while (head->next != NULL)
 	{
-		i = -1;
-		temp = readline(">");
-		new_str = ft_strjoin(output, temp);
+		head = head->next;
+		if (ft_strlen(head->word) < 1)
+			tmp = ft_strjoin(output, "\n");
+		else
+			tmp = ft_strjoin(output, head->word);
 		free(output);
-		output = ft_strdup(new_str);
-		free(new_str);
-		while (temp[++i])
-		{
-			if (is_heredoc_end(pkg, delimiter))
-			{
-				output = ft_strjoin(output, temp);
-				return (output);
-			}
-		}
-		free(temp);
-	}
+		output = ft_strdup(tmp);
+		free(tmp);
+	}	
 	return (output);
 }
 
-// PURPOSE:
-// 1. Create a token with the content of the heredoc, if there are
-// two delimiters.
-// 2. Open a new prompt if the given line doesn't have the closing delimiter
-// repeat this until a delimiter is found and concatenate all inputs until stop
-// 3. Increment pkg->i until the last character of the closing delimiter, so
-// that parsing can continue if there are subsequent items to parse
+char	*capture_content(t_meta *pkg, char *delim)
+{
+	char		*tmp;
+	t_builder	*head;
+	t_builder	*last;
+
+	head = init_builder(0, ft_strdup(pkg->str + pkg->i));
+	while (1)
+	{
+		tmp = readline("> ");
+		last = add_to_back_of_list(0, head, ft_strdup(tmp));
+		free(tmp);
+		tmp = ft_strnstr(last->word, delim, ft_strlen(delim));
+		if (tmp != pkg->str && tmp != NULL)
+		{
+			pkg->i += ft_strlen(last->word) - pkg->i;
+			return (concatenate_list_to_str(head));
+		}
+	}	
+	return (NULL);
+}
+
 void	expand_heredoc(t_meta *pkg)
 {
-	char	*delimiter;
-	char	*output;
-	int		i_backup;
+	char		*delim;
+	char		*output;
 
-	delimiter = return_delimiter(pkg);
-	printf("delimiter: %s(%ld)\npkg->i: %d\n", delimiter, ft_strlen(delimiter), pkg->i);
-	pkg->i++;
-	i_backup = pkg->i;
-	while (pkg->str[pkg->i] != '\0')
+	delim = return_delimiter(pkg);
+	if (delim)
+		printf("Delimiter found: %s\n", delim);
+	else
 	{
-		if (pkg->str[pkg->i + 1] == '\0')
-		{
-			output = prompt_and_return(pkg, output, delimiter);
-			create_heredoc_output(pkg);
-		}
-		if (is_heredoc_end(pkg, delimiter))
-		{
-			ft_substr(pkg->str, i_backup, pkg->i - i_backup);
-			create_heredoc_output(pkg);
-			pkg->i += ft_strlen(delimiter);
-			break ;
-		}
-		pkg->i++;
+		printf("delim not found, provide one plz\n");
+		return ;
 	}
+	pkg->i++;
+	output = capture_content(pkg, delim);
+	create_word_token(output, pkg);
 }
