@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/08 15:47:32 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/10 14:46:32 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		add_quote_content(char *word, int i, t_meta *pkg);
 int		*quote_len(t_meta *pkg, int *counter);
 
 // heredoc.c
-void	expand_heredoc(t_meta *pkg);
+bool	expand_heredoc(t_meta *pkg);
 void	create_heredoc_output(t_meta *pkg);
 
 // create_tokens.c

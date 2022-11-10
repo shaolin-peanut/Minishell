@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:59:05 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/07 16:18:37 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/10 14:02:29 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char	*return_var_value(char *str, t_meta *pkg, int index)
 	word[len] = '\0';
 	while (i < len)
 			word[i++] = str[index++];
-	printf("return_var name:%s$\n", word);
 	index--;
 	value = getenv(word);
 	free(word);
