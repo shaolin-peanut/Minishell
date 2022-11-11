@@ -3,27 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 17:59:41 by lanlan            #+#    #+#             */
-/*   Updated: 2022/10/20 17:59:42 by lanlan           ###   ########.fr       */
+/*   Created: 2021/10/18 11:24:59 by sbars             #+#    #+#             */
+/*   Updated: 2021/10/18 11:25:01 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../inc/libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned int	i;
+	unsigned char	*string1;
+	unsigned char	*string2;
+	int				i;
 
-	i = 0;
-	while (i < n)
+	i = -1;
+	string1 = (unsigned char *) s1;
+	string2 = (unsigned char *) s2;
+	while (++i < (int) n && (string1[i] || string2[i]))
 	{
-		if (s1[i] == '\0' || s2[i] == '\0')
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
+		if (string1[i] > string2[i])
+			return (1);
+		else if (string1[i] < string2[i])
+			return (-1);
 	}
 	return (0);
 }

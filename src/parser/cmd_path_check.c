@@ -6,13 +6,13 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:56:03 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 14:02:33 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/01 18:03:01 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_absolute_path(char *path)
+bool	is_absolute_path(char *path)
 {
 	if (access(path, X_OK) == 0)
 		return (1);

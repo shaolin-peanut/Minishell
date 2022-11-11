@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 15:00:10 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/08 16:50:53 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,20 @@
 char	*return_word(char *str, t_meta *pkg)
 {
 	char	*word;
-	int		len;
+	int		*c_i;
 	int		i;
 
 	i = 0;
-	len = word_len(str, pkg);
+	c_i = word_len(str, pkg);
+	if (!c_i[COUNT])
+	{
+		pkg->i = c_i[ITER] - 1;
+		return (NULL);
+	}
 	word = NULL;
-	word = (char *) malloc(sizeof(char) * len + 1);
-	word[len] = '\0';
-	while (i < len && pkg->str[pkg->i])
+	word = (char *) malloc(sizeof(char) * c_i[COUNT] + 1);
+	word[c_i[COUNT]] = '\0';
+	while (i < c_i[COUNT] && pkg->str[pkg->i])
 	{
 		if (is_quote(str[pkg->i]))
 			i = add_quote_content(word, i, pkg);
@@ -34,30 +39,32 @@ char	*return_word(char *str, t_meta *pkg)
 			word[i++] = str[pkg->i++];
 	}
 	pkg->i--;
-	printf("> word \"%s\"(%ld chars): \n", word, ft_strlen(word));
+	free(c_i);
 	return (word);
 }
 
-int	word_len(char *str, t_meta *pkg)
+int	*word_len(char *str, t_meta *pkg)
 {
-	int	counter;
-	int	iterator;
+	int	*counter_iterator;
 
-	counter = 0;
-	iterator = pkg->i;
-	while (is_word(str, iterator))
+	counter_iterator = (int *) malloc(sizeof(int) * 2);
+	counter_iterator[COUNT] = 0;
+	counter_iterator[ITER] = 0;
+	counter_iterator[ITER] = pkg->i;
+	while (is_word(str, counter_iterator[ITER]))
 	{
-		if (is_quote(str[iterator]) && (str[iterator + 1] != '\0'))
+		if (is_quote(str[counter_iterator[ITER]])
+			&& (str[counter_iterator[ITER] + 1] != '\0'))
 		{
-			counter += quote_len(pkg, &iterator);
+			counter_iterator = quote_len(pkg, counter_iterator);
 		}
 		else
 		{
-			counter++;
-			iterator++;
+			counter_iterator[COUNT]++;
+			counter_iterator[ITER]++;
 		}
 	}
-	return (counter);
+	return (counter_iterator);
 }
 
 // This command does several things
@@ -76,26 +83,19 @@ char	*is_cmd(char *name, t_meta *pkg)
 	if (is_absolute_path(name))
 		return (name);
 	path = is_relative_path(name);
-	if (path != NULL)
+	if (path)
 		return (path);
+	free(path);
 	path = is_binary_name(name, pkg);
-	if (path != NULL)
+	if (path)
 		return (path);
 	return (NULL);
 }
 
-int	is_builtin(char *word, t_meta *pkg)
+bool	is_builtin(char *word, t_meta *pkg)
 {
 	(void) pkg;
-	// Reason I'm keeping the list below commented, is because
-	// this function could, on top of checking if the command is a builtin
-	// return a digit telling us which builtin it is.
-	// To associate a digit with a builtin, just have to do some defines
-	// #define ECHO 101
-	// #define CD 102
-	// etc, then it's useable in if conditions (if tmp = ECHO, run echo), pot timesaver
-	/*int i;
-	char	*list[8];
+	/*char	*list[8];
 	
 	i = -1;
 	list[0] = "echo";

@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 15:43:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/10 14:44:50 by sbars            ###   ########.fr       */
+/*   Created: 2022/11/09 15:26:50 by sbars             #+#    #+#             */
+/*   Updated: 2022/11/09 15:31:30 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	errormsg(char *str, t_meta	*pkg)
+void	smart_iter(int *a, int *b, int incr_a, int incr_b)
 {
-	int	i;
-
-	i = -1;
-	(void) pkg;
-	while (str[++i])
-		write(1, &str[i], 1);
-	write(1, "\n", 1);
-	return (-1);
+	if (a && incr_a)
+		*a += incr_a;
+	if (b && incr_b)
+		*b += incr_b;
 }

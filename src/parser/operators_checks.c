@@ -6,36 +6,40 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:57:09 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/24 15:09:25 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/02 17:55:17 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_operator(char *str, int i)
+bool	is_operator(char *str, int i)
 {
 	if (is_pipe(str[i]) || is_redirection(str, i) || is_heredoc(str, i))
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }
 
 int	is_redirection(char *str, int i)
 {
-	if (str[i] == '<' || str[i] == '>' || (str[i] == '>' && str[i + 1] == '>'))
-		return (1);
-	return (0);
+	if (str[i] == '<')
+		return (TOK_REDIR_IN);
+	else if (str[i] == '>')
+		return (TOK_REDIR_OUT);
+	else if (str[i] == '>' && str[i + 1] == '>')
+		return (TOK_APPEND_OUT);
+	return (false);
 }
 
-int	is_heredoc(char *str, int i)
+bool	is_heredoc(char *str, int i)
 {
 	if (str[i] == '<' && str[i + 1] == '<')
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }
 
-int	is_pipe(char c)
+bool	is_pipe(char c)
 {
 	if (c == '|')
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }

@@ -3,63 +3,112 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <marvin@42lausanne.ch>               +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:44 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/10 14:26:46 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/09 15:36:20 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int quote_len(t_meta *pkg, int *iterator)
+int	add_var_value(char	*word, int i, t_meta *pkg)
 {
-    char type;
-    int len;
-    
-    type = pkg->str[*iterator];
-    *iterator += 1;
-    len = 0;
-while (pkg->str[*iterator] != '\0')
-    {
-        if (pkg->str[*iterator] == type)
-        {
-            *iterator += 1;
-            return (len);
-        }
-        else
-        {
-            *iterator += 1;
-            len++; 
-        }
-    }
-    return (len);
+	char	*value;
+	int		value_i;
+
+	value_i = 0;
+	value = NULL;
+	value = return_var_value(pkg->str, pkg, pkg->i);
+	if (!value)
+		return (i);
+	while (value[value_i] && word[i])
+		word[i++] = value[value_i++];
+	return (i);
+}
+	//printf("STR[%d]: %c", pkg->i, pkg->str[pkg->i]);
+
+int	add_var_len(t_meta *pkg, int len, int iter)
+{
+	char	*value;
+	int		copy;
+
+	copy = iter;
+	value = NULL;
+	value = return_var_value(pkg->str, pkg, copy);
+	if (value)
+		len += ft_strlen(value);
+	else
+		printf("no value returned\n");
+	printf("add_var_len resulting len: %d\n", len);
+	return (len);
 }
 
-int add_quote_content(char *word, int i, t_meta *pkg)
+// two purposes:
+// 1. counter
+// has to be the number of characteres within the quote
+// if there are variables, the number of chars of the value of the
+// variable must be added to the total count returned.
+// 2. iterator
+// When returning, it must be index + 1 after the closing quote
+int	*quote_len(t_meta *pkg, int *c_i)
 {
-    int type;
+	char	type;
+	char	*value;
 
-    type = pkg->str[pkg->i];
-    pkg->i++;
-    while (pkg->str[pkg->i] != '\0')
-    {
-        if (pkg->str[pkg->i] == type)
-        {
-            pkg->i++;
-            return (i);
-        }
-        else
-        {
-            word[i] = pkg->str[pkg->i];
-            i++;
-            pkg->i++;
-        }
-    }
-    return (i);
+	type = pkg->str[c_i[ITER]++];
+	while (pkg->str[c_i[ITER]] != '\0')
+	{
+		if (type == 34 && is_var(pkg->str, c_i[ITER]))
+		{
+			value = return_var_value(pkg->str, pkg, c_i[ITER]);
+			if (value)
+				c_i[COUNT] += ft_strlen(value);
+			else
+				c_i[ITER]++;
+			c_i[ITER] += var_name_len(pkg->str, c_i[ITER]) + 1;
+		}
+		if (pkg->str[c_i[ITER]] == type)
+		{
+			c_i[ITER]++;
+			return (c_i);
+		}
+		else
+			smart_iter(&c_i[COUNT], &c_i[ITER], 1, 1);
+	}
+	return (c_i);
 }
 
-int quote_in_word(char *word)
+// this function adds to word, the content of the variable, and skips over the
+// opening and closing quotes
+int	add_quote_content(char *word, int i, t_meta *pkg)
 {
-    return (ft_strchr(word, 39) || ft_strchr(word, 34));
+	int	type;
+
+	type = pkg->str[pkg->i];
+	pkg->i++;
+	while (pkg->str[pkg->i] != '\0')
+	{
+		if (type == 34 && is_var(pkg->str, pkg->i))
+		{
+			i = add_var_value(word, i, pkg);
+			pkg->i += var_name_len(pkg->str, pkg->i) + 1;
+		}
+		else if (pkg->str[pkg->i] == type)
+		{
+			pkg->i++;
+			return (i);
+		}
+		else
+		{
+			word[i] = pkg->str[pkg->i];
+			smart_iter(&i, &pkg->i, 1, 1);
+		}
+	}
+	return (i);
+}
+
+int	quote_in_word(char *word)
+{
+	return (ft_strchr(word, 39) || ft_strchr(word, 34));
 }
