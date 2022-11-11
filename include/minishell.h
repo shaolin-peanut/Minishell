@@ -3,17 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by lanlan            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/10 14:27:50 by sbars            ###   ########.fr       */
+=======
+/*   Updated: 2022/10/26 13:48:48 by lanlan           ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/libft.h"
+# include "../libft/inc/libft.h"
 # include "parser.h"
 # include "token.h"
 # include <stdio.h>
@@ -45,9 +49,6 @@ char		*get_prompt(t_prompt prompt);
 // For further parser prototypes, see parser.h
 
 // utils/
-
-// matrix.c
-char		**ft_matrixdup(char **matrix);
 
 // error.c
 int			errormsg(char *str, t_meta	*pkg);
