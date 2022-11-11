@@ -26,7 +26,7 @@ char	*return_delimiter(t_meta *pkg)
 	return (NULL);
 }
 
-char	*concatenate_list_to_str(t_builder	*head)
+char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg)
 {
 	char		*output;
 	char		*tmp;
@@ -46,8 +46,11 @@ char	*concatenate_list_to_str(t_builder	*head)
 		current = current->next;
 	}
 	output = (char *)malloc(sizeof(char) * len + 1);
+	output[len] = '\0';
 	// append function. Find end of content, and append.
 	ft_strlcpy(output, head->word, len);
+	while (pkg->str[pkg->i])
+		pkg->i++;
 	while (head->next->next != NULL)
 	{
 		head = head->next;
@@ -79,7 +82,7 @@ char	*capture_content(t_meta *pkg, char *delim)
 		if (ft_strncmp(last->word, delim, ft_strlen(delim)) == 0)
 		{
 			//pkg->i += ft_strlen(last->word) - pkg->i + 2;
-			return (concatenate_list_to_str(head));
+			return (concatenate_list_to_str(head, pkg));
 		}
 	}	
 	return (NULL);

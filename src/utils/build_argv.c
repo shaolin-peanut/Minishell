@@ -45,9 +45,9 @@ t_builder	*init_builder(int *i, char *str)
 static char	*get_next_word(char *str, t_meta *pkg)
 {
 	char		*word;
-	int			backup_i;
+	// int			backup_i;
 
-	backup_i = pkg->i;
+	// backup_i = pkg->i;
 	if (is_dollar(str[pkg->i]))
 	{
 		word = return_var_value(str, pkg, pkg->i);
