@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 17:29:42 by lanlan            #+#    #+#             */
-/*   Updated: 2022/09/25 21:47:37 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/11/11 17:45:40 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static char	*get_home(t_prompt prompt)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		pwd = ft_strdup("∅ ");
-	home = ft_strdup("/Users/lanlan"); // TODO: from env
-    (void) prompt; // TODO: useful for getting home from env
+	home = ft_strdup("/Users/lanlan");
+	(void) prompt;
 	if (home && home[0] && ft_strnstr(pwd, home, ft_strlen(pwd)))
 		pwd = ft_strjoin("~", &pwd[ft_strlen(home)]);
 	free(home);

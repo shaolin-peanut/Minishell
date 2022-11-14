@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_argv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:39:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/09 16:47:10 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/11 17:45:59 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ t_builder	*init_builder(int *i, char *str)
 static char	*get_next_word(char *str, t_meta *pkg)
 {
 	char		*word;
-	// int			backup_i;
 
-	// backup_i = pkg->i;
+	word = NULL;
 	if (is_dollar(str[pkg->i]))
 	{
 		word = return_var_value(str, pkg, pkg->i);

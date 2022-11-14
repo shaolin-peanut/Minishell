@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/10 14:46:32 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/11 17:32:09 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		add_quote_content(char *word, int i, t_meta *pkg);
 int		*quote_len(t_meta *pkg, int *counter);
 
 // heredoc.c
-bool	expand_heredoc(t_meta *pkg);
+bool	capture_heredoc(t_meta *pkg);
 void	create_heredoc_output(t_meta *pkg);
 
 // create_tokens.c

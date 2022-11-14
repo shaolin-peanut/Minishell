@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:22 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/08 17:00:03 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/11 17:29:49 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-// int	is_dash(int c)
-// {
-// 	if (c == '-')
-// 		return (1);
-// 	else
-// 		return (0);
-// }
 
 // TODO: code last_node_fd_in function
 // TODO: figure out what to do with pid thing, or delete
@@ -39,7 +32,7 @@ int	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 	//cmd->pid = NULL;
 	return (0);
 }
-	//printf("> Cmd found!: %s\n> binary path: %s\n", cmd_name, full_path);
+//printf("> Cmd found!: %s\n> binary path: %s\n", cmd_name, full_path);
 
 int	create_builtin_token(char *name, t_meta	*pkg)
 {
@@ -86,10 +79,7 @@ int	create_operator_token(t_meta *pkg, int type)
 	tok->token = init_op(pkg);
 	op = cast_token(tok);
 	if (type == TOK_HEREDOC)
-		expand_heredoc(pkg);
-		// create heredoc operator token, and in expand heredoc, create a following word token
-		// heredoc fd-in = expanded text between the delimiter
-		// heredoc fd-out = command before that
+		capture_heredoc(pkg);
 	op->type = type;
 	op->fd_in = STDIN_FILENO;
 	op->fd_out = STDOUT_FILENO;

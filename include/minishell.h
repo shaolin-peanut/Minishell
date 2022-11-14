@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars   <sbars@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/10 14:27:50 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/11 17:57:12 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_prompt
 {
 	t_list	*commands;
 	char	**envp;
-	pid_t	pid;
 }			t_prompt;
 
 typedef struct s_meta
@@ -35,6 +34,8 @@ typedef struct s_meta
 	int			i;
 	t_token		*chain_head;
 }			t_meta;
+
+// pid_t	pid;
 
 // parser/
 // parser.c
@@ -68,6 +69,7 @@ void		print_2d_vector(char **argv);
 char		**build_argument_vector(char *name, t_meta *pkg);
 t_builder	*init_builder(int *i, char *str);
 t_builder	*add_to_back_of_list(int *counter, t_builder *head, char *word);
+void		free_str_vector(char **vector);
 
 // parser
 void		smart_iter(int *a, int *b, int incr_a, int incr_b);
