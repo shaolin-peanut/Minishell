@@ -14,7 +14,7 @@
 
 bool	is_operator(char *str, int i)
 {
-	if (is_pipe(str[i]) || is_redirection(str, i) || is_heredoc(str, i))
+	if (is_pipe(str[i], 0) || is_redirection(str, i) || is_heredoc(str, i))
 		return (true);
 	return (false);
 }
@@ -37,7 +37,7 @@ bool	is_heredoc(char *str, int i)
 	return (false);
 }
 
-bool	is_pipe(char c)
+bool is_pipe(char c, int i)
 {
 	if (c == '|')
 		return (true);

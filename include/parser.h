@@ -38,7 +38,7 @@ bool	is_operator(char *str, int i);
 // function is re-used, after chekcing, as paramater for create_token_operator
 int		is_redirection(char *str, int i);
 bool	is_heredoc(char *str, int i);
-bool	is_pipe(char c);
+bool	is_pipe(char c, int i);
 
 // cmd_path_check.c
 bool	is_absolute_path(char *path);

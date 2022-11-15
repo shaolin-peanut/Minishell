@@ -33,7 +33,7 @@ void	process_word(char *word, t_meta *pkg)
 
 void	process_operator(char *str, t_meta *pkg)
 {
-	if (is_pipe(str[pkg->i]))
+	if (is_pipe(str[pkg->i], 0))
 		create_operator_token(pkg, TOK_PIPE);
 	else if (is_heredoc(str, pkg->i))
 		create_operator_token(pkg, TOK_HEREDOC);
