@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:47:12 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/11 18:10:26 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/15 17:35:05 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-// if (pkg->prompt)
-	//    free(pkg->prompt);
-	/*if (pkg->str)
-	{
-		pkg->str = NULL;
-		free(pkg->str);
-	}*/
 
 void	free_cmd(t_token	*tok)
 {
@@ -35,15 +27,13 @@ void	free_cmd(t_token	*tok)
 		if (cmd->binary_path)
 			free(cmd->binary_path);
 		free((void *) cmd);
-//		free(tok);
 	}
 	else if (tok->type == TOK_BUILTIN)
 	{
 		bltn = cast_token(tok);
 		if (bltn->argv)
-			free_str_vector(bltn->argv);	
+			free_str_vector(bltn->argv);
 		free((void *) bltn);
-//		free(tok);
 	}
 }
 
@@ -56,7 +46,6 @@ void	free_word(t_token	*tok)
 	if (word->str)
 		free(word->str);
 	free((void *) word);
-//	free(tok);
 }
 
 void	free_tokens(t_token	*head)
@@ -82,7 +71,9 @@ void	free_tokens(t_token	*head)
 void	free_all(t_meta *pkg)
 {
 	if (pkg->paths != NULL)
-		free(pkg->paths);
+		free_str_vector(pkg->paths);
+	if (pkg->envp)
+		free_str_vector(pkg->envp);
 	if (pkg->chain_head)
 		free_tokens(pkg->chain_head);
 	if (pkg)

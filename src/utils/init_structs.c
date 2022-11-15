@@ -6,19 +6,19 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 19:19:40 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/28 13:59:20 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/15 17:33:11 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_meta	*init_meta(t_prompt	*prompt)
+t_meta	*init_meta(char	**envp)
 {
 	t_meta	*meta;
 
 	meta = NULL;
 	meta = (t_meta *) malloc(sizeof(t_meta) * 1);
-	meta->prompt = prompt;
+	meta->envp = ft_dup_matrix(envp);
 	meta->paths = NULL;
 	meta->str = NULL;
 	meta->i = 0;
@@ -60,11 +60,11 @@ char	**init_paths(t_meta	*pkg)
 	i = -1;
 	tmp = NULL;
 	paths = NULL;
-	while (pkg->prompt->envp[++i])
+	while (pkg->envp[++i])
 	{
-		if (ft_strncmp(pkg->prompt->envp[i], "PATH=", 5) == 0)
+		if (ft_strncmp(pkg->envp[i], "PATH=", 5) == 0)
 		{
-			tmp = ft_split(pkg->prompt->envp[i], '=');
+			tmp = ft_split(pkg->envp[i], '=');
 			paths = ft_split(tmp[1], ':');
 			free(tmp);
 			if (paths)
