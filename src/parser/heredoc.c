@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 13:12:06 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/10 16:22:09 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/11 17:37:43 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*return_delimiter(t_meta *pkg)
 {
-	//printf("heredoc found at index: %d\n", pkg->i);
 	pkg->i += 2;
 	while (pkg->str[pkg->i] != '\0')
 	{
@@ -26,17 +25,11 @@ char	*return_delimiter(t_meta *pkg)
 	return (NULL);
 }
 
-char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg)
+int	return_concat_str_len(t_builder *current)
 {
-	char		*output;
-	char		*tmp;
-	t_builder	*current;
-	int			len;
+	int	len;
 
-	output = NULL;
-	tmp = NULL;
 	len = 0;
-	current = head;
 	while (current != NULL)
 	{
 		if (current->word != NULL && !ft_strlen(current->word))
@@ -45,9 +38,20 @@ char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg)
 			len += ft_strlen(current->word);
 		current = current->next;
 	}
+	return (len);
+}
+
+char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg)
+{
+	char		*output;
+	char		*tmp;
+	int			len;
+
+	output = NULL;
+	tmp = NULL;
+	len = return_concat_str_len(head);
 	output = (char *)malloc(sizeof(char) * len + 1);
 	output[len] = '\0';
-	// append function. Find end of content, and append.
 	ft_strlcpy(output, head->word, len);
 	while (pkg->str[pkg->i])
 		pkg->i++;
@@ -80,25 +84,12 @@ char	*capture_content(t_meta *pkg, char *delim)
 		last = add_to_back_of_list(0, head, ft_strdup(tmp));
 		free(tmp);
 		if (ft_strncmp(last->word, delim, ft_strlen(delim)) == 0)
-		{
-			//pkg->i += ft_strlen(last->word) - pkg->i + 2;
 			return (concatenate_list_to_str(head, pkg));
-		}
 	}	
 	return (NULL);
 }
-// code snippet to print content of list before it's concatenated in one string
-//t_builder *a;
-//a = head;
-//while (a != NULL)
-//{
-//	printf("capture_content> %s\n", a->word);
-	//a = a->next;
-//}
 
-// 1. get delimiter and print error if none is found
-// 2. 
-bool	expand_heredoc(t_meta *pkg)
+bool	capture_heredoc(t_meta *pkg)
 {
 	char		*delim;
 	char		*output;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars   <sbars@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/10 14:27:50 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/15 17:30:22 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,23 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct s_prompt
-{
-	t_list	*commands;
-	char	**envp;
-	pid_t	pid;
-}			t_prompt;
-
 typedef struct s_meta
 {
-	t_prompt	*prompt;
+	char		**envp;
 	char		**paths;
 	char		*str;
 	int			i;
 	t_token		*chain_head;
 }			t_meta;
 
+// pid_t	pid;
+
 // parser/
 // parser.c
 t_token		*parser(char *str, t_meta *pkg);
 
 // prompt.c
-char		*get_prompt(t_prompt prompt);
+char		*get_prompt(void);
 // For further parser prototypes, see parser.h
 
 // utils/
@@ -50,7 +45,7 @@ char		*get_prompt(t_prompt prompt);
 int			errormsg(char *str, t_meta	*pkg);
 
 // init.c
-t_meta		*init_meta(t_prompt *prompt);
+t_meta		*init_meta(char	**envp);
 char		**init_paths(t_meta	*pkg);
 t_token		*init_token(t_meta *pkg);
 
@@ -68,6 +63,7 @@ void		print_2d_vector(char **argv);
 char		**build_argument_vector(char *name, t_meta *pkg);
 t_builder	*init_builder(int *i, char *str);
 t_builder	*add_to_back_of_list(int *counter, t_builder *head, char *word);
+void		free_str_vector(char **vector);
 
 // parser
 void		smart_iter(int *a, int *b, int incr_a, int incr_b);
