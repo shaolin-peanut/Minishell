@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/08 15:56:47 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/16 16:26:05 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	process_dollar(char *str, t_meta *pkg)
 		process_variable(pkg, pkg->str, pkg->i);
 	if (is_dollar_question(str, pkg->i))
 		(void) pkg;
-	// just_print_last_fd_exit_status;
 	else
 		(void) pkg;
 }

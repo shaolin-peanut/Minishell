@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:47:12 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/15 17:35:05 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/16 16:37:15 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	free_word(t_token	*tok)
 
 	word = NULL;
 	word = cast_token(tok);
-	if (word->str)
+	if (word->str && ft_strlen(word->str) > 0)
 		free(word->str);
 	free((void *) word);
 }

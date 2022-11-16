@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:22 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/11 17:29:49 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/16 16:26:13 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 	cmd->argv = build_argument_vector(cmd_name, pkg);
 	cmd->fd_in = STDIN_FILENO;
 	cmd->fd_out = STDOUT_FILENO;
-	//cmd->pid = NULL;
 	return (0);
 }
 //printf("> Cmd found!: %s\n> binary path: %s\n", cmd_name, full_path);

@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/08 16:50:53 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/16 16:28:57 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,6 @@ char	*is_cmd(char *name, t_meta *pkg)
 bool	is_builtin(char *word, t_meta *pkg)
 {
 	(void) pkg;
-	/*char	*list[8];
-	
-	i = -1;
-	list[0] = "echo";
-	list[1] = "cd";
-	list[2] = "pwd";
-	list[3] = "export";
-	list[4] = "unset";
-	list[5] = "env";
-	list[6] = "exit";
-	list[7] = NULL;*/
 	if (ft_strncmp(word, "echo", 5) == 0 || ft_strncmp(word, "cd", 3) == 0
 		|| ft_strncmp(word, "pwd", 4) == 0 || ft_strncmp(word, "export", 7) == 0
 		|| ft_strncmp(word, "unset", 6) == 0 || ft_strncmp(word, "env", 4) == 0
