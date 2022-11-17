@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:59:05 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/16 16:30:22 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:18:15 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*return_var_value(char *str, t_meta *pkg, int index)
 	while (i < len)
 			word[i++] = str[index++];
 	index--;
-	value = getenv(word);
+	value = ft_strdup(getenv(word));
 	free(word);
 	return (value);
 }

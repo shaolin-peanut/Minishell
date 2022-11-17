@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:44 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/17 17:05:05 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:19:46 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	add_var_value(char	*word, int i, t_meta *pkg)
 		return (i);
 	while (value[value_i] && word[i])
 		word[i++] = value[value_i++];
+	free(value);
 	return (i);
 }
 	//printf("STR[%d]: %c", pkg->i, pkg->str[pkg->i]);
@@ -45,7 +46,7 @@ int	add_var_len(t_meta *pkg, int len, int iter)
 }
 
 // two purposes:
-// 1. LENer
+// 1. get len
 // has to be the number of characteres within the quote
 // if there are variables, the number of chars of the value of the
 // variable must be added to the total LEN returned.
