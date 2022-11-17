@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:44 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/09 15:36:20 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:05:05 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int	add_var_len(t_meta *pkg, int len, int iter)
 }
 
 // two purposes:
-// 1. counter
+// 1. LENer
 // has to be the number of characteres within the quote
 // if there are variables, the number of chars of the value of the
-// variable must be added to the total count returned.
+// variable must be added to the total LEN returned.
 // 2. iterator
 // When returning, it must be index + 1 after the closing quote
 int	*quote_len(t_meta *pkg, int *c_i)
@@ -63,7 +63,7 @@ int	*quote_len(t_meta *pkg, int *c_i)
 		{
 			value = return_var_value(pkg->str, pkg, c_i[ITER]);
 			if (value)
-				c_i[COUNT] += ft_strlen(value);
+				c_i[LEN] += ft_strlen(value);
 			else
 				c_i[ITER]++;
 			c_i[ITER] += var_name_len(pkg->str, c_i[ITER]) + 1;
@@ -74,7 +74,7 @@ int	*quote_len(t_meta *pkg, int *c_i)
 			return (c_i);
 		}
 		else
-			smart_iter(&c_i[COUNT], &c_i[ITER], 1, 1);
+			smart_iter(&c_i[LEN], &c_i[ITER], 1, 1);
 	}
 	return (c_i);
 }
