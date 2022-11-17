@@ -6,32 +6,32 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/16 16:28:57 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:04:42 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Counts the length of the word, including when it is made of one or more quote
+// LENs the length of the word, including when it is made of one or more quote
 // allocates memory for that length, then copies characters from the main string
 // to the word string, omitting the quotes and copying the rest
 char	*return_word(char *str, t_meta *pkg)
 {
 	char	*word;
-	int		*c_i;
+	int		*l_i;
 	int		i;
 
 	i = 0;
-	c_i = word_len(str, pkg);
-	if (!c_i[COUNT])
+	l_i = word_len(str, pkg);
+	if (!l_i[LEN])
 	{
-		pkg->i = c_i[ITER] - 1;
+		pkg->i = l_i[ITER] - 1;
 		return (NULL);
 	}
 	word = NULL;
-	word = (char *) malloc(sizeof(char) * c_i[COUNT] + 1);
-	word[c_i[COUNT]] = '\0';
-	while (i < c_i[COUNT] && pkg->str[pkg->i])
+	word = (char *) malloc(sizeof(char) * l_i[LEN] + 1);
+	word[l_i[LEN]] = '\0';
+	while (i < l_i[LEN] && pkg->str[pkg->i])
 	{
 		if (is_quote(str[pkg->i]))
 			i = add_quote_content(word, i, pkg);
@@ -39,32 +39,32 @@ char	*return_word(char *str, t_meta *pkg)
 			word[i++] = str[pkg->i++];
 	}
 	pkg->i--;
-	free(c_i);
+	free(l_i);
 	return (word);
 }
 
 int	*word_len(char *str, t_meta *pkg)
 {
-	int	*counter_iterator;
+	int	*len_iter;
 
-	counter_iterator = (int *) malloc(sizeof(int) * 2);
-	counter_iterator[COUNT] = 0;
-	counter_iterator[ITER] = 0;
-	counter_iterator[ITER] = pkg->i;
-	while (is_word(str, counter_iterator[ITER]))
+	len_iter = (int *) malloc(sizeof(int) * 2);
+	len_iter[LEN] = 0;
+	len_iter[ITER] = 0;
+	len_iter[ITER] = pkg->i;
+	while (is_word(str, len_iter[ITER]))
 	{
-		if (is_quote(str[counter_iterator[ITER]])
-			&& (str[counter_iterator[ITER] + 1] != '\0'))
+		if (is_quote(str[len_iter[ITER]])
+			&& (str[len_iter[ITER] + 1] != '\0'))
 		{
-			counter_iterator = quote_len(pkg, counter_iterator);
+			len_iter = quote_len(pkg, len_iter);
 		}
 		else
 		{
-			counter_iterator[COUNT]++;
-			counter_iterator[ITER]++;
+			len_iter[LEN]++;
+			len_iter[ITER]++;
 		}
 	}
-	return (counter_iterator);
+	return (len_iter);
 }
 
 // This command does several things

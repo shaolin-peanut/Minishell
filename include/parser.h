@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/11 17:32:09 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/16 17:12:53 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "token.h"
 # include <stdbool.h>
 
-# define ITER 1
-# define COUNT 0
+# define ITER 42 
+# define LEN 1337
 
 typedef struct s_meta		t_meta;
 typedef struct s_cmd		t_cmd;
