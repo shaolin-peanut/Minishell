@@ -14,4 +14,8 @@ void 	close_fd_op(t_op *op);
 void	remove_tmp_file(t_token *token_heredoc);
 
 bool	is_standard_fd(int fd);
+bool	is_token_cmd(t_token *this);
+
+t_token	*get_first_token_cmd(t_meta *pkg);
+t_token	*get_next_token_cmd(t_token *this);
 #endif //EXECUTION_H

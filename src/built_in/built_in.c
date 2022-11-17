@@ -1,27 +1,27 @@
 #include "minishell.h"
 
-int	echo(t_cmd *cmd)
+int	echo(t_bltn *cmd)
 {
-	if (!cmd->arg)
+	if (!cmd->argv)
 	{
 		ft_putstr_fd("\n", cmd->fd_out);
 		return (0);
 	}
-	ft_putstr_fd(cmd->arg, cmd->fd_out);
+	ft_putstr_fd(cmd->argv[0], cmd->fd_out);
 	if (!(cmd_have_flags(cmd)))
 		ft_putstr_fd("\n", cmd->fd_out);
 	return (0);
 }
 
-int	cd(t_cmd *cmd, t_env *env)
+int	cd(t_bltn *cmd, t_meta *pkg)
 {
 	char	*path;
 	char	*new_path;
 	char	*last_path;
 
-	if (!cmd->arg)
+	if (!cmd->argv)
 		return (0);
-	path = cmd->arg;
+	path = cmd->argv[0];
 	if (chdir(path) == -1)
 	{
 		ft_printf("%s: No such file or directory\n", path);
