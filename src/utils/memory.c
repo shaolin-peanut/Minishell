@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:47:12 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/16 16:37:15 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 15:25:20 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_cmd(t_token	*tok)
 
 	cmd = NULL;
 	bltn = NULL;
-	if (tok->type == TOK_CMD)
+	if (tok->type == cmd_t)
 	{
 		cmd = cast_token(tok);
 		if (cmd->argv)
@@ -28,7 +28,7 @@ void	free_cmd(t_token	*tok)
 			free(cmd->binary_path);
 		free((void *) cmd);
 	}
-	else if (tok->type == TOK_BUILTIN)
+	else if (tok->type == builtin_t)
 	{
 		bltn = cast_token(tok);
 		if (bltn->argv)
@@ -57,9 +57,9 @@ void	free_tokens(t_token	*head)
 	current = head;
 	while (head != NULL)
 	{
-		if (current->type == TOK_CMD || current->type == TOK_BUILTIN)
+		if (current->type == cmd_t || current->type == builtin_t)
 			free_cmd(current);
-		else if (current->type == TOK_WORD)
+		else if (current->type == word_t)
 			free_word(current);
 		if (current)
 			free(current);

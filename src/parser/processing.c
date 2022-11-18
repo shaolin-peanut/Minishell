@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/16 16:26:05 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 15:18:59 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	process_word(char *word, t_meta *pkg)
 void	process_operator(char *str, t_meta *pkg)
 {
 	if (is_pipe(str[pkg->i]))
-		create_operator_token(pkg, TOK_PIPE);
+		create_operator_token(pkg, pipe_t);
 	else if (is_heredoc(str, pkg->i))
-		create_operator_token(pkg, TOK_HEREDOC);
+		create_operator_token(pkg, heredoc);
 	else if (is_redirection(str, pkg->i))
 		create_operator_token(pkg, is_redirection(str, pkg->i));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:36:20 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/07 15:51:49 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 15:26:06 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ t_token	*return_last_token(t_meta	*pkg)
 // TODO: complete with all other token types
 void	*cast_token(t_token	*token)
 {
-	if (token->type == TOK_CMD)
+	if (token->type == cmd_t)
 		return ((t_cmd *)token->token);
-	else if (token->type == TOK_BUILTIN)
+	else if (token->type == builtin_t)
 		return ((t_bltn *)token->token);
-	else if (token->type == TOK_WORD)
+	else if (token->type == word_t)
 		return ((t_word *)token->token);
-	else if (token->type == TOK_OP)
+	else if (token->type == op_t)
 		return ((t_op *)token->token);
 	else
 		return (NULL);

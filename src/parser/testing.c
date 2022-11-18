@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 17:16:45 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/11 17:16:47 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 15:21:34 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	print_operator_tok(t_token	*tok)
 
 	op = cast_token(tok);
 	printf("|> TOKEN:OPERATOR\n");
-	if (op->type == TOK_PIPE)
+	if (op->type == pipe_t)
 		printf("|> type: pipe\n");
-	if (op->type == TOK_HEREDOC)
+	if (op->type == heredoc)
 		printf("|> type: heredoc\n");
-	if (op->type == TOK_REDIR_IN)
+	if (op->type == redir_in)
 		printf("|> type: input redirection\n");
-	if (op->type == TOK_REDIR_OUT)
+	if (op->type == redir_out)
 		printf("|> type: output redirection\n");
 	printf("|> fd_in:%d\n", op->fd_in);
 	printf("|> fd_out:%d\n", op->fd_out);
@@ -69,13 +69,13 @@ void	print_all_tokens(t_meta	*pkg)
 	while (token != NULL)
 	{
 		printf("---\n");
-		if (token->type == TOK_CMD)
+		if (token->type == cmd_t)
 			print_cmd_token(token);
-		if (token->type == TOK_BUILTIN)
+		if (token->type == builtin_t)
 			print_builtin_token(token);
-		if (token->type == TOK_OP)
+		if (token->type == op_t)
 			print_operator_tok(token);
-		if (token->type == TOK_WORD)
+		if (token->type == word_t)
 			print_word(token);
 		token = token->next;
 	}

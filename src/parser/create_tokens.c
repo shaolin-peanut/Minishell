@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:22 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/16 17:05:51 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 15:20:17 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 	cmd = NULL;
 	tok = NULL;
 	tok = init_token(pkg);
-	tok->type = TOK_CMD;
+	tok->type = cmd_t;
 	tok->token = init_cmd(pkg);
 	cmd = cast_token(tok);
 	cmd->binary_path = full_path;
@@ -38,7 +38,7 @@ int	create_builtin_token(char *name, t_meta	*pkg)
 	tok = NULL;
 	builtin = NULL;
 	tok = init_token(pkg);
-	tok->type = TOK_BUILTIN;
+	tok->type = builtin_t;
 	tok->token = init_builtin(pkg);
 	builtin = cast_token(tok);
 	builtin->argv = build_argument_vector(name, pkg);
@@ -55,7 +55,7 @@ int	create_word_token(char *str, t_meta *pkg)
 	tok = NULL;
 	word = NULL;
 	tok = init_token(pkg);
-	tok->type = TOK_WORD;
+	tok->type = word_t;
 	tok->token = init_word(pkg);
 	word = cast_token(tok);
 	word->str = str;
@@ -70,10 +70,10 @@ int	create_operator_token(t_meta *pkg, int type)
 	tok = NULL;
 	op = NULL;
 	tok = init_token(pkg);
-	tok->type = TOK_OP;
+	tok->type = op_t;
 	tok->token = init_op(pkg);
 	op = cast_token(tok);
-	if (type == TOK_HEREDOC)
+	if (type == heredoc)
 		capture_heredoc(pkg);
 	op->type = type;
 	op->fd_in = STDIN_FILENO;
