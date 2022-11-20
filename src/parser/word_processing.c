@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_processing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/17 17:04:42 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 16:22:38 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,19 @@ char	*return_word(char *str, t_meta *pkg)
 int	*word_len(char *str, t_meta *pkg)
 {
 	int	*len_iter;
+	int	copy;
 
-	len_iter = (int *) malloc(sizeof(int) * 2);
+	copy = pkg->i;
+	len_iter = malloc(sizeof(int) * 2);
 	len_iter[LEN] = 0;
 	len_iter[ITER] = 0;
-	len_iter[ITER] = pkg->i;
+	len_iter[ITER] = copy;
 	while (is_word(str, len_iter[ITER]))
 	{
-		if (is_quote(str[len_iter[ITER]])
-			&& (str[len_iter[ITER] + 1] != '\0'))
-		{
+		if (is_quote(str[len_iter[ITER]]) && (str[len_iter[ITER] + 1] != '\0'))
 			len_iter = quote_len(pkg, len_iter);
-		}
 		else
-		{
-			len_iter[LEN]++;
-			len_iter[ITER]++;
-		}
+			smart_iter(&len_iter[LEN], &len_iter[ITER], 1, 1);
 	}
 	return (len_iter);
 }

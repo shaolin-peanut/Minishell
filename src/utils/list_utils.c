@@ -6,20 +6,20 @@
 /*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:36:20 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/18 15:26:06 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 16:09:33 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_2d_vector(char **argv)
+void	print_2d_vector(char **v)
 {
 	int	i;
 
 	i = -1;
-	printf("|> argv{%s", argv[++i]);
-	while (argv[++i] != NULL)
-		printf(", %s", argv[i]);
+	printf("|> argv{%s", v[++i]);
+	while (v[++i] != NULL)
+		printf(", %s", v[i]);
 	printf("}\n");
 }
 

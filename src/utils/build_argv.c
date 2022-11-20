@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:39:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/11 17:45:59 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 16:03:05 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ t_builder	*add_to_back_of_list(int *counter, t_builder *head, char *word)
 // Create a list of 'builder' structs
 // every item contains a counter which tells me how many strings we have
 // and all the strings are progressively allocated
-// Next, should I just take their pointers or ft_strdup, then free t_builder??
 char	**build_argument_vector(char *name, t_meta *pkg)
 {
 	char		**argument_vector;

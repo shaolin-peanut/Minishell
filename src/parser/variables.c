@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:59:05 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/17 17:18:15 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 16:27:43 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	var_name_len(char *str, int index)
 	int	len;
 
 	len = 0;
-	index++;
+	if (is_dollar(str[index]))
+		index++;
 	while (is_word(str, len + index) && !is_quote(str[len + index]))
 		len++;
 	return (len);
