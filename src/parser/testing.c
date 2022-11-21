@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 17:16:45 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/18 15:21:34 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/21 15:33:03 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	print_builtin_token(t_token	*tok)
 	b = cast_token(tok);
 	printf("|> TOKEN:BUILTIN\n");
 	printf("|> name: %s\n", b->argv[0]);
-	print_2d_vector(b->argv);
+	if (b->argv)
+		print_2d_vector(b->argv);
 }
 
 void	print_all_tokens(t_meta	*pkg)

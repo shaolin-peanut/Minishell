@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:39:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/18 16:03:05 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/21 18:16:17 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 void	free_str_vector(char **vector)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
-	i = -1;
-	while (vector[++i])
-		free(vector[i]);
+	i = 0;
+	while (vector[i] != 0)
+	{
+		tmp = vector[i];
+		free(tmp);
+		i++;
+	}
+	tmp = vector[i];
+	free(tmp);
 	free(vector);
 }
 
