@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:39:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/21 18:16:17 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/21 18:43:40 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static char	*get_next_word(char *str, t_meta *pkg)
 	word = NULL;
 	if (is_dollar(str[pkg->i]))
 	{
+		printf("is dollar\n");
 		word = return_var_value(str, pkg, pkg->i);
 		pkg->i += var_name_len(str, pkg->i);
 	}
@@ -98,7 +99,9 @@ char	**build_argument_vector(char *name, t_meta *pkg)
 	{
 		if (is_word(pkg->str, pkg->i) || is_dollar(pkg->str[pkg->i]))
 		{
+			printf("pkg->i before getting word: %i\n", pkg->i);
 			word = get_next_word(pkg->str, pkg);
+			printf("pkg->i after: %i\n", pkg->i);
 			if (word)
 				add_to_back_of_list(&b_i, head, word);
 		}

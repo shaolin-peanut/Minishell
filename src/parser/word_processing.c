@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/18 16:22:38 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/21 20:06:18 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ char	*return_word(char *str, t_meta *pkg)
 
 	i = 0;
 	l_i = word_len(str, pkg);
+	printf("== RETURN_WORD ==\n");
+	printf("- word len: %d\n", l_i[LEN]);
+	printf("- ITER: %d\n", l_i[ITER]);
+	printf("- pkg->i before creating word!: %d\n", pkg->i); 
 	if (!l_i[LEN])
 	{
 		pkg->i = l_i[ITER] - 1;
