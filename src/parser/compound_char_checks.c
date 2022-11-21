@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   compound_char_checks.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:03 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/02 16:59:40 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 15:48:02 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ bool	is_word(char	*str, int i)
 
 bool	is_var(char	*str, int i)
 {
-	if (is_dollar(str[i - 1]) && is_word(str, i))
-		i--;
+	if (i > 0)
+		if (is_dollar(str[i - 1]) && is_word(str, i))
+			i--;
 	return (is_dollar(str[i]) && is_word(str, i + 1)
 		&& !is_dollar_question(str, i));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:47:12 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/16 16:37:15 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/21 16:24:02 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	free_cmd(t_token	*tok)
 	t_cmd	*cmd;
 	t_bltn	*bltn;
 
-	cmd = NULL;
-	bltn = NULL;
-	if (tok->type == TOK_CMD)
+	// cmd = NULL;
+	// bltn = NULL;
+	if (tok->type == cmd_t)
 	{
 		cmd = cast_token(tok);
 		if (cmd->argv)
@@ -28,7 +28,7 @@ void	free_cmd(t_token	*tok)
 			free(cmd->binary_path);
 		free((void *) cmd);
 	}
-	else if (tok->type == TOK_BUILTIN)
+	else if (tok->type == builtin_t)
 	{
 		bltn = cast_token(tok);
 		if (bltn->argv)
@@ -45,26 +45,26 @@ void	free_word(t_token	*tok)
 	word = cast_token(tok);
 	if (word->str && ft_strlen(word->str) > 0)
 		free(word->str);
-	free((void *) word);
+	free(word);
 }
 
-void	free_tokens(t_token	*head)
+void	free_tokens(t_token	*current)
 {
-	t_token	*current;
+	t_token	*old;
 
-	if (!head)
+	if (!current)
 		return ;
-	current = head;
-	while (head != NULL)
+	old = NULL;
+	while (current)
 	{
-		if (current->type == TOK_CMD || current->type == TOK_BUILTIN)
+		if (current->type == cmd_t || current->type == builtin_t)
 			free_cmd(current);
-		else if (current->type == TOK_WORD)
+		else if (current->type == word_t)
 			free_word(current);
-		if (current)
-			free(current);
-		head = head->next;
-		current = head;
+		old = current;
+		current = current->next;
+		if (old)
+			free(old);
 	}
 }
 

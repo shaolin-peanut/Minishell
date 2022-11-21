@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:36:20 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/07 15:51:49 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/21 18:11:51 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_2d_vector(char **argv)
+void	print_2d_vector(char **v)
 {
 	int	i;
 
 	i = -1;
-	printf("|> argv{%s", argv[++i]);
-	while (argv[++i] != NULL)
-		printf(", %s", argv[i]);
+	printf("|> argv{%s", v[++i]);
+	while (v[++i] != NULL)
+		printf(", %s", v[i]);
 	printf("}\n");
 }
 
@@ -39,13 +39,13 @@ t_token	*return_last_token(t_meta	*pkg)
 // TODO: complete with all other token types
 void	*cast_token(t_token	*token)
 {
-	if (token->type == TOK_CMD)
+	if (token->type == cmd_t)
 		return ((t_cmd *)token->token);
-	else if (token->type == TOK_BUILTIN)
+	else if (token->type == builtin_t)
 		return ((t_bltn *)token->token);
-	else if (token->type == TOK_WORD)
+	else if (token->type == word_t)
 		return ((t_word *)token->token);
-	else if (token->type == TOK_OP)
+	else if (token->type == op_t)
 		return ((t_op *)token->token);
 	else
 		return (NULL);
@@ -69,19 +69,27 @@ void	free_list(t_builder	*node)
 char	**convert_list_to_vector(t_builder	*head, int size)
 {
 	char		**vector;
-	t_builder	*current;
 	int			i;
 
-	i = -1;
-	current = head;
-	vector = (char **) malloc(sizeof(char *) * size + 1);
+	i = 0;
+	vector = NULL;
+	// printf("size: %d\n", size);
+	vector = (char **)malloc(sizeof(char *) * size + 1);
 	if (!vector)
 		return (NULL);
-	vector[size] = NULL;
-	while (current != NULL && ++i < size + 1)
+	while (head)
 	{
-		vector[i] = ft_strdup(current->word);
-		current = current->next;
+		vector[i] = NULL;
+		vector[i] = ft_strdup(head->word);
+		i++;
+		head = head->next;
 	}
+	// printf("convert_list_to_vector i: %d\n", i);
+	// printf("last string pointer: %p\n", (void *) vector[i - 1]);
+	// printf("vector pointer: %p\n", (void *) vector);
+	// printf("supposedly null pointer: %p\n", (void *) vector[i]);
+	vector[size] = NULL;
 	return (vector);
 }
+// echo "salut"|echo
+// && ++i < size + 1
