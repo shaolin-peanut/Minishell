@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:36:20 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/21 18:11:51 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/23 13:13:29 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ char	**convert_list_to_vector(t_builder	*head, int size)
 
 	i = 0;
 	vector = NULL;
-	// printf("size: %d\n", size);
 	vector = (char **)malloc(sizeof(char *) * size + 1);
 	if (!vector)
 		return (NULL);
@@ -84,12 +83,11 @@ char	**convert_list_to_vector(t_builder	*head, int size)
 		i++;
 		head = head->next;
 	}
-	// printf("convert_list_to_vector i: %d\n", i);
-	// printf("last string pointer: %p\n", (void *) vector[i - 1]);
-	// printf("vector pointer: %p\n", (void *) vector);
-	// printf("supposedly null pointer: %p\n", (void *) vector[i]);
 	vector[size] = NULL;
 	return (vector);
 }
 // echo "salut"|echo
 // && ++i < size + 1
+
+	// printf("size: %d\n", size);
+	// printf("convert_list_to_vector: %p\n", (void *) vector[i]);

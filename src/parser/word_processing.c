@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/23 12:52:38 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/23 13:10:10 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@ char	*return_word(char *str, t_meta *pkg)
 
 	i = 0;
 	l_i = word_len(str, pkg);
-	printf("== RETURN_WORD ==\n");
-	printf("- word len: %d\n", l_i[LEN]);
-	printf("- ITER: %d\n", l_i[ITER]);
-	printf("- pkg->i before creating word!: %d\n", pkg->i);
 	if (!l_i[LEN])
 	{
 		pkg->i = l_i[ITER] - 1;
@@ -46,6 +42,11 @@ char	*return_word(char *str, t_meta *pkg)
 	free(l_i);
 	return (word);
 }
+// == TESTS
+//printf("== RETURN_WORD ==\n")ng word!: %d\n", pkg->i);
+//printf("- word len: %d\n", l_i[LEN]);
+//printf("- ITER: %d\n", l_i[ITER]);
+//printf("- pkg->i before creati
 
 int	*word_len(char *str, t_meta *pkg)
 {

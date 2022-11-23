@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:47:12 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/21 16:24:02 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/23 13:13:55 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	free_cmd(t_token	*tok)
 	t_cmd	*cmd;
 	t_bltn	*bltn;
 
-	// cmd = NULL;
-	// bltn = NULL;
 	if (tok->type == cmd_t)
 	{
 		cmd = cast_token(tok);
