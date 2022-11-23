@@ -2,20 +2,25 @@
 
 void	manage_fd_for_redirection(t_token *token)
 {
-	if (is_token_basic_redirection(token))
+	t_op *this;
+
+	this = cast_token(token);
+	if (is_token_basic_redirection(this))
 	{
 		manage_fd_basic_redirection(token);
 	}
-	else if (is_token_pipe(token))
+	else if (this->type == TOK_PIPE)
 	{
 		manage_fd_pipe(token);
 	}
-	else if (is_token_heredoc(token))
+	/*
+	else if (this->type == TOK_HEREDOC)
 	{
 		manage_fd_heredoc(token);
 	}
+	 */
 }
-
+/*
 void	manage_fd_heredoc(t_token *token)
 {
 	t_cmd	*prev_cmd;
@@ -33,63 +38,67 @@ void	manage_fd_heredoc(t_token *token)
 		change_fd_cmd(prev_cmd, fd_tmp, prev_cmd->fd_out);
 	}
 }
+ */
 
 void	manage_fd_pipe(t_token *token)
 {
-	t_cmd	*prev_cmd;
-	t_cmd	*next_cmd;
+	t_token *prev_cmd;
+	t_token	*next_cmd;
 	int		fd[2];
 
-	prev_cmd = get_prev_cmd(token);
-	next_cmd = get_next_cmd(token);
-	if (!next_cmd)
-		return ;
-	if (!prev_cmd)
+	prev_cmd = get_prev_token_cmd(token);
+	next_cmd = get_next_token_cmd(token);
+	if (!next_cmd || !prev_cmd)
 		return ;
 	pipe(fd);
-	change_fd_cmd(prev_cmd, prev_cmd->fd_in, fd[1]);
-	change_fd_cmd(next_cmd, fd[0], next_cmd->fd_out);
+	change_fd_cmd(prev_cmd, get_fd_in(prev_cmd), fd[1]);
+	change_fd_cmd(next_cmd, fd[0], get_fd_out(next_cmd));
 }
 
 void	manage_fd_basic_redirection(t_token *token)
 {
-	t_cmd	*prev_cmd;
+	t_token	*prev_token;
+	t_op 	*op;
+	//t_cmd	*prev_cmd;
 	t_file	*next_file;
 
-	prev_cmd = get_prev_cmd(token);
+	//prev_cmd = get_prev_cmd(token);
+	prev_token = get_prev_token_cmd(token);
 	next_file = get_next_token_file(token);
-	if (!prev_cmd)
+	if (!prev_token)
 		return ;
-	if (is_token_input_chevron(token))
+	op = cast_token(token);
+
+	if (op->type == TOK_REDIR_IN || op->type == TOK_HEREDOC)
 	{
-		open_next_file_with_flags(token, next_file);
-		change_fd_cmd(prev_cmd, next_file->fd, prev_cmd->fd_out);
+		open_next_file_with_flags(op->type, next_file);
+		change_fd_cmd(prev_token, next_file->fd, get_fd_out(prev_token));
 	}
-	else if (is_token_output_chevron(token))
+	else if (op->type == TOK_REDIR_OUT)
 	{
-		open_next_file_with_flags(token, next_file);
-		change_fd_cmd(prev_cmd, prev_cmd->fd_in, next_file->fd);
+		open_next_file_with_flags(op->type, next_file);
+		change_fd_cmd(prev_token, get_fd_in(prev_token), next_file->fd);
 	}
-	else if (is_token_append_chevron(token))
+	else if (op->type == TOK_APPEND_OUT)
 	{
-		open_next_file_with_flags(token, next_file);
-		change_fd_cmd(prev_cmd, prev_cmd->fd_in, next_file->fd);
+		open_next_file_with_flags(op->type, next_file);
+		change_fd_cmd(prev_token, get_fd_in(prev_token), next_file->fd);
 	}
 }
 
-void	open_next_file_with_flags(t_token *token, t_file *file)
+void	open_next_file_with_flags(int type, t_file *file)
 {
-	if (is_token_input_chevron(token))
+	if (type == TOK_REDIR_IN)
 	{
 		close(file->fd);
 		file->fd = open(file->name, O_RDONLY);
 	}
-	else if (is_token_output_chevron(token))
+	else if (type == TOK_REDIR_OUT)
 	{
 		close(file->fd);
 		file->fd = open(file->name, O_WRONLY | O_TRUNC);
 	}
-	else if (is_token_append_chevron(token))
+	else if (type == TOK_APPEND_OUT)
 	{
 		close(file->fd);
 		file->fd = open(file->name, O_WRONLY | O_APPEND);

@@ -34,6 +34,7 @@ typedef struct s_meta
 	char		*str;
 	int			i;
 	t_token		*chain_head;
+	int			last_exit_status;
 }			t_meta;
 
 // pid_t	pid;

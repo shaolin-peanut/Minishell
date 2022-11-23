@@ -24,7 +24,7 @@ int	cd(t_bltn *cmd, t_meta *pkg)
 	path = cmd->argv[0];
 	if (chdir(path) == -1)
 	{
-		ft_printf("%s: No such file or directory\n", path);
+		printf("%s: No such file or directory\n", path);
 		return (1);
 	}
 	new_path = get_current_path();

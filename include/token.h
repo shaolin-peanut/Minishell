@@ -50,6 +50,7 @@ typedef struct s_cmd
 	char	**argv;
 	int		fd_in;
 	int		fd_out;
+	pid_t	pid;
 }	t_cmd;
 
 typedef struct s_bltn
@@ -57,6 +58,7 @@ typedef struct s_bltn
 	char	**argv;
 	int		fd_in;
 	int		fd_out;
+	pid_t	pid;
 }	t_bltn;
 
 typedef struct s_op
@@ -71,4 +73,11 @@ typedef struct s_word
 	int		type;
 	char	*str;
 }	t_word;
+
+typedef struct s_file
+{
+	char	*name;
+	int		fd;
+
+}	t_file;
 #endif

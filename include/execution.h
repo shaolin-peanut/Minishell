@@ -2,7 +2,7 @@
 # define EXECUTION_H
 # include <fcntl.h>
 
-
+/*executionfonctions */
 void	execution(t_meta *pkg);
 int		execute_cmd(t_meta *pkg, t_token *token);
 int		wait_all_pid(t_meta *pkg);
@@ -15,7 +15,37 @@ void	remove_tmp_file(t_token *token_heredoc);
 
 bool	is_standard_fd(int fd);
 bool	is_token_cmd(t_token *this);
+bool	cmd_have_standart_fd(t_cmd *cmd);
 
 t_token	*get_first_token_cmd(t_meta *pkg);
 t_token	*get_next_token_cmd(t_token *this);
+t_token	*get_prev_token_cmd(t_token *this);
+t_token	*get_first_token_redirection(t_meta *pkg);
+t_token	*get_next_token_redirection(t_token *this);
+t_file	*get_next_token_file(t_token *token);
+int	get_fd_in(t_token *this);
+int	get_fd_out(t_token *this);
+
+void	bin_execution(t_meta *pkg, t_cmd *cmd);
+
+void	redirect_cmd(t_cmd *cmd);
+
+int	convert_status_process_value(int status);
+int	get_last_status(int bin_status, int ret_built_in);
+
+/*redirectionfonctions */
+
+void	processing_redirection(t_meta *pkg);
+
+bool	have_token_redirection(t_meta *pkg);
+bool	is_token_basic_redirection(t_op *this);
+
+void	change_fd_cmd(t_token *token, int fd_in, int fd_out);
+
+void	manage_fd_for_redirection(t_token *token);
+void	manage_fd_pipe(t_token *token);
+void	manage_fd_basic_redirection(t_token *token);
+void	open_next_file_with_flags(int type, t_file *file);
+
+
 #endif //EXECUTION_H

@@ -15,3 +15,10 @@ bool	is_token_cmd(t_token *this)
 		return (true);
 	return (false);
 }
+
+bool	cmd_have_standart_fd(t_cmd *cmd)
+{
+	if (is_standard_fd(cmd->fd_in) && is_standard_fd(cmd->fd_out))
+		return (true);
+	return (false);
+}
