@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/11 17:32:09 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 16:01:29 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "token.h"
 # include <stdbool.h>
 
-# define ITER 1
-# define COUNT 0
+# define ITER 0 
+# define LEN 1
 
 typedef struct s_meta		t_meta;
 typedef struct s_cmd		t_cmd;

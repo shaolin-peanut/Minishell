@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:44 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/09 15:36:20 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/23 13:09:16 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int	add_var_value(char	*word, int i, t_meta *pkg)
 	value = return_var_value(pkg->str, pkg, pkg->i);
 	if (!value)
 		return (i);
-	while (value[value_i] && word[i])
+	while (value[value_i])
 		word[i++] = value[value_i++];
+	free(value);
 	return (i);
 }
 	//printf("STR[%d]: %c", pkg->i, pkg->str[pkg->i]);
@@ -45,38 +46,36 @@ int	add_var_len(t_meta *pkg, int len, int iter)
 }
 
 // two purposes:
-// 1. counter
+// 1. get len
 // has to be the number of characteres within the quote
 // if there are variables, the number of chars of the value of the
-// variable must be added to the total count returned.
+// variable must be added to the total LEN returned.
 // 2. iterator
 // When returning, it must be index + 1 after the closing quote
-int	*quote_len(t_meta *pkg, int *c_i)
+int	*quote_len(t_meta *pkg, int *l_i)
 {
 	char	type;
 	char	*value;
 
-	type = pkg->str[c_i[ITER]++];
-	while (pkg->str[c_i[ITER]] != '\0')
+	type = pkg->str[l_i[ITER]++];
+	while (pkg->str[l_i[ITER]] != '\0')
 	{
-		if (type == 34 && is_var(pkg->str, c_i[ITER]))
+		if (type == 34 && is_var(pkg->str, l_i[ITER]))
 		{
-			value = return_var_value(pkg->str, pkg, c_i[ITER]);
+			value = return_var_value(pkg->str, pkg, l_i[ITER]);
 			if (value)
-				c_i[COUNT] += ft_strlen(value);
-			else
-				c_i[ITER]++;
-			c_i[ITER] += var_name_len(pkg->str, c_i[ITER]) + 1;
+				l_i[LEN] += (int) ft_strlen(value);
+			l_i[ITER] += var_name_len(pkg->str, l_i[ITER]) + 1;
 		}
-		if (pkg->str[c_i[ITER]] == type)
+		if (pkg->str[l_i[ITER]] == type)
 		{
-			c_i[ITER]++;
-			return (c_i);
+			l_i[ITER]++;
+			return (l_i);
 		}
 		else
-			smart_iter(&c_i[COUNT], &c_i[ITER], 1, 1);
+			smart_iter(&l_i[LEN], &l_i[ITER], 1, 1);
 	}
-	return (c_i);
+	return (l_i);
 }
 
 // this function adds to word, the content of the variable, and skips over the
@@ -94,7 +93,7 @@ int	add_quote_content(char *word, int i, t_meta *pkg)
 			i = add_var_value(word, i, pkg);
 			pkg->i += var_name_len(pkg->str, pkg->i) + 1;
 		}
-		else if (pkg->str[pkg->i] == type)
+		if (pkg->str[pkg->i] == type)
 		{
 			pkg->i++;
 			return (i);

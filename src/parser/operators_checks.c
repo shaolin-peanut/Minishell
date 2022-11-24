@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operators_checks.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:57:09 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/02 17:55:17 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 15:09:40 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ bool	is_operator(char *str, int i)
 int	is_redirection(char *str, int i)
 {
 	if (str[i] == '<')
-		return (TOK_REDIR_IN);
+		return (redir_in);
 	else if (str[i] == '>')
-		return (TOK_REDIR_OUT);
+		return (redir_out);
 	else if (str[i] == '>' && str[i + 1] == '>')
-		return (TOK_APPEND_OUT);
+		return (append_out);
 	return (false);
 }
 

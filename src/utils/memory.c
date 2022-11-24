@@ -3,31 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:47:12 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/11 18:10:26 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/23 13:13:55 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-// if (pkg->prompt)
-	//    free(pkg->prompt);
-	/*if (pkg->str)
-	{
-		pkg->str = NULL;
-		free(pkg->str);
-	}*/
 
 void	free_cmd(t_token	*tok)
 {
 	t_cmd	*cmd;
 	t_bltn	*bltn;
 
-	cmd = NULL;
-	bltn = NULL;
-	if (tok->type == TOK_CMD)
+	if (tok->type == cmd_t)
 	{
 		cmd = cast_token(tok);
 		if (cmd->argv)
@@ -35,15 +25,13 @@ void	free_cmd(t_token	*tok)
 		if (cmd->binary_path)
 			free(cmd->binary_path);
 		free((void *) cmd);
-//		free(tok);
 	}
-	else if (tok->type == TOK_BUILTIN)
+	else if (tok->type == builtin_t)
 	{
 		bltn = cast_token(tok);
 		if (bltn->argv)
-			free_str_vector(bltn->argv);	
+			free_str_vector(bltn->argv);
 		free((void *) bltn);
-//		free(tok);
 	}
 }
 
@@ -53,36 +41,37 @@ void	free_word(t_token	*tok)
 
 	word = NULL;
 	word = cast_token(tok);
-	if (word->str)
+	if (word->str && ft_strlen(word->str) > 0)
 		free(word->str);
-	free((void *) word);
-//	free(tok);
+	free(word);
 }
 
-void	free_tokens(t_token	*head)
+void	free_tokens(t_token	*current)
 {
-	t_token	*current;
+	t_token	*old;
 
-	if (!head)
+	if (!current)
 		return ;
-	current = head;
-	while (head != NULL)
+	old = NULL;
+	while (current)
 	{
-		if (current->type == TOK_CMD || current->type == TOK_BUILTIN)
+		if (current->type == cmd_t || current->type == builtin_t)
 			free_cmd(current);
-		else if (current->type == TOK_WORD)
+		else if (current->type == word_t)
 			free_word(current);
-		if (current)
-			free(current);
-		head = head->next;
-		current = head;
+		old = current;
+		current = current->next;
+		if (old)
+			free(old);
 	}
 }
 
 void	free_all(t_meta *pkg)
 {
 	if (pkg->paths != NULL)
-		free(pkg->paths);
+		free_str_vector(pkg->paths);
+	if (pkg->envp)
+		free_str_vector(pkg->envp);
 	if (pkg->chain_head)
 		free_tokens(pkg->chain_head);
 	if (pkg)

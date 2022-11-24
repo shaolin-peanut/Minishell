@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:56:03 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/01 18:03:01 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/15 16:38:22 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*is_relative_path(char *word)
 	path_and_slash = ft_strjoin(current_directory, "/");
 	full_path = ft_strjoin(path_and_slash, word);
 	free(path_and_slash);
+	free(current_directory);
 	if (is_absolute_path(full_path))
 		return (full_path);
 	else
