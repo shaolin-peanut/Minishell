@@ -1,23 +1,23 @@
 #include "minishell.h"
 
-void	processing_built_in(t_env *env)
+void	processing_built_in(t_meta *pkg)
 {
 	t_token	*token;
 	t_cmd	*cmd;
 
-	token = get_first_token_built_in(env);
+	token = get_first_token_built_in(pkg);
 	while (token)
 	{
 		cmd = get_class(token);
-		choose_processing_built_in(env, cmd);
+		choose_processing_built_in(pkg, cmd);
 		token = get_next_token_built_in(token);
 	}
 }
 
-void	choose_processing_built_in(t_env *env, t_cmd *cmd)
+void	choose_processing_built_in(t_meta *pkg, t_cmd *cmd)
 {
 	if (is_cd(cmd))
-		processing_cd(env, cmd);
+		processing_cd(pkg, cmd);
 	else if (is_echo(cmd))
 		processing_echo(cmd);
 	else if (is_exit(cmd))
@@ -50,8 +50,8 @@ void	processing_echo(t_cmd *cmd)
 	}
 }
 
-void	processing_cd(t_env *env, t_cmd *cmd)
+void	processing_cd(t_meta *pkg, t_cmd *cmd)
 {
 	if (!(cmd_have_args(cmd)))
-		cmd->arg = get_home_path(env);
+		cmd->arg = get_home_path(pkg);
 }

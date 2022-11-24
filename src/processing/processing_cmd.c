@@ -1,32 +1,13 @@
 #include "minishell.h"
-
-void	processing_cmd(t_env *env)
-{
-	processing_built_in(env);
-	processing_cmd_args(env);
-	processing_bin(env);
-	if (env->verbose == 1)
-	{
-		ft_printf("=== Processing Command ===\n");
-		print_all_cmd_info(env);
-		ft_printf("=========\n");
-	}
-}
-
-void	processing_cmd_args(t_env *env)
-{
-	get_arg_variables_value(env);
-	concatenate_cmd_args(env);
-}
-
-void	processing_bin(t_env *env)
+/*
+void	processing_bin(t_meta *pkg)
 {
 	t_cmd	*cmd;
 	t_token	*token;
 	char	**bins;
 
-	bins = get_list_of_bins(env);
-	token = get_first_token_cmd(env);
+	bins = get_list_of_bins(pkg);
+	token = get_first_token_cmd(pkg);
 	while (token)
 	{
 		cmd = get_class(token);
@@ -38,4 +19,11 @@ void	processing_bin(t_env *env)
 		token = get_next_token_cmd(token);
 	}
 	free_array(bins);
+}
+*/
+void	processing_cmd(t_meta *pkg)
+{
+	processing_built_in(pkg);
+	//processing_cmd_args(pkg);
+	//processing_bin(pkg);
 }

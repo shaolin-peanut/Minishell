@@ -39,6 +39,7 @@ bool	is_heredoc(char *str, int i)
 
 bool is_pipe(char c, int i)
 {
+	i++;
 	if (c == '|')
 		return (true);
 	return (false);

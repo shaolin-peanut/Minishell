@@ -25,6 +25,7 @@ t_token	*get_next_token_redirection(t_token *this);
 t_file	*get_next_token_file(t_token *token);
 int	get_fd_in(t_token *this);
 int	get_fd_out(t_token *this);
+char	*get_current_path(void);
 
 void	bin_execution(t_meta *pkg, t_cmd *cmd);
 
@@ -46,6 +47,10 @@ void	manage_fd_for_redirection(t_token *token);
 void	manage_fd_pipe(t_token *token);
 void	manage_fd_basic_redirection(t_token *token);
 void	open_next_file_with_flags(int type, t_file *file);
+
+void	processing_cmd(t_meta *pkg);
+
+void	processing_built_in(t_meta *pkg);
 
 
 #endif //EXECUTION_H
