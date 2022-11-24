@@ -7,14 +7,14 @@ void	close_all_fd(t_meta *pkg)
 	token = pkg->chain_head;
 	while (token)
 	{
-		if (token->type == TOK_CMD)
+		if (token->type == cmd_t)
 			close_fd_cmd((t_cmd *)token);
-		else if (token->type == TOK_BUILTIN)
+		else if (token->type == builtin_t)
 			close_fd_bltn((t_bltn *)token);
-		else if (token->type == TOK_OP)
+		else if (token->type == op_t)
 			close_fd_op((t_op *)token);
-		else if (token->type == TOK_HEREDOC)
-			remove_tmp_file(token);
+		//else if (token->type == TOK_HEREDOC)
+		//	remove_tmp_file(token);
 		token = token->next;
 	}
 }

@@ -29,13 +29,13 @@ void	change_fd_cmd(t_token *token, int fd_in, int fd_out)
 {
 	t_bltn	*bltn;
 	t_cmd	*cmd;
-	if(token->type == TOK_BUILTIN)
+	if(token->type == builtin_t)
 	{
 		bltn = cast_token(token);
 		bltn->fd_in = fd_in;
 		bltn->fd_out = fd_out;
 	}
-	else if(token->type == TOK_CMD)
+	else if(token->type == cmd_t)
 	{
 		cmd = cast_token(token);
 		cmd->fd_in = fd_in;

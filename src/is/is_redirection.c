@@ -9,7 +9,7 @@ bool	have_token_redirection(t_meta *pkg)
 	{
 		while(this)
 		{
-			if (this->type == TOK_OP)
+			if (this->type == op_t)
 				return (true);
 			this = this->next;
 		}
@@ -21,8 +21,8 @@ bool	is_token_basic_redirection(t_op *this)
 {
 	if (!this)
 		return (false);
-	if (this->type == TOK_REDIR_OUT || this->type == TOK_REDIR_IN
-		|| this->type == TOK_APPEND_OUT || this->type == TOK_HEREDOC)
+	if (this->type == redir_out || this->type == redir_in
+		|| this->type == append_out || this->type == heredoc)
 		return (true);
 	return (false);
 }
