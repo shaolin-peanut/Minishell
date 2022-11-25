@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/11 17:32:09 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 16:01:29 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "token.h"
 # include <stdbool.h>
 
-# define ITER 1
-# define COUNT 0
+# define ITER 0 
+# define LEN 1
 
 typedef struct s_meta		t_meta;
 typedef struct s_cmd		t_cmd;
@@ -38,7 +38,7 @@ bool	is_operator(char *str, int i);
 // function is re-used, after chekcing, as paramater for create_token_operator
 int		is_redirection(char *str, int i);
 bool	is_heredoc(char *str, int i);
-bool	is_pipe(char c, int i);
+bool	is_pipe(char c);
 
 // cmd_path_check.c
 bool	is_absolute_path(char *path);

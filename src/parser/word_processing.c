@@ -6,32 +6,32 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:52 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/08 16:50:53 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/23 13:10:10 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Counts the length of the word, including when it is made of one or more quote
+// LENs the length of the word, including when it is made of one or more quote
 // allocates memory for that length, then copies characters from the main string
 // to the word string, omitting the quotes and copying the rest
 char	*return_word(char *str, t_meta *pkg)
 {
 	char	*word;
-	int		*c_i;
+	int		*l_i;
 	int		i;
 
 	i = 0;
-	c_i = word_len(str, pkg);
-	if (!c_i[COUNT])
+	l_i = word_len(str, pkg);
+	if (!l_i[LEN])
 	{
-		pkg->i = c_i[ITER] - 1;
+		pkg->i = l_i[ITER] - 1;
 		return (NULL);
 	}
 	word = NULL;
-	word = (char *) malloc(sizeof(char) * c_i[COUNT] + 1);
-	word[c_i[COUNT]] = '\0';
-	while (i < c_i[COUNT] && pkg->str[pkg->i])
+	word = (char *) malloc(sizeof(char) * l_i[LEN] + 1);
+	word[l_i[LEN]] = '\0';
+	while (i < l_i[LEN] && pkg->str[pkg->i])
 	{
 		if (is_quote(str[pkg->i]))
 			i = add_quote_content(word, i, pkg);
@@ -39,32 +39,33 @@ char	*return_word(char *str, t_meta *pkg)
 			word[i++] = str[pkg->i++];
 	}
 	pkg->i--;
-	free(c_i);
+	free(l_i);
 	return (word);
 }
+// == TESTS
+//printf("== RETURN_WORD ==\n")ng word!: %d\n", pkg->i);
+//printf("- word len: %d\n", l_i[LEN]);
+//printf("- ITER: %d\n", l_i[ITER]);
+//printf("- pkg->i before creati
 
 int	*word_len(char *str, t_meta *pkg)
 {
-	int	*counter_iterator;
+	int	*len_iter;
+	int	copy;
 
-	counter_iterator = (int *) malloc(sizeof(int) * 2);
-	counter_iterator[COUNT] = 0;
-	counter_iterator[ITER] = 0;
-	counter_iterator[ITER] = pkg->i;
-	while (is_word(str, counter_iterator[ITER]))
+	copy = pkg->i;
+	len_iter = malloc(sizeof(int) * 2);
+	len_iter[LEN] = 0;
+	len_iter[ITER] = 0;
+	len_iter[ITER] = copy;
+	while (is_word(str, len_iter[ITER]))
 	{
-		if (is_quote(str[counter_iterator[ITER]])
-			&& (str[counter_iterator[ITER] + 1] != '\0'))
-		{
-			counter_iterator = quote_len(pkg, counter_iterator);
-		}
+		if (is_quote(str[len_iter[ITER]]) && (str[len_iter[ITER] + 1] != '\0'))
+			len_iter = quote_len(pkg, len_iter);
 		else
-		{
-			counter_iterator[COUNT]++;
-			counter_iterator[ITER]++;
-		}
+			smart_iter(&len_iter[LEN], &len_iter[ITER], 1, 1);
 	}
-	return (counter_iterator);
+	return (len_iter);
 }
 
 // This command does several things
@@ -95,17 +96,6 @@ char	*is_cmd(char *name, t_meta *pkg)
 bool	is_builtin(char *word, t_meta *pkg)
 {
 	(void) pkg;
-	/*char	*list[8];
-	
-	i = -1;
-	list[0] = "echo";
-	list[1] = "cd";
-	list[2] = "pwd";
-	list[3] = "export";
-	list[4] = "unset";
-	list[5] = "env";
-	list[6] = "exit";
-	list[7] = NULL;*/
 	if (ft_strncmp(word, "echo", 5) == 0 || ft_strncmp(word, "cd", 3) == 0
 		|| ft_strncmp(word, "pwd", 4) == 0 || ft_strncmp(word, "export", 7) == 0
 		|| ft_strncmp(word, "unset", 6) == 0 || ft_strncmp(word, "env", 4) == 0

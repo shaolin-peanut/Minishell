@@ -53,7 +53,7 @@ t_token	*get_first_token_redirection(t_meta *pkg)
 	token = pkg->chain_head;
 	while (token)
 	{
-		if (token->type == TOK_OP)
+		if (token->type == op_t)
 			return (token);
 		token = token->next;
 	}
@@ -67,7 +67,7 @@ t_token	*get_next_token_redirection(t_token *this)
 	this = this->next;
 	while (this)
 	{
-		if (this->type == TOK_OP)
+		if (this->type == op_t)
 			return (this);
 		this = this->next;
 	}
@@ -89,12 +89,12 @@ int	get_fd_in(t_token *this)
 {
 	t_bltn	*bltn;
 	t_cmd	*cmd;
-	if(this->type == TOK_BUILTIN)
+	if(this->type == builtin_t)
 	{
 		bltn = cast_token(this);
 		return (bltn->fd_in);
 	}
-	else if(this->type == TOK_CMD)
+	else if(this->type == cmd_t)
 	{
 		cmd = cast_token(this);
 		return (cmd->fd_in);
@@ -106,12 +106,12 @@ int	get_fd_out(t_token *this)
 {
 	t_bltn	*bltn;
 	t_cmd	*cmd;
-	if(this->type == TOK_BUILTIN)
+	if(this->type == builtin_t)
 	{
 		bltn = cast_token(this);
 		return (bltn->fd_out);
 	}
-	else if(this->type == TOK_CMD)
+	else if(this->type == cmd_t)
 	{
 		cmd = cast_token(this);
 		return (cmd->fd_out);

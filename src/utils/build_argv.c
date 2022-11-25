@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_argv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:39:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/11 17:45:59 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/23 13:14:23 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 void	free_str_vector(char **vector)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
-	i = -1;
-	while (vector[++i])
-		free(vector[i]);
+	i = 0;
+	while (vector[i] != 0)
+	{
+		tmp = vector[i];
+		free(tmp);
+		i++;
+	}
+	tmp = vector[i];
+	free(tmp);
 	free(vector);
 }
 
@@ -49,6 +56,7 @@ static char	*get_next_word(char *str, t_meta *pkg)
 	word = NULL;
 	if (is_dollar(str[pkg->i]))
 	{
+		printf("is dollar\n");
 		word = return_var_value(str, pkg, pkg->i);
 		pkg->i += var_name_len(str, pkg->i);
 	}
@@ -75,7 +83,6 @@ t_builder	*add_to_back_of_list(int *counter, t_builder *head, char *word)
 // Create a list of 'builder' structs
 // every item contains a counter which tells me how many strings we have
 // and all the strings are progressively allocated
-// Next, should I just take their pointers or ft_strdup, then free t_builder??
 char	**build_argument_vector(char *name, t_meta *pkg)
 {
 	char		**argument_vector;

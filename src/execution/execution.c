@@ -24,14 +24,14 @@ int	execute_cmd(t_meta *pkg, t_token *token)
 	int		status_built;
 
 	status_built = -1;
-	if (token->type == TOK_CMD)
+	if (token->type == cmd_t)
 	{
 		cmd = cast_token(token);
 		//variables = get_env_variables(env);
 		//update_envp(pkg);
 		bin_execution(pkg, cmd);
 	}
-	else if (token->type == TOK_BUILTIN)
+	else if (token->type == builtin_t)
 	{
 		bltn = cast_token(token);
 		status_built = built_in_execution(pkg, bltn);
@@ -50,12 +50,12 @@ int	wait_all_pid(t_meta *pkg)
 	status = 0;
 	while (token)
 	{
-		if(token->type == TOK_BUILTIN)
+		if(token->type == builtin_t)
 		{
 			bltn = cast_token(token);
 			waitpid(bltn->pid, &status, 0);
 		}
-		else if(token->type == TOK_CMD)
+		else if(token->type == cmd_t)
 		{
 			cmd = cast_token(token);
 			waitpid(cmd->pid, &status, 0);

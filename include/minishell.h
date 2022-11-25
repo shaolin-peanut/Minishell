@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/11 17:57:12 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/15 17:30:22 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct s_prompt
-{
-	t_list	*commands;
-	char	**envp;
-}			t_prompt;
-
 typedef struct s_meta
 {
-	t_prompt	*prompt;
+	char		**envp;
 	char		**paths;
 	char		*str;
 	int			i;
@@ -44,7 +38,7 @@ typedef struct s_meta
 t_token		*parser(char *str, t_meta *pkg);
 
 // prompt.c
-char		*get_prompt(t_prompt prompt);
+char		*get_prompt(void);
 // For further parser prototypes, see parser.h
 
 // utils/
@@ -53,7 +47,7 @@ char		*get_prompt(t_prompt prompt);
 int			errormsg(char *str, t_meta	*pkg);
 
 // init.c
-t_meta		*init_meta(t_prompt *prompt);
+t_meta		*init_meta(char	**envp);
 char		**init_paths(t_meta	*pkg);
 t_token		*init_token(t_meta *pkg);
 

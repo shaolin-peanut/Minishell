@@ -11,7 +11,7 @@ bool	is_token_cmd(t_token *this)
 {
 	if (!this)
 		return (false);
-	if (this->type == TOK_BUILTIN || this->type == TOK_CMD)
+	if (this->type == builtin_t || this->type == cmd_t)
 		return (true);
 	return (false);
 }
