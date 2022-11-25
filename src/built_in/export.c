@@ -1,64 +1,55 @@
 #include "minishell.h"
 
-int	export_built_in(t_cmd *cmd, t_env *env)
+int	export_built_in(t_bltn *bltn, t_meta *pkg)
 {
-	char	*name;
-	char	*value;
-	int		id;
+	char	*key;
 
-	if (!cmd->arg)
+	if (bltn->argc < 2)
 	{
-		print_all_env_export_var_fd(env, cmd->fd_out);
+		ft_putmatrix_fd(pkg->envp, 1, bltn->fd_out);
 		return (0);
 	}
-	name = get_export_variable_name(cmd->arg);
-	if (!name)
+	key = get_export_variable_name(bltn->argv[1]);
+	if (!key)
 	{
 		ft_putstr_fd("export: not a valid identifier\n", 1);
 		return (1);
 	}
-	value = get_env_variable_value(cmd->arg);
-	id = assign_env_var_id(value);
-	change_or_create_var(env, name, value, id);
+	change_or_create_var(pkg, key, bltn->argv[1]);
+	//free(key); ??
 	return (0);
 }
 
-void	change_or_create_var(t_env *env, char *name, char *value, int id)
+void	change_or_create_var(t_meta *pkg, char *key, char *export_string)
 {
-	t_var	*var;
+	int		i;
 
-	if (variable_exist(env, name))
-	{
-		change_env_var_value_with_name(env, name, value);
-		free(name);
-	}
+	i = ft_matrix_search(pkg->envp, key);
+	if (i >= 0)
+		ft_matrix_replace_elem(pkg->envp, i, export_string);
 	else
-	{
-		var = init_env_variable(name, value, id);
-		add_new_env_variable(env, var);
-	}
+		pkg->envp = ft_extend_matrix(pkg->envp, export_string);
 }
 
-int	assign_env_var_id(char *value)
+int	unset(t_bltn *bltn, t_meta *pkg)
 {
-	if (!value)
-		return (NONE_VALUE);
-	return (VALUE);
-}
+	char	*key;
 
-int	unset(t_cmd *cmd, t_env *env)
-{
-	t_var	*var;
-	char	*name;
-
-	if (!cmd->arg)
+	if (bltn->argc < 2)
 		return (0);
-	name = get_variable_name(cmd->arg);
-	var = get_env_var_with_name(env, name);
-	if (var)
-	{
-		remove_and_disconect_env_var(env, var);
-	}
-	free(name);
+	key = bltn->argv[1];
+	ft_matrix_del_elem(pkg->envp, key);
 	return (0);
+}
+
+void	ft_setenv(t_meta *pkg, char *key, char *value)
+{
+	char *tmp;
+	char *str;
+
+	tmp = ft_strjoin(key, "=");
+	str = ft_strjoin(tmp, value);
+	free(tmp);
+	change_or_create_var(pkg, key, str);
+	free(str);
 }

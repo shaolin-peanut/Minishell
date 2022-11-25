@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+/*
 void	get_arg_variables_value(t_env *env)
 {
 	t_token	*token;
@@ -39,3 +39,4 @@ void	change_arg_variable_content(t_env *env, t_arg *arg)
 		arg->content = malloc_strcpy(value);
 	free(name);
 }
+*/

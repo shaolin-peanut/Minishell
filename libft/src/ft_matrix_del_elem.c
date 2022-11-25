@@ -42,3 +42,21 @@ void ft_matrix_del_elem(char **m, char *key)
 		}
 	}
 }
+
+void ft_matrix_replace_elem(char **m, int i, char *elem)
+{
+	int		j;
+	char	*str;
+
+	j = ft_matrixlen(m);
+	if (i >=0 && i < j)
+	{
+		str = ft_strdup(elem);
+		if (str)
+		{
+			free(m[i]);
+			m[i] = str;
+		}
+	}
+}
+

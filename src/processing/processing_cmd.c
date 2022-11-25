@@ -20,10 +20,11 @@ void	processing_bin(t_meta *pkg)
 	}
 	free_array(bins);
 }
-*/
+
 void	processing_cmd(t_meta *pkg)
 {
-	processing_built_in(pkg);
+	//processing_built_in(pkg);
 	//processing_cmd_args(pkg);
 	//processing_bin(pkg);
 }
+ */

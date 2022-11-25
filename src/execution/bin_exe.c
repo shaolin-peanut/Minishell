@@ -14,7 +14,7 @@ void	bin_execution(t_meta *pkg, t_cmd *cmd)
 			redirect_cmd(cmd);
 			close_all_fd(pkg);
 		}
-		execve(path, cmd->argv, pkg->prompt->envp);
+		execve(path, cmd->argv, pkg->envp);
 		perror("Command failure : ");
 		exit(1);
 	}

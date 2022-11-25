@@ -47,6 +47,7 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/execution/bin_exe.c \
 						$(SRCS_DIR)/execution/execution.c \
 						$(SRCS_DIR)/execution/status.c \
+						$(SRCS_DIR)/execution/variable.c \
 						$(SRCS_DIR)/execution/get.c \
 						$(SRCS_DIR)/processing/bin_processing.c \
 						$(SRCS_DIR)/processing/processing_built.c \

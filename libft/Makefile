@@ -17,7 +17,7 @@ SRC =	ft_atoi.c ft_calloc.c ft_putendl_fd.c	\
 	ft_isspace.c ft_nbrlen.c ft_countchar.c ft_atoi2.c \
 	ft_free_matrix.c ft_dup_matrix.c ft_strchr_i.c ft_putmatrix_fd.c \
 	ft_matrixlen.c ft_strchars_i.c ft_extend_matrix.c ft_matrixtolst.c \
-	ft_lsttomatrix.c ft_matrix_replace_in.c \
+	ft_lsttomatrix.c ft_matrix_replace_in.c  ft_matrix_del_elem.c \
 	ft_lstadd_back.c ft_lstclear.c ft_lstlast.c ft_lstsize.c ft_lstnew.c \
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

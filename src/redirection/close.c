@@ -42,7 +42,7 @@ void	close_fd_cmd(t_cmd *cmd)
 	if (!is_standard_fd(cmd->fd_out))
 		close(cmd->fd_out);
 }
-
+/*
 void	remove_tmp_file(t_token *token_heredoc)
 {
 	t_redir	*redir;
@@ -54,3 +54,4 @@ void	remove_tmp_file(t_token *token_heredoc)
 	free(tmp_file);
 	redir->tmp_file = NULL;
 }
+*/

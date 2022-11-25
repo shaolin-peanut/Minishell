@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+/*
 char	**append_bin_name_in_args(char **args, char *name)
 {
 	char	**new_args;
@@ -89,3 +89,4 @@ char	*create_path_bin(char **bins, char *cmd)
 	}
 	return (NULL);
 }
+*/

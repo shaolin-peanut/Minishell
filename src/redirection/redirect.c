@@ -1,6 +1,6 @@
 
 #include "minishell.h"
-
+/*
 int	type_of_redirect(char *content)
 {
 	if (is_pipe(content, 0))
@@ -17,3 +17,4 @@ int	type_of_redirect(char *content)
 		return (TOKEN_HERE_DOC);
 	return (0);
 }
+*/

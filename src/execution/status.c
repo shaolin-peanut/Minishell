@@ -18,7 +18,7 @@ int	convert_status_process_value(int status)
 		status = WEXITSTATUS(status);
 	return (status);
 }
-
+/*
 void	update_variable_status_process(t_env *env, int status)
 {
 	t_var	*var;
@@ -35,3 +35,4 @@ void	update_variable_status_process(t_env *env, int status)
 	}
 	change_env_var_value(var, value);
 }
+*/

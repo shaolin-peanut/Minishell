@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+/*
 void	processing_built_in(t_meta *pkg)
 {
 	t_token	*token;
@@ -55,3 +55,4 @@ void	processing_cd(t_meta *pkg, t_cmd *cmd)
 	if (!(cmd_have_args(cmd)))
 		cmd->arg = get_home_path(pkg);
 }
+*/

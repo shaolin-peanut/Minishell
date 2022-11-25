@@ -1,6 +1,6 @@
 
 #include "minishell.h"
-
+/*
 char	**get_list_of_bins(t_env *env)
 {
 	char	**bins;
@@ -37,3 +37,4 @@ int	test_absolute_bin_access(char *path)
 		return (1);
 	return (0);
 }
+*/

@@ -27,6 +27,13 @@ int	get_fd_in(t_token *this);
 int	get_fd_out(t_token *this);
 char	*get_current_path(void);
 
+char	*get_export_variable_name(char *variable);
+char	*get_variable_name(char *variable);
+char	*get_env_variable_value(char *variable);
+
+void	change_or_create_var(t_meta *pkg, char *key, char *export_string);
+void	ft_setenv(t_meta *pkg, char *key, char *value);
+
 void	bin_execution(t_meta *pkg, t_cmd *cmd);
 
 void	redirect_cmd(t_cmd *cmd);
@@ -52,5 +59,14 @@ void	processing_cmd(t_meta *pkg);
 
 void	processing_built_in(t_meta *pkg);
 
+int	echo(t_bltn *cmd);
+int	cd(t_bltn *cmd, t_meta *pkg);
+int	env_built_in(t_bltn *bltn, t_meta *pkg);
+int	pwd(t_bltn *cmd);
+void exit_built_in(t_bltn *bltn, t_meta *pkg);
+int	export_built_in(t_bltn *bltn, t_meta *pkg);
+int	unset(t_bltn *bltn, t_meta *pkg);
+
+int	built_in_execution(t_meta *pkg, t_bltn *cmd);
 
 #endif //EXECUTION_H

@@ -50,16 +50,17 @@ int	cd(t_bltn *cmd, t_meta *pkg)
 	//liste chainee de variables denvironnement?
 	ft_setenv(pkg, "PWD", new_path);
 	ft_setenv(pkg, "OLDPWD", last_path);
+	//free my bitches? somewhere??
 	return (0);
 }
 
-int	env_built_in(t_cmd *cmd, t_env *env)
+int	env_built_in(t_bltn *bltn, t_meta *pkg)
 {
-	print_all_env_var_fd(env, cmd->fd_out);
+	ft_putmatrix_fd(pkg->envp, 1, bltn->fd_out);
 	return (0);
 }
 
-int	pwd(t_cmd *cmd)
+int	pwd(t_bltn *cmd)
 {
 	char	*path;
 
@@ -70,16 +71,16 @@ int	pwd(t_cmd *cmd)
 	return (0);
 }
 
-void	exit_built_in(t_cmd *cmd, t_env *env)
+void	exit_built_in(t_bltn *bltn, t_meta *pkg)
 {
 	int	signal;
 
 	ft_putstr_fd("exit", 2);
 	ft_putstr_fd("\n", 2);
-	if (!cmd->arg)
+	if (bltn->argc <= 2)
 		signal = 0;
 	else
-		signal = ft_atoi(cmd->arg);
-	remove_all(env);
+		signal = ft_atoi(bltn->argv[1]);
+	free_all(pkg);
 	exit(signal);
 }

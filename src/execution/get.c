@@ -78,7 +78,8 @@ t_file	*get_next_token_file(t_token *token)
 {
 	while (token)
 	{
-		if (token->type == TOK_FILE)
+		//@todo, make sure this line is correct pls!!
+		if (token->type == word_t)
 			return ((t_file *)(token->token));
 		token = token->next;
 	}

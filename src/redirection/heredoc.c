@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+/*
 int	compare_line(char *line, char *limiter, int fd_tmp)
 {
 	if (same_str(limiter, line, (ft_strlen(limiter))))
@@ -76,3 +76,4 @@ char	*read_and_extract_content_file(char *path)
 		free(buf);
 	return (NULL);
 }
+*/
