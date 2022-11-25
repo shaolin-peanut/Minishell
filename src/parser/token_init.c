@@ -21,6 +21,7 @@ t_cmd	*init_cmd(t_meta	*pkg)
 		errormsg("malloc error in init_cmd\n", pkg);
 	command->binary_path = 0;
 	command->argv = 0;
+    command->argc = 0;
 	command->fd_in = 0;
 	command->fd_out = 0;
 	return (command);
@@ -34,6 +35,7 @@ t_bltn	*init_builtin(t_meta	*pkg)
 	if (!builtin)
 		errormsg("malloc error in init-builtin\n", pkg);
 	builtin->argv = 0;
+    builtin->argc = 0;
 	builtin->fd_in = 0;
 	builtin->fd_out = 0;
 	return (builtin);

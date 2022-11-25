@@ -73,7 +73,7 @@ char	**convert_list_to_vector(t_builder	*head, int size)
 
 	i = 0;
 	vector = NULL;
-	vector = (char **)malloc(sizeof(char *) * size + 1);
+	vector = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!vector)
 		return (NULL);
 	while (head)
