@@ -45,9 +45,7 @@ t_token	*init_token(t_meta *pkg)
 		tok->prev = last;
 	}
 	else
-	{
 		pkg->chain_head = tok;
-	}
 	return (tok);
 }
 

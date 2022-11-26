@@ -25,6 +25,7 @@ int	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 	cmd = cast_token(tok);
 	cmd->binary_path = full_path;
 	cmd->argv = build_argument_vector(cmd_name, pkg);
+    cmd->argc = ft_matrixlen(cmd->argv);
 	cmd->fd_in = STDIN_FILENO;
 	cmd->fd_out = STDOUT_FILENO;
 	return (0);
@@ -42,6 +43,7 @@ int	create_builtin_token(char *name, t_meta	*pkg)
 	tok->token = init_builtin(pkg);
 	builtin = cast_token(tok);
 	builtin->argv = build_argument_vector(name, pkg);
+    builtin->argc = ft_matrixlen(builtin->argv);
 	builtin->fd_in = STDIN_FILENO;
 	builtin->fd_out = STDOUT_FILENO;
 	return (1);
