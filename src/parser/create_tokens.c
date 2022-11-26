@@ -14,8 +14,8 @@
 
 int	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 {
-	t_token	*tok;	
-	t_cmd	*cmd;
+	t_token	*tok;
+	t_cmd   *cmd;
 
 	cmd = NULL;
 	tok = NULL;

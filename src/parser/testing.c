@@ -22,6 +22,7 @@ void	print_cmd_token(t_token	*tok)
 	print_2d_vector(cmd->argv);
 	printf("|> fd_in:%d\n", cmd->fd_in);
 	printf("|> fd_out:%d\n", cmd->fd_out);
+	printf("|> pid: %d\n", cmd->pid);
 }
 
 void	print_operator_tok(t_token	*tok)
@@ -60,6 +61,9 @@ void	print_builtin_token(t_token	*tok)
 	printf("|> name: %s\n", b->argv[0]);
 	if (b->argv)
 		print_2d_vector(b->argv);
+	printf("|> fd_in:%d\n", b->fd_in);
+	printf("|> fd_out:%d\n", b->fd_out);
+	printf("|> pid: %d\n", b->pid);
 }
 
 void	print_all_tokens(t_meta	*pkg)

@@ -57,8 +57,6 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/is/is_redirection.c \
 						$(SRCS_DIR)/is/is_token.c
 
-
-					
 OBJS					= $(SRCS:.c=.o)
 
 .c.o :

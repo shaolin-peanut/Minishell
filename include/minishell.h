@@ -52,6 +52,7 @@ char		**init_paths(t_meta	*pkg);
 t_token		*init_token(t_meta *pkg);
 
 // memory.c
+void		free_tokens(t_meta 	*pkg);
 void		free_all(t_meta *pkg);
 
 // list_utils.c
