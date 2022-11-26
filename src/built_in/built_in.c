@@ -32,7 +32,7 @@ int	cd(t_bltn *cmd, t_meta *pkg)
 	char	*last_path;
 
 	if (cmd->argc < 2)
-		path = getenv("HOME");
+		path = ft_getenv(pkg, "HOME");
 	else if (cmd->argc == 2)
 		path = cmd->argv[1];
 	else
@@ -46,7 +46,7 @@ int	cd(t_bltn *cmd, t_meta *pkg)
 		return (1);
 	}
 	new_path = get_current_path();
-	last_path = getenv("PWD");
+	last_path = ft_getenv(pkg, "PWD");
 	//liste chainee de variables denvironnement?
 	ft_setenv(pkg, "PWD", new_path);
 	ft_setenv(pkg, "OLDPWD", last_path);
@@ -81,6 +81,7 @@ void	exit_built_in(t_bltn *bltn, t_meta *pkg)
 		signal = 0;
 	else
 		signal = ft_atoi(bltn->argv[1]);
+	free_tokens(pkg);
 	free_all(pkg);
 	exit(signal);
 }
