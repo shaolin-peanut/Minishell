@@ -33,6 +33,7 @@ char	*get_env_variable_value(char *variable);
 
 void	change_or_create_var(t_meta *pkg, char *key, char *export_string);
 void	ft_setenv(t_meta *pkg, char *key, char *value);
+char	*ft_getenv(t_meta *pkg, char *key);
 
 void	bin_execution(t_meta *pkg, t_cmd *cmd);
 

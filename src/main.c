@@ -33,8 +33,9 @@ int	main(int argc, char **argv, char **envp)
         printf("------------executor\n");
 		//processing_cmd(pkg);
 		processing_redirection(pkg);
-		executor(pkg);
 		print_all_tokens(pkg);
+		executor(pkg);
+		//print_all_tokens(pkg);
         free_tokens(pkg);
 	}
     free_all(pkg);

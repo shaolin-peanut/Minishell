@@ -53,3 +53,22 @@ void	ft_setenv(t_meta *pkg, char *key, char *value)
 	change_or_create_var(pkg, key, str);
 	free(str);
 }
+
+char *ft_getenv(t_meta *pkg, char *key)
+{
+	int	i;
+	int j;
+	char *tmp;
+	j = 0;
+	i = ft_matrix_search(pkg->envp, key);
+	if (i != -1)
+	{
+		while((pkg->envp[i])[j] != '=')
+			++j;
+		//peut =etre j + 1 ??
+		tmp = ft_substr(pkg->envp[i], j + 1, ft_strlen(pkg->envp[i]) - j);
+		return (tmp);
+	}
+	else
+		return (NULL);
+}

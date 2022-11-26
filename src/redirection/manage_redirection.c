@@ -44,6 +44,7 @@ void	manage_fd_pipe(t_token *token)
 {
 	t_token *prev_cmd;
 	t_token	*next_cmd;
+	t_op 	*pipe_tok;
 	int		fd[2];
 
 	prev_cmd = get_prev_token_cmd(token);
@@ -53,6 +54,9 @@ void	manage_fd_pipe(t_token *token)
 	pipe(fd);
 	change_fd_cmd(prev_cmd, get_fd_in(prev_cmd), fd[1]);
 	change_fd_cmd(next_cmd, fd[0], get_fd_out(next_cmd));
+	pipe_tok = cast_token(token);
+	pipe_tok->fd_in = fd[1];
+	pipe_tok->fd_out = fd[0];
 }
 
 void	manage_fd_basic_redirection(t_token *token)
