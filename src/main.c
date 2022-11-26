@@ -26,6 +26,8 @@ int	main(int argc, char **argv, char **envp)
 		else
 			parser(readline("guest@minishell $ "), pkg);
 		print_all_tokens(pkg);
+		//processing_cmd(pkg);
+		processing_redirection(pkg);
 		executor(pkg);
 		free(prompt_str);
 		free_all(pkg);
