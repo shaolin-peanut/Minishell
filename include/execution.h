@@ -70,4 +70,8 @@ int	unset(t_bltn *bltn, t_meta *pkg);
 
 int	built_in_execution(t_meta *pkg, t_bltn *cmd);
 
+void	pass(int key);
+void	call_prompt(int key);
+void	use_signal(void);
+
 #endif //EXECUTION_H

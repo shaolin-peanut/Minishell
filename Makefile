@@ -55,7 +55,8 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/processing/processing_redirection.c \
 						$(SRCS_DIR)/processing/variable_value.c \
 						$(SRCS_DIR)/is/is_redirection.c \
-						$(SRCS_DIR)/is/is_token.c
+						$(SRCS_DIR)/is/is_token.c \
+						$(SRCS_DIR)/env/signal.c
 
 OBJS					= $(SRCS:.c=.o)
 
