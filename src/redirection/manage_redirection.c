@@ -90,8 +90,8 @@ void	manage_fd_basic_redirection(t_token *token)
 		open_next_file_with_flags(op->type, next_file);
 		change_fd_cmd(prev_token, get_fd_in(prev_token), next_file->fd);
 	}
-	else if (op->type == heredoc)
-		;
+	//else if (op->type == heredoc)
+	//	;
 }
 
 void	open_next_file_with_flags(int type, t_file *file)
@@ -105,6 +105,7 @@ void	open_next_file_with_flags(int type, t_file *file)
 	{
 		close(file->fd);
 		file->fd = open(file->name, O_WRONLY | O_TRUNC);
+		printf("File, name:%s\tFD: %d\n",file->name , file->fd);
 	}
 	else if (type == append_out)
 	{

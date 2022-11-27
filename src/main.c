@@ -18,6 +18,9 @@ int	main(int argc, char **argv, char **envp)
 	char		*prompt_str;
 	char 		*line;
 
+	int fdtest = open("outfile", O_WRONLY | O_TRUNC);
+	printf("FDTEST = %d\n", fdtest);
+	close(fdtest);
     pkg = init_meta(envp);
 	while (argc || argv || envp)
     {
@@ -34,8 +37,12 @@ int	main(int argc, char **argv, char **envp)
 			line = readline("guest@minishell $ ");
 		add_history(line);
 		parser(line, pkg);
+		printf("--parser DONE\n");
 		processing_redirection(pkg);
+		printf("--redirection DONE\n");
+		//print_all_tokens(pkg);
 		executor(pkg);
+		printf("--execution DONE\n");
         free_tokens(pkg);
 	}
     free_all(pkg);

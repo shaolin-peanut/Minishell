@@ -65,7 +65,7 @@ OBJS					= $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
 	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) -lreadline -g -o $(NAME) $(OBJS) $(LIBFT_FLAGS) -I $(INCS_DIR)
+	$(CC) $(CFLAGS) -g -o $(NAME) $(OBJS) -lreadline $(LIBFT_FLAGS) -I $(INCS_DIR)
 
 all : $(NAME)
 
