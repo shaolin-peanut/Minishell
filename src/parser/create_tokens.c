@@ -96,7 +96,6 @@ int create_file_token(char *str, t_meta *pkg)
 	tok->type = file_t;
 	tok->token = init_file(pkg);
 	file = cast_token(tok);
-	printf("ayo\n");
 	file->name = str;
 	file->fd = 0;
 //	pkg->i += ft_strlen(str);

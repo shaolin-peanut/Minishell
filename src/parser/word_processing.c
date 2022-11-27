@@ -29,7 +29,7 @@ char	*return_word(char *str, t_meta *pkg)
 		return (NULL);
 	}
 	word = NULL;
-	word = (char *) malloc(sizeof(char) * l_i[LEN] + 1);
+	word = (char *) malloc(sizeof(char) * (l_i[LEN] + 1));
 	word[l_i[LEN]] = '\0';
 	while (i < l_i[LEN] && pkg->str[pkg->i])
 	{
