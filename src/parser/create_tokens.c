@@ -28,6 +28,7 @@ int	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
     cmd->argc = ft_matrixlen(cmd->argv);
 	cmd->fd_in = STDIN_FILENO;
 	cmd->fd_out = STDOUT_FILENO;
+	cmd->pid = 0;
 	return (0);
 }
 
@@ -46,6 +47,7 @@ int	create_builtin_token(char *name, t_meta	*pkg)
     builtin->argc = ft_matrixlen(builtin->argv);
 	builtin->fd_in = STDIN_FILENO;
 	builtin->fd_out = STDOUT_FILENO;
+	builtin->pid = 0;
 	return (1);
 }
 

@@ -52,10 +52,14 @@ void	redirect_cmd(t_cmd *cmd)
 	fd_out = cmd->fd_out;
 	if (!is_standard_fd(fd_in))
 	{
+		//close(fd_out);
 		dup2(fd_in, STDIN_FILENO);
+		//close(fd_in);
 	}
 	if (!is_standard_fd(fd_out))
 	{
+		//close(fd_in);
 		dup2(fd_out, STDOUT_FILENO);
+		//close(fd_out);
 	}
 }

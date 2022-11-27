@@ -71,7 +71,7 @@ int	pwd(t_bltn *cmd)
 	return (0);
 }
 
-void	exit_built_in(t_bltn *bltn, t_meta *pkg)
+void exit_built_in(t_bltn *bltn, t_meta *pkg)
 {
 	int	signal;
 

@@ -23,17 +23,17 @@ int	main(int argc, char **argv, char **envp)
 		pkg->str = NULL;
 		pkg->i = 0;
 		prompt_str = get_prompt();
-        printf("------------parser\n");
+        //printf("------------parser\n");
 		if (prompt_str)
 			parser(readline(prompt_str), pkg);
 		else
 			parser(readline("guest@minishell $ "), pkg);
         free(prompt_str);
-		print_all_tokens(pkg);
-        printf("------------executor\n");
+		//print_all_tokens(pkg);
+        //printf("------------executor\n");
 		//processing_cmd(pkg);
 		processing_redirection(pkg);
-		print_all_tokens(pkg);
+		//print_all_tokens(pkg);
 		executor(pkg);
 		//print_all_tokens(pkg);
         free_tokens(pkg);

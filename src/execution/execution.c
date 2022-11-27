@@ -43,21 +43,25 @@ int	wait_all_pid(t_meta *pkg)
 {
 	t_token	*token;
 	t_cmd	*cmd;
-	t_bltn	*bltn;
+	//t_bltn	*bltn;
 	int		status;
 
 	token = get_first_token_cmd(pkg);
 	status = 0;
 	while (token)
 	{
+		/*
 		if(token->type == builtin_t)
 		{
 			bltn = cast_token(token);
+			printf("waiting for pid bltn -> %d\n", bltn->pid);
 			waitpid(bltn->pid, &status, 0);
 		}
-		else if(token->type == cmd_t)
+		 */
+		if(token->type == cmd_t)
 		{
 			cmd = cast_token(token);
+			//printf("waiting for pid cmd -> %d\n", cmd->pid);
 			waitpid(cmd->pid, &status, 0);
 		}
 		status = convert_status_process_value(status);
