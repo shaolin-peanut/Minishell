@@ -12,6 +12,15 @@
 
 #include "../../include/minishell.h"
 
+void	print_file_token(t_token *tok)
+{
+	t_file	*file;
+
+	file = cast_token(tok);
+	printf("|> TOKEN:FILE\n");
+	printf("|> name: %s\n", file->name);
+	printf("|> fd: %d\n", file->fd);
+}
 void	print_cmd_token(t_token	*tok)
 {
 	t_cmd	*cmd;
@@ -82,6 +91,8 @@ void	print_all_tokens(t_meta	*pkg)
 			print_operator_tok(token);
 		if (token->type == word_t)
 			print_word(token);
+		if (token->type == file_t)
+			print_file_token(token);
 		token = token->next;
 	}
 }

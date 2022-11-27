@@ -16,7 +16,7 @@
 # include "token.h"
 # include <stdbool.h>
 
-# define ITER 0 
+# define ITER 0
 # define LEN 1
 
 typedef struct s_meta		t_meta;
@@ -31,6 +31,7 @@ bool	is_quote(char c);
 // compound_char_checks.c
 bool	is_word(char *str, int i);
 bool	is_var(char *str, int i);
+void	file_check_and_create(t_meta *pkg, int type);
 
 // operators_checks.c
 bool	is_operator(char *str, int i);
@@ -76,11 +77,13 @@ int		create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);
 int		create_builtin_token(char *cmd_name, t_meta *pkg);
 int		create_word_token(char *word, t_meta *pkg);
 int		create_operator_token(t_meta *pkg, int type);
+int 	create_file_token(char *str, t_meta *pkg);
 
 // token_init.c
 t_cmd	*init_cmd(t_meta	*pkg);
 t_word	*init_word(t_meta	*pkg);
 t_op	*init_op(t_meta	*pkg);
 t_bltn	*init_builtin(t_meta	*pkg);
+t_file	*init_file(t_meta	*pkg);
 
 #endif

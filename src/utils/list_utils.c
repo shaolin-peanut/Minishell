@@ -47,6 +47,8 @@ void	*cast_token(t_token	*token)
 		return ((t_word *)token->token);
 	else if (token->type == op_t)
 		return ((t_op *)token->token);
+	else if (token->type == file_t)
+		return ((t_file *)token->token);
 	else
 		return (NULL);
 }

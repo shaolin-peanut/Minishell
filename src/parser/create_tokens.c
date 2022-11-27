@@ -84,3 +84,21 @@ int	create_operator_token(t_meta *pkg, int type)
 	op->fd_out = STDOUT_FILENO;
 	return (0);
 }
+
+int create_file_token(char *str, t_meta *pkg)
+{
+	t_token	*tok;
+	t_file *file;
+
+	tok = NULL;
+	file = NULL;
+	tok = init_token(pkg);
+	tok->type = file_t;
+	tok->token = init_file(pkg);
+	file = cast_token(tok);
+	printf("ayo\n");
+	file->name = str;
+	file->fd = 0;
+//	pkg->i += ft_strlen(str);
+	return (0);
+}

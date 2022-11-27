@@ -13,7 +13,7 @@
 #ifndef TOKEN_H
 # define TOKEN_H
 
-enum e_tok_type	{word_t, builtin_t, cmd_t, op_t};
+enum e_tok_type	{word_t, file_t, builtin_t, cmd_t, op_t};
 enum e_op_types	{pipe_t, redir_in, redir_out, append_out, heredoc};
 // enum cmd	{binary, builtin}
 

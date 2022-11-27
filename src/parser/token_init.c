@@ -64,3 +64,15 @@ t_word	*init_word(t_meta	*pkg)
 	word->str = NULL;
 	return (word);
 }
+
+t_file	*init_file(t_meta	*pkg)
+{
+	t_file *file;
+
+	file = (t_file *) malloc(sizeof(file) * 1);
+	if (!file)
+		errormsg("malloc error in init_file\n", pkg);
+	file->name = NULL;
+	file->fd = 0;
+	return (file);
+}

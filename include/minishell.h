@@ -67,6 +67,7 @@ char		**build_argument_vector(char *name, t_meta *pkg);
 t_builder	*init_builder(int *i, char *str);
 t_builder	*add_to_back_of_list(int *counter, t_builder *head, char *word);
 void		free_str_vector(char **vector);
+char		*get_next_word(char *str, t_meta *pkg);
 
 // parser
 void		smart_iter(int *a, int *b, int incr_a, int incr_b);

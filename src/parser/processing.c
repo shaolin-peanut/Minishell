@@ -26,8 +26,10 @@ void	process_word(char *word, t_meta *pkg)
 	}
 	path = is_cmd(word, pkg);
 	if (!path)
+	{
 		create_word_token(word, pkg);
-	else if (path)
+	}
+	if (path)
 		create_cmd_token(word, path, pkg);
 }
 
@@ -38,7 +40,12 @@ void	process_operator(char *str, t_meta *pkg)
 	else if (is_heredoc(str, pkg->i))
 		create_operator_token(pkg, heredoc);
 	else if (is_redirection(str, pkg->i))
+	{
 		create_operator_token(pkg, is_redirection(str, pkg->i));
+		file_check_and_create(pkg, is_redirection(str, pkg->i));
+//		pkg->i++;
+	}
+
 }
 
 void	process_dollar(char *str, t_meta *pkg)

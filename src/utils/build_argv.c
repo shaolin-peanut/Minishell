@@ -49,7 +49,7 @@ t_builder	*init_builder(int *i, char *str)
 	return (b);
 }
 
-static char	*get_next_word(char *str, t_meta *pkg)
+char	*get_next_word(char *str, t_meta *pkg)
 {
 	char		*word;
 

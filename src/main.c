@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		else
 			parser(readline("guest@minishell $ "), pkg);
         free(prompt_str);
-		//print_all_tokens(pkg);
+//		print_all_tokens(pkg);
         //printf("------------executor\n");
 		//processing_cmd(pkg);
 		processing_redirection(pkg);
