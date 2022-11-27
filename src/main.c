@@ -16,26 +16,26 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_meta		*pkg;
 	char		*prompt_str;
+	char 		*line;
 
     pkg = init_meta(envp);
 	while (argc || argv || envp)
     {
 		pkg->str = NULL;
 		pkg->i = 0;
+		use_signal();
 		prompt_str = get_prompt();
-        //printf("------------parser\n");
 		if (prompt_str)
-			parser(readline(prompt_str), pkg);
+		{
+			line = readline(prompt_str);
+			free(prompt_str);
+		}
 		else
-			parser(readline("guest@minishell $ "), pkg);
-        free(prompt_str);
-		//print_all_tokens(pkg);
-        //printf("------------executor\n");
-		//processing_cmd(pkg);
+			line = readline("guest@minishell $ ");
+		add_history(line);
+		parser(line, pkg);
 		processing_redirection(pkg);
-		//print_all_tokens(pkg);
 		executor(pkg);
-		//print_all_tokens(pkg);
         free_tokens(pkg);
 	}
     free_all(pkg);
