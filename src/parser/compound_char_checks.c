@@ -27,7 +27,7 @@ bool	is_var(char	*str, int i)
 		&& !is_dollar_question(str, i));
 }
 
-void	file_check_and_create(t_meta *pkg, int type)
+bool	file_check_and_create(t_meta *pkg, int type)
 {
 	char *word;
 
@@ -38,14 +38,18 @@ void	file_check_and_create(t_meta *pkg, int type)
 		if (is_word(pkg->str, pkg->i) || is_dollar(pkg->str[pkg->i]))
 		{
 			word = return_word(pkg->str, pkg);
-//			word = get_next_word(pkg->str, pkg);
 			break ;
 		}
 		pkg->i++;
 	}
-	printf("file_check_and_create passed %s\n", word);
-	if (type == redir_in/* && access(word, R_OK) == 0*/ || (type == redir_out || type == append_out)/* && access(word, W_OK) == 0)*/)
-			create_file_token(word, pkg);
+	if ((type == redir_in && access(word, R_OK) == 0) || (type == redir_out || type == append_out))
+		create_file_token(word, pkg);
 	else
+	{
 		printf("%s: Permission Denied\n", word);
+		while (pkg->str[pkg->i])
+			pkg->i++;
+		return (false);
+	}
+	return (true);
 }

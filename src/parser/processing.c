@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	process_word(char *word, t_meta *pkg)
+bool	process_word(char *word, t_meta *pkg)
 {
 	char	*path;
 
@@ -22,18 +22,17 @@ void	process_word(char *word, t_meta *pkg)
 	if (is_builtin(word, pkg))
 	{
 		create_builtin_token(word, pkg);
-		return ;
+		return (true);
 	}
 	path = is_cmd(word, pkg);
 	if (!path)
-	{
 		create_word_token(word, pkg);
-	}
-	if (path)
+	else
 		create_cmd_token(word, path, pkg);
+	return (true);
 }
 
-void	process_operator(char *str, t_meta *pkg)
+bool	process_operator(char *str, t_meta *pkg)
 {
 	if (is_pipe(str[pkg->i]))
 		create_operator_token(pkg, pipe_t);
@@ -42,13 +41,12 @@ void	process_operator(char *str, t_meta *pkg)
 	else if (is_redirection(str, pkg->i))
 	{
 		create_operator_token(pkg, is_redirection(str, pkg->i));
-		file_check_and_create(pkg, is_redirection(str, pkg->i));
-//		pkg->i++;
+		return (file_check_and_create(pkg, is_redirection(str, pkg->i)));
 	}
-
+	return (true);
 }
 
-void	process_dollar(char *str, t_meta *pkg)
+bool	process_dollar(char *str, t_meta *pkg)
 {
 	printf("> dollar: %s\n", str + pkg->i);
 	if (is_var(str, pkg->i))
@@ -58,4 +56,5 @@ void	process_dollar(char *str, t_meta *pkg)
 	// just_print_last_fd_exit_status;
 	else
 		(void) pkg;
+	return (true);
 }

@@ -38,7 +38,7 @@ typedef struct s_meta
 
 // parser/
 // parser.c
-t_token		*parser(char *str, t_meta *pkg);
+bool		parser(char *str, t_meta *pkg);
 
 // prompt.c
 char		*get_prompt(void);
@@ -47,7 +47,7 @@ char		*get_prompt(void);
 // utils/
 
 // error.c
-int			errormsg(char *str, t_meta	*pkg);
+int			errormsg(char *str,t_meta	*pkg);
 
 // init.c
 t_meta		*init_meta(char	**envp);
