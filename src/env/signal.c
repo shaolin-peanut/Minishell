@@ -10,11 +10,11 @@ void	use_signal(void)
 void	call_prompt(int key)
 {
 	(void)key;
-	//rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_on_new_line();
 	write(1, "\n", 1);
 	rl_redisplay();
-	//update_variable_status_process(g_env, 130);
+	update_variable_status_process(g_pkg, 130);
 }
 
 void	pass(int key)

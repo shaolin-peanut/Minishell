@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+t_meta	*g_pkg;
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_meta		*pkg;
@@ -19,11 +21,13 @@ int	main(int argc, char **argv, char **envp)
 	char 		*line;
 
     pkg = init_meta(envp);
+	g_pkg = pkg;
 	while (argc || argv || envp)
     {
 		pkg->str = NULL;
 		pkg->i = 0;
 		use_signal();
+		line = NULL;
 		prompt_str = get_prompt();
 		if (prompt_str)
 		{
@@ -32,15 +36,18 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 			line = readline("guest@minishell $ ");
-		add_history(line);
-		parser(line, pkg);
-		//printf("--parser DONE\n");
-		processing_redirection(pkg);
-		//printf("--redirection DONE\n");
-		print_all_tokens(pkg);
-		executor(pkg);
-		//printf("--execution DONE\n");
-        free_tokens(pkg);
+		if (line)
+		{
+			add_history(line);
+			parser(line, pkg);
+			//printf("--parser DONE\n");
+			processing_redirection(pkg);
+			//printf("--redirection DONE\n");
+			print_all_tokens(pkg);
+			executor(pkg);
+			//printf("--execution DONE\n");
+			free_tokens(pkg);
+		}
 	}
     free_all(pkg);
 	return (0);

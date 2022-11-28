@@ -1,19 +1,10 @@
-NAME					= minishell
 
-CC						= gcc
-CFLAGS					= -Wall -Werror -Wextra
-AR						= ar rcs
-RM						= rm -rf
+NAME = minishell
 
-LIBFT_DIR				= ./libft/
-LIBFT_FLAGS				= -L ./$(LIBFT_DIR) -lft
-LIBFT_FILE				= $(LIBFT_DIR)libft.a
+SRCS_DIR				= src/
+INCS_DIR				= include/
 
-INCS_DIR				= ./include/
-SRCS_DIR				= ./src/
-
-INCS					= -I include
-
+# === File && Header === #
 SRCS					= $(SRCS_DIR)main.c \
 						  $(SRCS_DIR)/parser/parser.c \
 						$(SRCS_DIR)/parser/prompt.c \
@@ -58,28 +49,83 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/is/is_token.c \
 						$(SRCS_DIR)/env/signal.c
 
-OBJS					= $(SRCS:.c=.o)
+# ==== Template ==== #
+TEMPLATE = include/header.txt
 
-.c.o :
-	$(CC) $(CFLAGS) -I $(INCS_DIR) -o $@ -c $?
+# ==== Execute ==== #
+EXE = @./$(NAME)
+LIBFT = libft/libft.a
+# ==== Debug && Leak ==== #
+SANITIZE 		= -fsanitize=address
+LEAKS 			= -fsanitize=leak
+DEBUGGER		= lldb
 
-$(NAME) : $(OBJS)
-	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) -g -o $(NAME) $(OBJS) -lreadline $(LIBFT_FLAGS) -I $(INCS_DIR)
+# ==== Remove ==== #
+RM_FILE = /bin/rm -rf
 
-all : $(NAME)
+# ==== Objet && compiling ==== #
+OBJS			= $(SRCS:.c=.o)
+CC				?= gcc
+FLAGS			= -g3
+FLAGS 			+= -Wall -Werror -Wextra
+FLAGS 			+= $(SANITIZE)
+READLINE		= -lreadline
+MAKE			= make -s
+
+# Cross fLags
+UNAME = $(shell uname -s)
+
+ifeq ($(UNAME), Linux)
+	NPROC := $(shell nproc)
+	
+else
+	NPROC := $(shell sysctl -n hw.ncpu)
+	FLAGS += -I$(HOME)/.brew/opt/readline/include
+    READLINE += -L$(HOME)/.brew/opt/readline/lib
+	
+endif
+
+# === Convert all .c to .o with flags and header === # 
+%.o : %.c
+			@$(CC) $(FLAGS) -I $(INCS_DIR) -c $< -o $@
+	
+$(NAME) : 	    $(OBJS)
+				@echo "==== Create all .o ===="
+				@echo "==== Compiling all .c ===="
+				@echo "==== Compiling libft ===="
+				@$(MAKE) -C libft
+				@echo "==== Compiling Minishell ===="
+				@$(CC) $(OBJS) $(FLAGS) $(READLINE) $(LIBFT) -o $(NAME)
+				@cat "$(TEMPLATE)"		
+
+all : 	 $(NAME)
 
 clean :
-	make -C $(LIBFT_DIR) clean
-	$(RM) $(OBJS) $(OBJS_BONUS) minishell.dSYM
+				@echo "==== Remove all Libft .o ===="
+				@$(MAKE) clean -C libft
+				@echo "==== Remove all Minishell .o ===="
+				@$(RM_FILE) $(OBJS)
 
 fclean : clean
-	make -C $(LIBFT_DIR) fclean
-	$(RM) $(NAME) minishell.dSYM
+				@$(MAKE) fclean -C libft
+				@$(RM_FILE) $(NAME)
+
+debug : 		$(OBJS)
+				@echo "==== Mode Debug Activate ===="
+				@$(CC) $(OBJS) $(FLAGS) $(READLINE) $(SANITIZE) $(LIBFT) -o $(NAME)
+				$(DEBUGGER) $(NAME)
+				@cat "$(TEMPLATE)"
+				
+sanitize :		$(OBJS)
+				@echo "==== Mode Sanitize Activate ===="
+				@$(CC) $(OBJS) $(FLAGS) $(READLINE) $(SANITIZE) $(LIBFT) -o $(NAME)
+				@cat "$(TEMPLATE)"
+
+leak :			$(OBJS)
+				@echo "==== Mode Leak Activate ===="
+				@$(CC) $(OBJS) $(FLAGS) $(READLINE) $(LEAKS) $(LIBFT) -o $(NAME)
+				@cat "$(TEMPLATE)"
+
 
 re : fclean all
-
-norm :
-	norminette $(SRCS) $(INCS_DIR)*.h
-
-PHONY	: all clean fclean re
+.PHONY			: all clean fclean re leak sanitize

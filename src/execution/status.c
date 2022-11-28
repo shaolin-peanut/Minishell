@@ -18,21 +18,21 @@ int	convert_status_process_value(int status)
 		status = WEXITSTATUS(status);
 	return (status);
 }
-/*
-void	update_variable_status_process(t_env *env, int status)
+
+void	update_variable_status_process(t_meta *pkg, int status)
 {
-	t_var	*var;
 	char	*value;
+	char	*env_val;
 
 	value = ft_itoa(status);
 	if (!value)
 		return ;
-	var = get_env_var_with_name(env, "?");
-	if (!var)
+	env_val = ft_getenv(pkg, "?");
+	//env_val = get_env_var_with_name(env, "?");
+	if (!env_val)
 	{
 		free(value);
 		return ;
 	}
-	change_env_var_value(var, value);
+	ft_setenv(pkg, "?", value);
 }
-*/

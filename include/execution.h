@@ -41,6 +41,7 @@ void	redirect_cmd(t_cmd *cmd);
 
 int	convert_status_process_value(int status);
 int	get_last_status(int bin_status, int ret_built_in);
+//void update_variable_status_process(t_meta *pkg, int status);
 
 /*redirectionfonctions */
 
