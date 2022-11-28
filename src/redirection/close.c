@@ -11,10 +11,8 @@ void	close_all_fd(t_meta *pkg)
 			close_fd_cmd((t_cmd *)token->token);
 		else if (token->type == builtin_t)
 			close_fd_bltn((t_bltn *)token->token);
-		/*
-		else if (token->type == op_t)
-			close_fd_op((t_op *)token);
-		 */
+//		else if (token->type == op_t)
+//			close_fd_op((t_op *)token);
 		//else if (token->type == TOK_HEREDOC)
 		//	remove_tmp_file(token);
 		token = token->next;

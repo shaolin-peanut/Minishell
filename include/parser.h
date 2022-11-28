@@ -31,7 +31,7 @@ bool	is_quote(char c);
 // compound_char_checks.c
 bool	is_word(char *str, int i);
 bool	is_var(char *str, int i);
-void	file_check_and_create(t_meta *pkg, int type);
+bool	file_check_and_create(t_meta *pkg, int type);
 
 // operators_checks.c
 bool	is_operator(char *str, int i);
@@ -47,9 +47,9 @@ char	*is_relative_path(char *word);
 char	*is_binary_name(char *word, t_meta *pkg);
 
 // processing.c
-void	process_word(char *str, t_meta *pkg);
-void	process_operator(char *str, t_meta *pkg);
-void	process_dollar(char *str, t_meta *pkg);
+bool	process_word(char *str, t_meta *pkg);
+bool	process_operator(char *str, t_meta *pkg);
+bool	process_dollar(char *str, t_meta *pkg);
 
 // variables.c
 void	process_variable(t_meta	*pkg, char *str, int i);

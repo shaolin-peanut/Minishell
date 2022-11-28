@@ -10,6 +10,7 @@ void	processing_redirection(t_meta *pkg)
 		while (token)
 		{
 			manage_fd_for_redirection(token);
+//			printf("ayo\n");
 			token = get_next_token_redirection(token);
 		}
 		/*
