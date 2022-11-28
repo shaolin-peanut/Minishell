@@ -69,7 +69,7 @@ t_file	*init_file(t_meta	*pkg)
 {
 	t_file *file;
 
-	file = (t_file *) malloc(sizeof(file) * 1);
+	file = (t_file *) malloc(sizeof(t_file) * 1);
 	if (!file)
 		errormsg("malloc error in init_file\n", pkg);
 	file->name = NULL;

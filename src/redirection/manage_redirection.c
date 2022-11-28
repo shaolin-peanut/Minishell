@@ -90,8 +90,8 @@ void	open_next_file_with_flags(int type, t_file *file)
 	if (type == redir_in)
 		file->fd = open(file->name, O_RDONLY);
 	else if (type == redir_out)
-		file->fd = open(file->name, O_RDWR | O_CREAT | O_TRUNC);
+		file->fd = open(file->name, O_WRONLY | O_CREAT | O_TRUNC);
 	else if (type == append_out)
-		file->fd = open(file->name, O_RDWR | O_CREAT | O_APPEND);
+		file->fd = open(file->name, O_WRONLY | O_CREAT | O_APPEND);
 	printf("AFTER OPEN File, name:%s\tFD: %d\n",file->name , file->fd);
 }
