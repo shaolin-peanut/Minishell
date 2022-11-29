@@ -73,7 +73,7 @@ char	*get_export_variable_name(char *variable)
 			return (NULL);
 		else if (variable[index] == '=')
 		{
-			end = index - 1;
+			end = index;
 			name = ft_substr(variable, start, end);
 			return (name);
 		}

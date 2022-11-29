@@ -6,7 +6,8 @@ int	export_built_in(t_bltn *bltn, t_meta *pkg)
 
 	if (bltn->argc < 2)
 	{
-		ft_putmatrix_fd(pkg->envp, 1, bltn->fd_out);
+		sort(pkg->envp);
+		ft_putmatrix_fd_export(pkg->envp, 1, bltn->fd_out);
 		return (0);
 	}
 	key = get_export_variable_name(bltn->argv[1]);
@@ -16,7 +17,7 @@ int	export_built_in(t_bltn *bltn, t_meta *pkg)
 		return (1);
 	}
 	change_or_create_var(pkg, key, bltn->argv[1]);
-	//free(key); ??
+	free(key);
 	return (0);
 }
 
