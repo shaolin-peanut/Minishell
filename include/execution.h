@@ -10,6 +10,7 @@ int		wait_all_pid(t_meta *pkg);
 void	close_all_fd(t_meta *pkg);
 void	close_fd_cmd(t_cmd *cmd);
 void 	close_fd_bltn(t_bltn *bltn);
+void 	close_fd_file(t_file *file);
 void 	close_fd_op(t_op *op);
 void	remove_tmp_file(t_token *token_heredoc);
 

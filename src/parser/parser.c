@@ -44,6 +44,7 @@ bool	parser(char *str, t_meta *pkg)
 		ret = lexical_scan(str, pkg);
 		pkg->i++;
 	}
+	free(str);
 	return (ret);
 }
 		// printf("STR[%d]:'%c'\n", pkg->i, str[pkg->i]);

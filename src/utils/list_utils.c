@@ -55,29 +55,32 @@ void	*cast_token(t_token	*token)
 
 void	free_list(t_builder	*node)
 {
-	t_builder	*prev;
+	t_builder	*next;
 
-	prev = NULL;
-	while (node != NULL)
+	while (node)
 	{
-		if (prev)
-			free(prev);
+		next = node->next;
 		free(node->word);
-		node = node->next;
-		prev = node;
+		free(node);
+		node = next;
 	}
 }
 
 char	**convert_list_to_vector(t_builder	*head, int size)
 {
 	char		**vector;
+	t_builder	*tmp;
 	int			i;
 
 	i = 0;
 	vector = NULL;
 	vector = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!vector)
+	{
+		free_list(head);
 		return (NULL);
+	}
+	tmp = head;
 	while (head)
 	{
 		vector[i] = NULL;
@@ -86,6 +89,7 @@ char	**convert_list_to_vector(t_builder	*head, int size)
 		head = head->next;
 	}
 	vector[size] = NULL;
+	free_list(tmp);
 	return (vector);
 }
 // echo "salut"|echo

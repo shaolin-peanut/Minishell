@@ -18,14 +18,14 @@ void	free_str_vector(char **vector)
 	char	*tmp;
 
 	i = 0;
-	while (vector[i] != 0)
+	while (vector[i] != NULL)
 	{
 		tmp = vector[i];
 		free(tmp);
 		i++;
 	}
-	tmp = vector[i];
-	free(tmp);
+	//tmp = vector[i];
+	//free(tmp);
 	free(vector);
 }
 

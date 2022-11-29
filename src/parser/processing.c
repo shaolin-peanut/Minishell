@@ -22,6 +22,7 @@ bool	process_word(char *word, t_meta *pkg)
 	if (is_builtin(word, pkg))
 	{
 		create_builtin_token(word, pkg);
+		//free(word);
 		return (true);
 	}
 	path = is_cmd(word, pkg);
@@ -29,6 +30,7 @@ bool	process_word(char *word, t_meta *pkg)
 		create_word_token(word, pkg);
 	else
 		create_cmd_token(word, path, pkg);
+	//free(word);
 	return (true);
 }
 

@@ -11,6 +11,8 @@ void	close_all_fd(t_meta *pkg)
 			close_fd_cmd((t_cmd *)token->token);
 		else if (token->type == builtin_t)
 			close_fd_bltn((t_bltn *)token->token);
+		else if (token->type == file_t)
+			close_fd_file((t_file *)token->token);
 //		else if (token->type == op_t)
 //			close_fd_op((t_op *)token);
 		//else if (token->type == TOK_HEREDOC)
@@ -44,6 +46,13 @@ void	close_fd_cmd(t_cmd *cmd)
 	if (!is_standard_fd(cmd->fd_out))
 		close(cmd->fd_out);
 }
+
+void 	close_fd_file(t_file *file)
+{
+	if (!is_standard_fd(file->fd))
+		close(file->fd);
+}
+
 /*
 void	remove_tmp_file(t_token *token_heredoc)
 {

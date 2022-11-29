@@ -91,6 +91,5 @@ void	free_all(t_meta *pkg)
 		free_str_vector(pkg->envp);
 //	if (pkg->chain_head)
 //		free_tokens(pkg->chain_head);
-	if (pkg)
-		free(pkg);
+	free(pkg);
 }

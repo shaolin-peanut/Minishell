@@ -51,6 +51,7 @@ int	cd(t_bltn *cmd, t_meta *pkg)
 	ft_setenv(pkg, "PWD", new_path);
 	ft_setenv(pkg, "OLDPWD", last_path);
 	//free my bitches? somewhere??
+
 	return (0);
 }
 
@@ -83,5 +84,6 @@ void exit_built_in(t_bltn *bltn, t_meta *pkg)
 		signal = ft_atoi(bltn->argv[1]);
 	free_tokens(pkg);
 	free_all(pkg);
+	clear_history();
 	exit(signal);
 }
