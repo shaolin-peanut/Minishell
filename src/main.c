@@ -17,38 +17,12 @@ t_meta	*g_pkg;
 int	main(int argc, char **argv, char **envp)
 {
 	t_meta		*pkg;
-	char		*prompt_str;
-	char 		*line;
 
+	(void)argc;
+	(void)argv;
     pkg = init_meta(envp);
 	g_pkg = pkg;
-	while (argc || argv || envp)
-    {
-		pkg->str = NULL;
-		pkg->i = 0;
-		use_signal();
-		line = NULL;
-		prompt_str = get_prompt();
-		if (prompt_str)
-		{
-			line = readline(prompt_str);
-			free(prompt_str);
-		}
-		else
-			line = readline("guest@minishell $ ");
-		if (line)
-		{
-			add_history(line);
-			parser(line, pkg);
-			//printf("--parser DONE\n");
-			processing_redirection(pkg);
-			//printf("--redirection DONE\n");
-			print_all_tokens(pkg);
-			executor(pkg);
-			//printf("--execution DONE\n");
-			free_tokens(pkg);
-		}
-	}
+	prompt(pkg);
     free_all(pkg);
 	return (0);
 }

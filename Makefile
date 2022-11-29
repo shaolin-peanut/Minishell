@@ -47,7 +47,9 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/processing/variable_value.c \
 						$(SRCS_DIR)/is/is_redirection.c \
 						$(SRCS_DIR)/is/is_token.c \
-						$(SRCS_DIR)/env/signal.c
+						$(SRCS_DIR)/env/signal.c \
+						$(SRCS_DIR)/env/read_line.c \
+						$(SRCS_DIR)/env/prompt.c
 
 # ==== Template ==== #
 TEMPLATE = include/header.txt

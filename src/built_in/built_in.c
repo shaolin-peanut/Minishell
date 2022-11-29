@@ -51,7 +51,10 @@ int	cd(t_bltn *cmd, t_meta *pkg)
 	ft_setenv(pkg, "PWD", new_path);
 	ft_setenv(pkg, "OLDPWD", last_path);
 	//free my bitches? somewhere??
-
+	if (cmd->argc < 2)
+		free(path);
+	free(new_path);
+	free(last_path);
 	return (0);
 }
 

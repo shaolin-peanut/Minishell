@@ -76,4 +76,9 @@ void	pass(int key);
 void	call_prompt(int key);
 void	use_signal(void);
 
+void	prompt(t_meta	*pkg);
+
+void	execute_line(t_meta *pkg, char *line);
+char	*get_line(void);
+
 #endif //EXECUTION_H

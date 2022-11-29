@@ -64,7 +64,7 @@ char	**init_paths(t_meta	*pkg)
 		{
 			tmp = ft_split(pkg->envp[i], '=');
 			paths = ft_split(tmp[1], ':');
-			free(tmp);
+			free_str_vector(tmp);
 			if (paths)
 				return (paths);
 		}
