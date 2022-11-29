@@ -86,7 +86,6 @@ char	*is_cmd(char *name, t_meta *pkg)
 	path = is_relative_path(name);
 	if (path)
 		return (path);
-	free(path);
 	path = is_binary_name(name, pkg);
 	if (path)
 		return (path);
