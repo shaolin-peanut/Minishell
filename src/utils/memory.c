@@ -56,6 +56,17 @@ void	free_op(t_token *tok)
 	free(op);
 }
 
+void	free_file(t_token *tok)
+{
+	t_file *file;
+
+	file = NULL;
+	file = cast_token((tok));
+	free(file->name);
+	close(file->fd);
+	free(file);
+}
+
 void	free_token(t_token *self)
 {
 	if (self->type == cmd_t || self->type == builtin_t)
@@ -64,6 +75,8 @@ void	free_token(t_token *self)
 		free_word(self);
 	else if (self->type == op_t)
 		free_op(self);
+	else if (self->type == file_t)
+		free_file(self);
 	//@todo, free operator ''' and so on
 	free (self);
 }
