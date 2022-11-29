@@ -79,6 +79,6 @@ void	use_signal(void);
 void	prompt(t_meta	*pkg);
 
 void	execute_line(t_meta *pkg, char *line);
-char	*get_line(void);
+char	*get_line(t_meta *pkg);
 
 #endif //EXECUTION_H

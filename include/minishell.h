@@ -42,7 +42,7 @@ typedef struct s_meta
 bool		parser(char *str, t_meta *pkg);
 
 // prompt.c
-char		*get_prompt(void);
+char	*get_prompt(t_meta *pkg);
 // For further parser prototypes, see parser.h
 
 // utils/

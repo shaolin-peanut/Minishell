@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
+/*
 static char	*get_home(void)
 {
 	char	*pwd;
@@ -47,3 +47,4 @@ char	*get_prompt(void)
 	free(temp);
 	return (prompt_str);
 }
+ */

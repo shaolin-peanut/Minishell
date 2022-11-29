@@ -61,19 +61,20 @@ void	parse_line_with_semicolon(t_env *env, char *line)
 }
  */
 
-char	*get_line(void)
+char	*get_line(t_meta *pkg)
 {
 	struct termios	saved;
 	struct termios	attributes;
 	char			*line;
-	//char 			*p_line;
+	char 			*p_line;
 
 	tcgetattr(STDIN_FILENO, &saved);
 	tcgetattr(STDIN_FILENO, &attributes);
 	attributes.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attributes);
-	//p_line = get_prompt();
-	line = readline("[Minishell]$ ");
+	p_line = get_prompt(pkg);
+	line = readline(p_line);
+	free(p_line);
 	if (!line)
 		return (NULL);
 	add_history(line);
