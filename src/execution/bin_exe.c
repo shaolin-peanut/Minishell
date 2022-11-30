@@ -26,5 +26,5 @@ void	bin_execution(t_meta *pkg, t_cmd *cmd)
 		//printf("changed pid to -> %d\n", pid);
 		cmd->pid = pid;
 	}
-
+	pkg->child_pid = cmd->pid;
 }

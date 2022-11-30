@@ -33,6 +33,7 @@ typedef struct s_meta
 	int			i;
 	t_token		*chain_head;
 	int			last_exit_status;
+	pid_t		child_pid;
 }			t_meta;
 
 // pid_t	pid;

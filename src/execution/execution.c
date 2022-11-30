@@ -62,5 +62,6 @@ int	wait_all_pid(t_meta *pkg)
 		status = convert_status_process_value(status);
 		token = get_next_token_cmd(token);
 	}
+	pkg->child_pid = 0;
 	return (status);
 }

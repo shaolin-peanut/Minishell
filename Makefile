@@ -59,8 +59,8 @@ TEMPLATE = include/header.txt
 EXE = @./$(NAME)
 LIBFT = libft/libft.a
 # ==== Debug && Leak ==== #
-#SANITIZE 		= -fsanitize=address
-#LEAKS 			= -fsanitize=leak
+SANITIZE 		= -fsanitize=address
+LEAKS 			= -fsanitize=leak
 DEBUGGER		= lldb
 
 # ==== Remove ==== #

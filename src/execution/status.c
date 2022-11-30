@@ -35,4 +35,6 @@ void	update_variable_status_process(t_meta *pkg, int status)
 		return ;
 	}
 	ft_setenv(pkg, "?", value);
+	free(env_val);
+	free(value);
 }
