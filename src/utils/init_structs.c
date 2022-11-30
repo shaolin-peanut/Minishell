@@ -23,6 +23,8 @@ t_meta	*init_meta(char	**envp)
 	meta->str = NULL;
 	meta->i = 0;
 	meta->chain_head = NULL;
+	meta->last_exit_status = 0;
+	meta->child_pid = 0;
 	return (meta);
 }
 
