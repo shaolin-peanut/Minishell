@@ -84,7 +84,7 @@ void	manage_fd_basic_redirection(t_token *token)
 
 void	open_next_file_with_flags(int type, t_file *file)
 {
-	printf("BEFORE OPEN File, name:%s$\tFD: %d\n",file->name , file->fd);
+	//printf("BEFORE OPEN File, name:%s$\tFD: %d\n",file->name , file->fd);
 	if (type == redir_in || type == heredoc)
 		file->fd = open(file->name, O_RDONLY);
 	else if (type == redir_out)

@@ -51,6 +51,7 @@ void	processing_redirection(t_meta *pkg);
 
 bool	have_token_redirection(t_meta *pkg);
 bool	is_token_basic_redirection(t_op *this);
+bool	is_token_heredoc(t_meta *pkg);
 
 void	change_fd_cmd(t_token *token, int fd_in, int fd_out);
 

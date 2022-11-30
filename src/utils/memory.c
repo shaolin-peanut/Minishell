@@ -79,8 +79,8 @@ void	free_token(t_token *self)
 		free_word(self);
 	else if (self->type == op_t)
 		free_op(self);
-//	else if (self->type == file_t)
-//		free_file(self);
+	else if (self->type == file_t)
+		free_file(self);
 	//@todo, free operator ''' and so on
 	free (self);
 }

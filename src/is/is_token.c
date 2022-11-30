@@ -1,5 +1,25 @@
 #include "minishell.h"
 
+bool	is_token_heredoc(t_meta *pkg)
+{
+	t_token *head;
+	t_op 	*op;
+
+	head = pkg->chain_head;
+	op = NULL;
+	while (head)
+	{
+		if (head->type == op_t)
+		{
+			op = cast_token(head);
+			if (op->type == heredoc)
+				return (true);
+		}
+		head = head->next;
+	}
+	return (false);
+}
+
 bool	is_standard_fd(int fd)
 {
 	if (fd == STDIN_FILENO || fd == STDOUT_FILENO || fd == STDERR_FILENO)
