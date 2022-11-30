@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_matrix_del_elem.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/30 13:50:12 by gmontaur          #+#    #+#             */
+/*   Updated: 2022/11/30 13:51:16 by gmontaur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/libft.h"
 
 int	ft_matrix_search(char **m, char *key)
 {
-	char 	*key_f;
-	size_t 	key_s;
+	char	*key_f;
+	size_t	key_s;
 	int		i;
 
 	i = 0;
@@ -24,32 +36,32 @@ int	ft_matrix_search(char **m, char *key)
 	return (-1);
 }
 
-void ft_matrix_del_elem(char **m, char *key)
+void	ft_matrix_del_elem(char **m, char *key)
 {
 	char	*next_elem;
-	int 	i;
+	int		i;
 
 	i = ft_matrix_search(m, key);
 	if (i >= 0)
 	{
 		free(m[i]);
-		next_elem = m[i+1];
+		next_elem = m[i + 1];
 		while (next_elem)
 		{
-			next_elem = m[i+1];
+			next_elem = m[i + 1];
 			m[i] = next_elem;
 			++i;
 		}
 	}
 }
 
-void ft_matrix_replace_elem(char **m, int i, char *elem)
+void	ft_matrix_replace_elem(char **m, int i, char *elem)
 {
 	int		j;
 	char	*str;
 
 	j = ft_matrixlen(m);
-	if (i >=0 && i < j)
+	if (i >= 0 && i < j)
 	{
 		str = ft_strdup(elem);
 		if (str)
@@ -59,4 +71,3 @@ void ft_matrix_replace_elem(char **m, int i, char *elem)
 		}
 	}
 }
-

@@ -66,7 +66,7 @@ char		**ft_lsttomatrix(t_list *lst);
 char		**ft_matrix_replace_in(char ***big, char **small, int n);
 void		ft_matrix_del_elem(char **m, char *key);
 int			ft_matrix_search(char **m, char *key);
-void 		ft_matrix_replace_elem(char **m, int i, char *elem);
+void		ft_matrix_replace_elem(char **m, int i, char *elem);
 int			ft_putmatrix_fd_export(char **m, int nl, int fd);
 
 #endif
