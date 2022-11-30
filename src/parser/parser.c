@@ -24,6 +24,7 @@ bool	lexical_scan(char *str, t_meta *pkg)
 	if (is_word(str, pkg->i))
 	{
 		word = return_word(str, pkg);
+		//printf("%s\n", word);
 		return (process_word(word, pkg));
 	}
 	else if (is_dollar(str[pkg->i]))

@@ -26,6 +26,7 @@ bool	process_word(char *word, t_meta *pkg)
 		return (true);
 	}
 	path = is_cmd(word, pkg);
+	//printf("%s\n", path);
 	if (!path)
 		create_word_token(word, pkg);
 	else

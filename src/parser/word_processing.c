@@ -82,7 +82,7 @@ char	*is_cmd(char *name, t_meta *pkg)
 	if (pkg->paths == NULL)
 		pkg->paths = init_paths(pkg);
 	if (is_absolute_path(name))
-		return (name);
+		return (ft_strdup(name));
 	path = is_relative_path(name);
 	if (path)
 		return (path);
