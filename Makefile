@@ -27,6 +27,7 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/utils/build_argv.c \
 						$(SRCS_DIR)/utils/parser_utils.c \
 						\
+						$(SRCS_DIR)/utils/sort.c \
 						$(SRCS_DIR)/built_in/built_in.c \
 						$(SRCS_DIR)/built_in/built_in_exe.c \
 						$(SRCS_DIR)/built_in/export.c \
