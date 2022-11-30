@@ -23,6 +23,6 @@ int	main(int argc, char **argv, char **envp)
     pkg = init_meta(envp);
 	g_pkg = pkg;
 	prompt(pkg);
-    free_all(pkg);
+	free_all(pkg);
 	return (0);
 }

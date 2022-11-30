@@ -2,8 +2,8 @@
 
 int	built_in_execution(t_meta *pkg, t_bltn *cmd)
 {
-	int	status;
-	char *word;
+	int		status;
+	char	*word;
 
 	status = -1;
 	word = cmd->argv[0];

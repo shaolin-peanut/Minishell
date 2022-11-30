@@ -75,46 +75,49 @@ int	pwd(t_bltn *cmd)
 	return (0);
 }
 
-void exit_built_in(t_bltn *bltn, t_meta *pkg)
-{
-	int	signal;
-	bool	flag;
+/*
+ * draft exit
+ * if (argc == 1)
+ * 		exit and signal = 0
+ * if (argc > 2)
+ * 	print (bash: exit: too many arguments)
+ * 	flag false
+ * else if (== 2 && is_digit(argv[1])
+ *    signal = 255;
+ *    printf(num argument required
+ */
 
-	signal = 0;
-	flag = false;
-	if (bltn->argc < 2)
-	{
-		signal = 0;
-		flag = true;
-	}
+void	minishell_exit(int exit_code, t_meta *pkg)
+{
+	ft_putendl_fd("exit", 2);
+	free_tokens(pkg);
+	free_all(pkg);
+	clear_history();
+	exit(exit_code);
+}
+
+void	exit_built_in(t_bltn *bltn, t_meta *pkg)
+{
+	if (bltn->argc == 1)
+		minishell_exit(0, pkg);
 	else if (bltn->argc == 2)
-		flag = true;
-	if (ft_isdigit_str(bltn->argv[1]) == 0)
 	{
-		signal = 255;
-		ft_putstr_fd("exit: ", 2);
-		ft_putstr_fd(bltn->argv[1], 2);
-		ft_putendl_fd(" numeric argument required", 2);
-	}
-	else if (bltn->argc > 2)
-	{
-		flag = false;
-		ft_putendl_fd("exit\nexit: too many arguments", 2);
+		if (ft_isdigit_str(bltn->argv[1]) == 0)
+		{
+			ft_putstr_fd(bltn->argv[1], 2);
+			ft_putendl_fd(": numeric argument required", 2);
+			minishell_exit(255, pkg);
+		}
+		else if (bltn->argc == 2)
+			minishell_exit(ft_atoi(bltn->argv[1]), pkg);
 	}
 	else
-		signal = ft_atoi(bltn->argv[1]);
-	if (flag)
-	{
-		free_tokens(pkg);
-		free_all(pkg);
-		clear_history();
-		exit(signal);
-	}
-	/*
-	 * exit -> signal = 0;
-	 * exit number -> signal = number;
-	 * exit number anything -> doesn-t exit , prints exit\n too many args
-	 * exit notanumber -> signal = 255 and prints numeric argument required
+		ft_putendl_fd("exit: too many arguments", 2);
+}
+/*
+	 x exit -> signal = 0;
+	 x exit number -> signal = number;
+	 x exit number anything -> doesn-t exit , prints exit\n too many args
+	 x exit notanumber -> signal = 255 and prints numeric argument required
 	 * exit notanumber  anyhing -> signal = 255 and prints numeric argument required
 	 */
-}

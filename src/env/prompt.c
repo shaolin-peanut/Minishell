@@ -22,8 +22,8 @@ void	prompt(t_meta	*pkg)
 char	*get_prompt(t_meta *pkg)
 {
 	char	*str;
-	char 	*tmp;
-	char 	*tmp2;
+	char	*tmp;
+	char	*tmp2;
 
 	str = "[";
 	tmp = ft_getenv(pkg, "USER");
@@ -38,5 +38,4 @@ char	*get_prompt(t_meta *pkg)
 	str = ft_strjoin(tmp2, "]$ ");
 	free(tmp2);
 	return (str);
-
 }

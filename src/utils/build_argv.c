@@ -58,9 +58,7 @@ char	*get_next_word(char *str, t_meta *pkg)
 		pkg->i += var_name_len(str, pkg->i);
 	}
 	else
-	{
 		word = return_word(str, pkg);
-	}
 	return (word);
 }
 
@@ -92,7 +90,7 @@ char	**build_argument_vector(char *name, t_meta *pkg)
 		{
 			word = get_next_word(pkg->str, pkg);
 			if (word)
-				add_to_back_of_list(&b_i, head, word);
+				last = add_to_back_of_list(&b_i, last, word);
 		}
 		pkg->i++;
 	}
