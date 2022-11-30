@@ -44,6 +44,8 @@ bool	parser(char *str, t_meta *pkg)
 	while (str[pkg->i] != '\0')
 	{
 		ret = lexical_scan(str, pkg);
+		if (!ret)
+			break ;
 		pkg->i++;
 		if ((int) ft_strlen(str) < pkg->i)
 			break ;

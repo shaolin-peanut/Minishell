@@ -53,17 +53,19 @@ void	*cast_token(t_token	*token)
 		return (NULL);
 }
 
-void	free_list(t_builder	*node)
+void	*free_list(t_builder	*node)
 {
 	t_builder	*next;
 
 	while (node)
 	{
 		next = node->next;
-		free(node->word);
+		if (node->word)
+			free(node->word);
 		free(node);
 		node = next;
 	}
+	return (NULL);
 }
 
 char	**convert_list_to_vector(t_builder	*head, int size)

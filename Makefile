@@ -60,7 +60,7 @@ EXE = @./$(NAME)
 LIBFT = libft/libft.a
 # ==== Debug && Leak ==== #
 #SANITIZE 		= -fsanitize=address
-LEAKS 			= -fsanitize=leak
+#LEAKS 			= -fsanitize=leak
 DEBUGGER		= lldb
 
 # ==== Remove ==== #

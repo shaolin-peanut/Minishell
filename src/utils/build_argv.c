@@ -24,8 +24,6 @@ void	free_str_vector(char **vector)
 		free(tmp);
 		i++;
 	}
-	//tmp = vector[i];
-	//free(tmp);
 	free(vector);
 }
 
@@ -56,7 +54,6 @@ char	*get_next_word(char *str, t_meta *pkg)
 	word = NULL;
 	if (is_dollar(str[pkg->i]))
 	{
-		printf("is dollar\n");
 		word = return_var_value(str, pkg, pkg->i);
 		pkg->i += var_name_len(str, pkg->i);
 	}
@@ -105,8 +102,3 @@ char	**build_argument_vector(char *name, t_meta *pkg)
 	argument_vector = convert_list_to_vector(head, last->counter);
 	return (argument_vector);
 }
-
-/*
-echo "$user"|cat -e     === takes
-
-*/

@@ -25,15 +25,26 @@ char	*return_delimiter(t_meta *pkg)
 	return (NULL);
 }
 
-int	return_concat_str_len(t_builder *current)
+bool	is_delimiter(char *str, char *delim)
+{
+//	printf("is_delimiter: %s, %s\n", str, delim);
+//	printf("strncmp output: %d\n", ft_strncmp(str, delim, ft_strlen(str)));
+	if (ft_strncmp(str, delim, ft_strlen(delim)) == 0 && ft_strlen(str) == ft_strlen(delim))
+		return (true);
+	return (false);
+}
+
+int	return_concat_str_len(t_builder *current, char *delim)
 {
 	int	len;
 
 	len = 0;
+	if (is_delimiter(current->word, delim))
+		return (0);
 	while (current)
 	{
-		if (!current->word)
-			break ;
+//		if (!current->word)
+//			break ;
 		if (current->word != NULL && !ft_strlen(current->word))
 			len++;
 		else
@@ -43,24 +54,32 @@ int	return_concat_str_len(t_builder *current)
 	return (len);
 }
 
-char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg)
+char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg, char *delim)
 {
 	char		*output;
 	int			len;
+	t_builder	*tmp;
 
 	(void) pkg;
 	output = NULL;
-	len = return_concat_str_len(head);
-	output = ft_calloc(sizeof(char), len + 1);
-	//output = (char *)malloc(sizeof(char) * (len + 1));
+	tmp = head;
+	len = return_concat_str_len(head, delim);
+	output = (char *) malloc(sizeof(char) + (len + 1));
+	if (!output)
+		return (free_list(head));
 	output[len] = '\0';
-	ft_strlcat(output, head->word, len + 1);
-	while (head->next->next != NULL)
+	if (!len)
 	{
-		head = head->next;
-		if (ft_strlen(head->word))
-			ft_strlcat(output, head->word, len + 1);
-		ft_strlcat(output, "\n", len + 1);
+		free_list(head);
+		return (output);
+	}
+	ft_strlcat(output, head->word, len);
+	while (tmp->next->next)
+	{
+		tmp = tmp->next;
+		if (ft_strlen(tmp->word) > 0)
+			ft_strlcat(output, tmp->word, len);
+		ft_strlcat(output, "\n", len);
 	}
 	free_list(head);
 	return (output);
@@ -85,8 +104,8 @@ char	*capture_content(t_meta *pkg, char *delim)
 		else
 			last = add_to_back_of_list(0, last, ft_strdup(tmp));
 		free(tmp);
-		if (ft_strncmp(last->word, delim, ft_strlen(delim)) == 0)
-			return (concatenate_list_to_str(head, pkg));
+		if (is_delimiter(last->word, delim))
+			return (concatenate_list_to_str(head, pkg, delim));
 	}
 }
 

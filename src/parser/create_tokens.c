@@ -106,6 +106,7 @@ bool create_file_token(char *str, t_meta *pkg, int heredoc)
 		fd = open("tmp.txt", O_CREAT | O_WRONLY, 0777);
 		write(fd, str, ft_strlen(str));
 		close(fd);
+		free(str);
 		file->name = "tmp.txt";
 		file->fd = fd;
 	}

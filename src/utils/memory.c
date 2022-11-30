@@ -62,9 +62,13 @@ void	free_file(t_token *tok)
 
 	file = NULL;
 	file = cast_token((tok));
-	free(file->name);
-	close(file->fd);
-	free(file);
+	if (file)
+	{
+		if (file->name)
+			free(file->name);
+		close(file->fd);
+		free(file);
+	}
 }
 
 void	free_token(t_token *self)
@@ -75,8 +79,8 @@ void	free_token(t_token *self)
 		free_word(self);
 	else if (self->type == op_t)
 		free_op(self);
-	else if (self->type == file_t)
-		free_file(self);
+//	else if (self->type == file_t)
+//		free_file(self);
 	//@todo, free operator ''' and so on
 	free (self);
 }

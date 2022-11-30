@@ -61,7 +61,7 @@ void		free_all(t_meta *pkg);
 
 // list_utils.c
 t_token		*return_last_token(t_meta	*pkg);
-void		free_list(t_builder	*node);
+void		*free_list(t_builder	*node);
 void		*cast_token(t_token	*token);
 char		**convert_list_to_vector(t_builder *head, int size);
 void		print_2d_vector(char **argv);

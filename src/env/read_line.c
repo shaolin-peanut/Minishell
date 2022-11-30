@@ -1,12 +1,18 @@
 
 #include "minishell.h"
 
-void	execute_line(t_meta *pkg, char *line)
+bool	execute_line(t_meta *pkg, char *line)
 {
-	parser(line, pkg);
+	if (!parser(line, pkg))
+	{
+		printf("ayo execute_line\n");
+		free_tokens(pkg);
+		return (false);
+	}
 	processing_redirection(pkg);
 	executor(pkg);
 	free_tokens(pkg);
+	return (true);
 }
 /*
 int	env_have_multi_line(t_env *env)
