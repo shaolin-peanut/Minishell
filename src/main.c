@@ -18,8 +18,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_meta		*pkg;
 
-	(void)argc;
-	(void)argv;
+	(void) argc;
+	(void) argv;
     pkg = init_meta(envp);
 	g_pkg = pkg;
 	prompt(pkg);

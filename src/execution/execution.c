@@ -13,6 +13,7 @@ void	executor(t_meta *pkg)
 		token = get_next_token_cmd(token);
 	}
 	close_all_fd(pkg);
+	remove_tmp_file(pkg);
 	status = wait_all_pid(pkg);
 	pkg->last_exit_status = get_last_status(status, status_built);
 }
@@ -27,8 +28,6 @@ int	execute_cmd(t_meta *pkg, t_token *token)
 	if (token->type == cmd_t)
 	{
 		cmd = cast_token(token);
-		//variables = get_env_variables(env);
-		//update_envp(pkg);
 		bin_execution(pkg, cmd);
 	}
 	else if (token->type == builtin_t)
@@ -43,21 +42,12 @@ int	wait_all_pid(t_meta *pkg)
 {
 	t_token	*token;
 	t_cmd	*cmd;
-	//t_bltn	*bltn;
 	int		status;
 
 	token = get_first_token_cmd(pkg);
 	status = 0;
 	while (token)
 	{
-		/*
-		if(token->type == builtin_t)
-		{
-			bltn = cast_token(token);
-			printf("waiting for pid bltn -> %d\n", bltn->pid);
-			waitpid(bltn->pid, &status, 0);
-		}
-		 */
 		if(token->type == cmd_t)
 		{
 			cmd = cast_token(token);

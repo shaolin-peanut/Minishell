@@ -15,8 +15,8 @@ void	close_all_fd(t_meta *pkg)
 			close_fd_file((t_file *)token->token);
 //		else if (token->type == op_t)
 //			close_fd_op((t_op *)token);
-		//else if (token->type == TOK_HEREDOC)
-		//	remove_tmp_file(token);
+//		else if (token->type == heredoc)
+//			remove_tmp_file(token);
 		token = token->next;
 	}
 }
@@ -53,16 +53,13 @@ void 	close_fd_file(t_file *file)
 		close(file->fd);
 }
 
-/*
-void	remove_tmp_file(t_token *token_heredoc)
+void	remove_tmp_file(t_meta *pkg)
 {
-	t_redir	*redir;
 	t_file	*tmp_file;
 
-	redir = get_class(token_heredoc);
-	tmp_file = redir->tmp_file;
+	tmp_file = get_heredoc_file(pkg);
+	if (!tmp_file)
+		return ;
 	unlink(tmp_file->name);
 	free(tmp_file);
-	redir->tmp_file = NULL;
 }
-*/

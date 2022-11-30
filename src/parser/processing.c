@@ -30,7 +30,6 @@ bool	process_word(char *word, t_meta *pkg)
 		create_word_token(word, pkg);
 	else
 		create_cmd_token(word, path, pkg);
-	//free(word);
 	return (true);
 }
 
@@ -50,7 +49,6 @@ bool	process_operator(char *str, t_meta *pkg)
 
 bool	process_dollar(char *str, t_meta *pkg)
 {
-	printf("> dollar: %s\n", str + pkg->i);
 	if (is_var(str, pkg->i))
 		process_variable(pkg, pkg->str, pkg->i);
 	if (is_dollar_question(str, pkg->i))

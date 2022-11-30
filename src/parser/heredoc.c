@@ -30,12 +30,14 @@ int	return_concat_str_len(t_builder *current)
 	int	len;
 
 	len = 0;
-	while (current != NULL)
+	while (current)
 	{
+		if (!current->word)
+			break ;
 		if (current->word != NULL && !ft_strlen(current->word))
 			len++;
 		else
-			len += ft_strlen(current->word);
+			len += ft_strlen(current->word) + 1;
 		current = current->next;
 	}
 	return (len);
@@ -44,27 +46,21 @@ int	return_concat_str_len(t_builder *current)
 char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg)
 {
 	char		*output;
-	char		*tmp;
 	int			len;
 
+	(void) pkg;
 	output = NULL;
-	tmp = NULL;
 	len = return_concat_str_len(head);
-	output = (char *)malloc(sizeof(char) * len + 1);
+	output = ft_calloc(sizeof(char), len + 1);
+	//output = (char *)malloc(sizeof(char) * (len + 1));
 	output[len] = '\0';
-	ft_strlcpy(output, head->word, len);
-	while (pkg->str[pkg->i])
-		pkg->i++;
+	ft_strlcat(output, head->word, len + 1);
 	while (head->next->next != NULL)
 	{
 		head = head->next;
-		if (!ft_strlen(head->word))
-			tmp = ft_strjoin(output, "\n");
-		else
-			tmp = ft_strjoin(output, head->word);
-		free(output);
-		output = ft_strdup(tmp);
-		free(tmp);
+		if (ft_strlen(head->word))
+			ft_strlcat(output, head->word, len + 1);
+		ft_strlcat(output, "\n", len + 1);
 	}
 	free_list(head);
 	return (output);
@@ -77,16 +73,21 @@ char	*capture_content(t_meta *pkg, char *delim)
 	t_builder	*last;
 
 	last = NULL;
-	head = init_builder(0, ft_strdup(pkg->str + pkg->i));
+	head = NULL;
 	while (1)
 	{
 		tmp = readline("> ");
-		last = add_to_back_of_list(0, head, ft_strdup(tmp));
+		if (!last)
+		{
+			head = init_builder(0, ft_strdup(tmp));
+			last = head;
+		}
+		else
+			last = add_to_back_of_list(0, last, ft_strdup(tmp));
 		free(tmp);
 		if (ft_strncmp(last->word, delim, ft_strlen(delim)) == 0)
 			return (concatenate_list_to_str(head, pkg));
-	}	
-	return (NULL);
+	}
 }
 
 bool	capture_heredoc(t_meta *pkg)
@@ -94,17 +95,14 @@ bool	capture_heredoc(t_meta *pkg)
 	char		*delim;
 	char		*output;
 
+	output = NULL;
 	delim = return_delimiter(pkg);
-	if (delim)
-		printf("Delimiter found: <%s>\n", delim);
-	else
-	{
-		printf("delim not found, provide one plz\n");
+	if (!delim)
 		return (false);
-	}
 	pkg->i++;
 	output = capture_content(pkg, delim);
+	free(delim);
 	if (output)
-		create_word_token(output, pkg);
+		create_file_token(output, pkg, heredoc);
 	return (true);
 }

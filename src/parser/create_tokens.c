@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
+bool	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 {
 	t_token	*tok;
 	t_cmd   *cmd;
@@ -29,10 +29,10 @@ int	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 	cmd->fd_in = STDIN_FILENO;
 	cmd->fd_out = STDOUT_FILENO;
 	cmd->pid = 0;
-	return (0);
+	return (true);
 }
 
-int	create_builtin_token(char *name, t_meta	*pkg)
+bool	create_builtin_token(char *name, t_meta	*pkg)
 {
 	t_token		*tok;
 	t_bltn		*builtin;
@@ -48,10 +48,10 @@ int	create_builtin_token(char *name, t_meta	*pkg)
 	builtin->fd_in = STDIN_FILENO;
 	builtin->fd_out = STDOUT_FILENO;
 	builtin->pid = 0;
-	return (1);
+	return (true);
 }
 
-int	create_word_token(char *str, t_meta *pkg)
+bool	create_word_token(char *str, t_meta *pkg)
 {
 	t_token	*tok;
 	t_word	*word;
@@ -63,10 +63,10 @@ int	create_word_token(char *str, t_meta *pkg)
 	tok->token = init_word(pkg);
 	word = cast_token(tok);
 	word->str = str;
-	return (0);
+	return (true);
 }
 
-int	create_operator_token(t_meta *pkg, int type)
+bool	create_operator_token(t_meta *pkg, int type)
 {
 	t_token	*tok;
 	t_op	*op;
@@ -78,17 +78,21 @@ int	create_operator_token(t_meta *pkg, int type)
 	tok->token = init_op(pkg);
 	op = cast_token(tok);
 	if (type == heredoc)
-		capture_heredoc(pkg);
+	{
+		if (!capture_heredoc(pkg))
+			return (false);
+	}
 	op->type = type;
 	op->fd_in = STDIN_FILENO;
 	op->fd_out = STDOUT_FILENO;
-	return (0);
+	return (true);
 }
 
-int create_file_token(char *str, t_meta *pkg)
+bool create_file_token(char *str, t_meta *pkg, int heredoc)
 {
 	t_token	*tok;
 	t_file *file;
+	int fd;
 
 	tok = NULL;
 	file = NULL;
@@ -96,8 +100,19 @@ int create_file_token(char *str, t_meta *pkg)
 	tok->type = file_t;
 	tok->token = init_file(pkg);
 	file = cast_token(tok);
-	file->name = str;
-	file->fd = 0;
-//	pkg->i += ft_strlen(str);
-	return (0);
+	fd = 0;
+	if (heredoc)
+	{
+		fd = open("tmp.txt", O_CREAT | O_WRONLY, 0777);
+		write(fd, str, ft_strlen(str));
+		close(fd);
+		file->name = "tmp.txt";
+		file->fd = fd;
+	}
+	else
+	{
+		file->name = str;
+		file->fd = 0;
+	}
+	return (true);
 }

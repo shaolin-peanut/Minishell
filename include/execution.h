@@ -12,7 +12,7 @@ void	close_fd_cmd(t_cmd *cmd);
 void 	close_fd_bltn(t_bltn *bltn);
 void 	close_fd_file(t_file *file);
 void 	close_fd_op(t_op *op);
-void	remove_tmp_file(t_token *token_heredoc);
+void	remove_tmp_file(t_meta *pkg);
 
 bool	is_standard_fd(int fd);
 bool	is_token_cmd(t_token *this);
@@ -27,6 +27,7 @@ t_file	*get_next_token_file(t_token *token);
 int	get_fd_in(t_token *this);
 int	get_fd_out(t_token *this);
 char	*get_current_path(void);
+t_file	*get_heredoc_file(t_meta *pkg);
 
 char	*get_export_variable_name(char *variable);
 char	*get_variable_name(char *variable);

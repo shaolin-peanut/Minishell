@@ -121,10 +121,39 @@ int	get_fd_out(t_token *this)
 
 char	*get_current_path(void)
 {
-	char	*path;
+	char *path;
 
 	path = getcwd(NULL, 0);
 	if (path == NULL)
 		perror("getcwd() Error\n");
 	return (path);
+}
+
+t_file	*get_heredoc_file(t_meta *pkg)
+{
+	t_token *tok;
+	t_op 	*op;
+	t_file *ret;
+
+	tok = NULL;
+	tok = get_first_token_redirection(pkg);
+	if (!tok)
+		return (NULL);
+	op = cast_token(tok);
+	ret = NULL;
+	while (ret == NULL)
+	{
+		if (op->type == heredoc)
+			ret = get_next_token_file(tok);
+		else
+		{
+			tok = get_next_token_redirection(tok);
+			if (!tok)
+				break ;
+			op = cast_token(tok);
+			if (!op)
+				break ;
+		}
+	}
+	return (ret);
 }

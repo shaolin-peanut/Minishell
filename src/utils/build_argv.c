@@ -67,16 +67,10 @@ char	*get_next_word(char *str, t_meta *pkg)
 	return (word);
 }
 
-t_builder	*add_to_back_of_list(int *counter, t_builder *head, char *word)
+t_builder	*add_to_back_of_list(int *counter, t_builder *last, char *word)
 {
-	t_builder	*last;
-
-	last = head;
-	while (last->next != NULL)
-		last = last->next;
 	last->next = init_builder(counter, word);
-	last = last->next;
-	return (last);
+	return (last->next);
 }
 
 // What happens in there?
