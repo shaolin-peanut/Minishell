@@ -59,9 +59,18 @@ void	free_op(t_token *tok)
 void	free_file(t_token *tok)
 {
 	t_file *file;
+	t_op 	*op;
 
 	file = NULL;
+	op = NULL;
 	file = cast_token((tok));
+	tok = tok->prev;
+	if (tok->type == op_t)
+	{
+		op = cast_token(tok);
+		if (op->type == heredoc)
+			return ;
+	}
 	if (file)
 	{
 		if (file->name)
