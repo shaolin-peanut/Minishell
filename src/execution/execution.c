@@ -13,8 +13,8 @@ void	executor(t_meta *pkg)
 		token = get_next_token_cmd(token);
 	}
 	close_all_fd(pkg);
-//	if (is_token_heredoc(pkg))
-//		remove_tmp_file(pkg);
+	if (is_token_heredoc(pkg))
+		remove_tmp_file(pkg);
 	status = wait_all_pid(pkg);
 	pkg->last_exit_status = get_last_status(status, status_built);
 }
