@@ -78,15 +78,43 @@ int	pwd(t_bltn *cmd)
 void exit_built_in(t_bltn *bltn, t_meta *pkg)
 {
 	int	signal;
+	bool	flag;
 
-	ft_putstr_fd("exit", 2);
-	ft_putstr_fd("\n", 2);
-	if (bltn->argc <= 2)
+	signal = 0;
+	flag = false;
+	if (bltn->argc < 2)
+	{
 		signal = 0;
+		flag = true;
+	}
+	else if (bltn->argc == 2)
+		flag = true;
+	if (ft_isdigit_str(bltn->argv[1]) == 0)
+	{
+		signal = 255;
+		ft_putstr_fd("exit: ", 2);
+		ft_putstr_fd(bltn->argv[1], 2);
+		ft_putendl_fd(" numeric argument required", 2);
+	}
+	else if (bltn->argc > 2)
+	{
+		flag = false;
+		ft_putendl_fd("exit\nexit: too many arguments", 2);
+	}
 	else
 		signal = ft_atoi(bltn->argv[1]);
-	free_tokens(pkg);
-	free_all(pkg);
-	clear_history();
-	exit(signal);
+	if (flag)
+	{
+		free_tokens(pkg);
+		free_all(pkg);
+		clear_history();
+		exit(signal);
+	}
+	/*
+	 * exit -> signal = 0;
+	 * exit number -> signal = number;
+	 * exit number anything -> doesn-t exit , prints exit\n too many args
+	 * exit notanumber -> signal = 255 and prints numeric argument required
+	 * exit notanumber  anyhing -> signal = 255 and prints numeric argument required
+	 */
 }
