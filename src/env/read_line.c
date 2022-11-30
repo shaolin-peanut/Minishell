@@ -5,8 +5,8 @@ bool	execute_line(t_meta *pkg, char *line)
 {
 	if (parser(line, pkg) == false)
 		return (false);
-	print_all_tokens(pkg);
 	processing_redirection(pkg);
+	print_all_tokens(pkg);
 	executor(pkg);
 	free_tokens(pkg);
 	return (true);
