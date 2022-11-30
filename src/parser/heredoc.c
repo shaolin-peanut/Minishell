@@ -39,7 +39,7 @@ int	return_concat_str_len(t_builder *current, char *delim)
 	len = 0;
 	if (is_delimiter(current->word, delim))
 		return (0);
-	while (current)
+	while (current->next)
 	{
 		if (current->word != NULL && !ft_strlen(current->word))
 			len++;
@@ -60,7 +60,8 @@ char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg, char *delim)
 	output = NULL;
 	tmp = head;
 	len = return_concat_str_len(head, delim);
-	output = (char *) malloc(sizeof(char) + (len + 1));
+	printf("\nlen:%d\n", len);
+	output = calloc((len + 1), sizeof(char));
 	if (!output)
 		return (free_list(head));
 	output[len] = '\0';
@@ -70,12 +71,11 @@ char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg, char *delim)
 		return (output);
 	}
 	ft_strlcat(output, tmp->word, len);
-	while (tmp->next->next && !is_delimiter(tmp->next->word, delim))
+	while (tmp->next && !is_delimiter(tmp->next->word, delim))
 	{
 		tmp = tmp->next;
-		if (ft_strlen(tmp->word) > 0)
-			ft_strlcat(output, tmp->word, len + 1);
-		ft_strlcat(output, "\n", len + 1);
+		ft_strlcat(output, tmp->word, len);
+		ft_strlcat(output, "\n", len);
 	}
 	free_list(head);
 	return (output);
@@ -97,7 +97,7 @@ char	*capture_content(t_meta *pkg, char *delim)
 			head = init_builder(0, ft_strdup(tmp));
 			last = head;
 		}
-		else
+		else if (!is_delimiter(last->word, delim))
 			last = add_to_back_of_list(0, last, ft_strdup(tmp));
 		free(tmp);
 		if (is_delimiter(last->word, delim))

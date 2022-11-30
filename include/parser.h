@@ -69,6 +69,7 @@ int		add_quote_content(char *word, int i, t_meta *pkg);
 int		*quote_len(t_meta *pkg, int *counter);
 
 // heredoc.c
+bool	is_delimiter(char *str, char *delim);
 bool	capture_heredoc(t_meta *pkg);
 void	create_heredoc_output(t_meta *pkg);
 
