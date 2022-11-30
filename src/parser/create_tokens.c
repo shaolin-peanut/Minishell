@@ -77,14 +77,11 @@ bool	create_operator_token(t_meta *pkg, int type)
 	tok->type = op_t;
 	tok->token = init_op(pkg);
 	op = cast_token(tok);
-	if (type == heredoc)
-	{
-		if (!capture_heredoc(pkg))
-			return (false);
-	}
 	op->type = type;
 	op->fd_in = STDIN_FILENO;
 	op->fd_out = STDOUT_FILENO;
+	if (type == heredoc)
+		return (capture_heredoc(pkg));
 	return (true);
 }
 
@@ -92,23 +89,20 @@ bool create_file_token(char *str, t_meta *pkg, int type)
 {
 	t_token	*tok;
 	t_file *file;
-	int fd;
 
-	tok = NULL;
-	file = NULL;
+//	tok = NULL;
+//	file = NULL;
 	tok = init_token(pkg);
 	tok->type = file_t;
 	tok->token = init_file(pkg);
 	file = cast_token(tok);
-	fd = 0;
 	if (type == heredoc)
 	{
-		fd = open("tmp.txt", O_CREAT | O_WRONLY, 0777);
-		write(fd, str, ft_strlen(str));
-		close(fd);
-		free(str);
 		file->name = "tmp.txt";
-		file->fd = fd;
+		file->fd = open("tmp.txt", O_CREAT | O_WRONLY, 0777);
+		write(file->fd, str, ft_strlen(str));
+		close(file->fd);
+		free(str);
 	}
 	else
 	{

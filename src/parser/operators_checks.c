@@ -27,6 +27,8 @@ int	is_redirection(char *str, int i)
 		return (redir_out);
 	else if (str[i] == '>' && str[i + 1] == '>')
 		return (append_out);
+//	else if (is_heredoc(str, i))
+//		return (heredoc);
 	return (false);
 }
 

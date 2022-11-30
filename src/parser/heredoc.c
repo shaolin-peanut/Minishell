@@ -27,8 +27,6 @@ char	*return_delimiter(t_meta *pkg)
 
 bool	is_delimiter(char *str, char *delim)
 {
-//	printf("is_delimiter: %s, %s\n", str, delim);
-//	printf("strncmp output: %d\n", ft_strncmp(str, delim, ft_strlen(str)));
 	if (ft_strncmp(str, delim, ft_strlen(delim)) == 0 && ft_strlen(str) == ft_strlen(delim))
 		return (true);
 	return (false);
@@ -43,8 +41,6 @@ int	return_concat_str_len(t_builder *current, char *delim)
 		return (0);
 	while (current)
 	{
-//		if (!current->word)
-//			break ;
 		if (current->word != NULL && !ft_strlen(current->word))
 			len++;
 		else
@@ -73,13 +69,13 @@ char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg, char *delim)
 		free_list(head);
 		return (output);
 	}
-	ft_strlcat(output, head->word, len);
-	while (tmp->next->next)
+	ft_strlcat(output, tmp->word, len);
+	while (tmp->next->next && !is_delimiter(tmp->next->word, delim))
 	{
 		tmp = tmp->next;
 		if (ft_strlen(tmp->word) > 0)
-			ft_strlcat(output, tmp->word, len);
-		ft_strlcat(output, "\n", len);
+			ft_strlcat(output, tmp->word, len + 1);
+		ft_strlcat(output, "\n", len + 1);
 	}
 	free_list(head);
 	return (output);
@@ -118,10 +114,11 @@ bool	capture_heredoc(t_meta *pkg)
 	delim = return_delimiter(pkg);
 	if (!delim)
 		return (false);
-	pkg->i++;
 	output = capture_content(pkg, delim);
 	free(delim);
 	if (output)
 		create_file_token(output, pkg, heredoc);
+	else
+		return (false);
 	return (true);
 }
