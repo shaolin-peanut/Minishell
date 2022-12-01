@@ -90,23 +90,23 @@ endif
 
 # === Convert all .c to .o with flags and header === # 
 %.o : %.c
-			@$(CC) $(FLAGS) -I $(INCS_DIR) -c $< -o $@
-	
+	@$(CC) $(FLAGS) -I $(INCS_DIR) -c $< -o $@
+
 $(NAME) : 	    $(OBJS)
-				@echo "==== Create all .o ===="
-				@echo "==== Compiling all .c ===="
-				@echo "==== Compiling libft ===="
+				@echo "> Creating object files"
+				@echo "> Compiling .c files"
+				@echo "> Compiling libft"
 				@$(MAKE) -C libft
-				@echo "==== Compiling Minishell ===="
+				@echo "> Creating minishell"
 				@$(CC) $(OBJS) $(FLAGS) $(READLINE) $(LIBFT) -o $(NAME)
-				@cat "$(TEMPLATE)"		
+				@cat "$(TEMPLATE)"
 
 all : 	 $(NAME)
 
 clean :
-				@echo "==== Remove all Libft .o ===="
+				@echo "> Removing libft object files"
 				@$(MAKE) clean -C libft
-				@echo "==== Remove all Minishell .o ===="
+				@echo "> Removing minishell object files"
 				@$(RM_FILE) $(OBJS)
 
 fclean : clean
@@ -114,19 +114,9 @@ fclean : clean
 				@$(RM_FILE) $(NAME)
 
 debug : 		$(OBJS)
-				@echo "==== Mode Debug Activate ===="
+				@echo "debug mode activated"
 				@$(CC) $(OBJS) $(FLAGS) $(READLINE) $(SANITIZE) $(LIBFT) -o $(NAME)
 				$(DEBUGGER) $(NAME)
-				@cat "$(TEMPLATE)"
-				
-sanitize :		$(OBJS)
-				@echo "==== Mode Sanitize Activate ===="
-				@$(CC) $(OBJS) $(FLAGS) $(READLINE) $(SANITIZE) $(LIBFT) -o $(NAME)
-				@cat "$(TEMPLATE)"
-
-leak :			$(OBJS)
-				@echo "==== Mode Leak Activate ===="
-				@$(CC) $(OBJS) $(FLAGS) $(READLINE) $(LEAKS) $(LIBFT) -o $(NAME)
 				@cat "$(TEMPLATE)"
 
 

@@ -85,10 +85,10 @@ bool	create_operator_token(t_meta *pkg, int type)
 	return (true);
 }
 
-bool create_file_token(char *str, t_meta *pkg, int type)
+bool	create_file_token(char *str, t_meta *pkg, int type)
 {
 	t_token	*tok;
-	t_file *file;
+	t_file	*file;
 
 	tok = NULL;
 	file = NULL;

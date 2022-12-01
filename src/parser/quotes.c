@@ -57,6 +57,7 @@ int	*quote_len(t_meta *pkg, int *l_i)
 	char	type;
 	char	*value;
 
+	value = NULL;
 	type = pkg->str[l_i[ITER]++];
 	while (pkg->str[l_i[ITER]] != '\0')
 	{
@@ -69,7 +70,7 @@ int	*quote_len(t_meta *pkg, int *l_i)
 		}
 		if (pkg->str[l_i[ITER]] == type)
 		{
-			if (value)
+			if (value != NULL)
 				free(value);
 			l_i[ITER]++;
 			return (l_i);
