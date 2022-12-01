@@ -23,12 +23,10 @@ int	is_redirection(char *str, int i)
 {
 	if (str[i] == '<')
 		return (redir_in);
-	else if (str[i] == '>')
-		return (redir_out);
 	else if (str[i] == '>' && str[i + 1] == '>')
 		return (append_out);
-//	else if (is_heredoc(str, i))
-//		return (heredoc);
+	else if (str[i] == '>')
+		return (redir_out);
 	return (false);
 }
 
@@ -39,7 +37,7 @@ bool	is_heredoc(char *str, int i)
 	return (false);
 }
 
-bool is_pipe(char c)
+bool	is_pipe(char c)
 {
 	if (c == '|')
 		return (true);

@@ -2,16 +2,15 @@
 
 void	manage_fd_for_redirection(t_token *token)
 {
-	t_op *this;
+	t_op	*this;
 
 	this = cast_token(token);
 	if (is_token_basic_redirection(this))
 		manage_fd_basic_redirection(token);
 	else if (this->type == pipe_t)
 		manage_fd_pipe(token);
-//	else if (this->type == heredoc)
-//		manage_fd_heredoc(token);
 }
+
 /*
 void	manage_fd_heredoc(t_token *token)
 {
@@ -45,9 +44,7 @@ void	manage_fd_pipe(t_token *token)
 		return ;
 	pipe(fd);
 	change_fd_cmd(prev_cmd, get_fd_in(prev_cmd), fd[1]);
-	// PREV-CMD: fdin: STDIN, fdout: fd[1] (pipe write end)
 	change_fd_cmd(next_cmd, fd[0], get_fd_out(next_cmd));
-	// NEXT-CMD: fdin: fd[0] (pipe read end), fdout: STDOUT
 	pipe_tok = cast_token(token);
 	pipe_tok->fd_in = fd[1];
 	pipe_tok->fd_out = fd[0];
@@ -56,7 +53,7 @@ void	manage_fd_pipe(t_token *token)
 void	manage_fd_basic_redirection(t_token *token)
 {
 	t_token	*prev_token;
-	t_op 	*op;
+	t_op	*op;
 	t_file	*next_file;
 
 	prev_token = get_prev_token_cmd(token);
@@ -64,7 +61,6 @@ void	manage_fd_basic_redirection(t_token *token)
 	if (!prev_token || !next_file)
 		return ;
 	op = cast_token(token);
-	//printf("manage fd\n");
 	if (op->type == redir_in || op->type == heredoc)
 	{
 		open_next_file_with_flags(op->type, next_file);
@@ -84,12 +80,10 @@ void	manage_fd_basic_redirection(t_token *token)
 
 void	open_next_file_with_flags(int type, t_file *file)
 {
-	//printf("BEFORE OPEN File, name:%s$\tFD: %d\n",file->name , file->fd);
 	if (type == redir_in || type == heredoc)
 		file->fd = open(file->name, O_RDONLY);
 	else if (type == redir_out)
 		file->fd = open(file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (type == append_out)
 		file->fd = open(file->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	//printf("AFTER OPEN File, name:%s$\tFD: %d\n",file->name , file->fd);
 }

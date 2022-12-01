@@ -90,8 +90,8 @@ bool create_file_token(char *str, t_meta *pkg, int type)
 	t_token	*tok;
 	t_file *file;
 
-//	tok = NULL;
-//	file = NULL;
+	tok = NULL;
+	file = NULL;
 	tok = init_token(pkg);
 	tok->type = file_t;
 	tok->token = init_file(pkg);

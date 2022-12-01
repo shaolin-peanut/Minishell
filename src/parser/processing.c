@@ -22,11 +22,9 @@ bool	process_word(char *word, t_meta *pkg)
 	if (is_builtin(word, pkg))
 	{
 		create_builtin_token(word, pkg);
-		//free(word);
 		return (true);
 	}
 	path = is_cmd(word, pkg);
-	//printf("%s\n", path);
 	if (!path)
 		create_word_token(word, pkg);
 	else
@@ -36,14 +34,19 @@ bool	process_word(char *word, t_meta *pkg)
 
 bool	process_operator(char *str, t_meta *pkg)
 {
+	int	type;
+
+	type = 0;
 	if (is_pipe(str[pkg->i]))
 		create_operator_token(pkg, pipe_t);
 	else if (is_heredoc(str, pkg->i))
 		return (create_operator_token(pkg, heredoc));
 	else if (is_redirection(str, pkg->i))
 	{
-		create_operator_token(pkg, is_redirection(str, pkg->i));
-		return (file_check_and_create(pkg, is_redirection(str, pkg->i)));
+		type = is_redirection(str, pkg->i);
+		printf("process_op %d\n", type);
+		create_operator_token(pkg, type);
+		return (file_check_and_create(pkg, type));
 	}
 	return (true);
 }

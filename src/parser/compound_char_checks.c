@@ -34,17 +34,20 @@ bool	file_check_and_create(t_meta *pkg, int type)
 	word = NULL;
 	if (type == heredoc)
 		return (true);
+	else if (type == append_out)
+		pkg->i++;
 	pkg->i++;
-	while (pkg->str[pkg->i] != '\0' && !is_operator(pkg->str, pkg->i))
+//	printf("check check %s\n", pkg->str + pkg->i);
+	while (pkg->str[pkg->i])
 	{
-		if (is_word(pkg->str, pkg->i) || is_dollar(pkg->str[pkg->i]))
+		if (is_word(pkg->str, pkg->i)/* || is_dollar(pkg->str[pkg->i])*/)
 		{
 			word = return_word(pkg->str, pkg);
 			break ;
 		}
 		pkg->i++;
 	}
-	if ((type == redir_in && access(word, R_OK) == 0) || (type == redir_out || type == append_out))
+	if (word && ((type == redir_in && access(word, R_OK) == 0) || type == redir_out || (type == append_out)))
 		create_file_token(word, pkg, type);
 	else
 	{
