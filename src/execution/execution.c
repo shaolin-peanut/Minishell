@@ -7,6 +7,7 @@ void	executor(t_meta *pkg)
 	int		status_built;
 	char	*val;
 
+	status_built = -1;
 	token = get_first_token_cmd(pkg);
 	while (token)
 	{
@@ -50,7 +51,7 @@ int	wait_all_pid(t_meta *pkg)
 	int		status;
 
 	token = get_first_token_cmd(pkg);
-	status = 0;
+	status = -1;
 	while (token)
 	{
 		if(token->type == cmd_t)
