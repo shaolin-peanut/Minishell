@@ -22,6 +22,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <termios.h>
+# include <signal.h>
 
 extern t_meta	*g_pkg;
 
@@ -43,13 +44,13 @@ typedef struct s_meta
 bool		parser(char *str, t_meta *pkg);
 
 // prompt.c
-char	*get_prompt(t_meta *pkg);
+char		*get_prompt(t_meta *pkg);
 // For further parser prototypes, see parser.h
 
 // utils/
 
 // error.c
-int			errormsg(char *str,t_meta	*pkg);
+int			errormsg(char *str, t_meta	*pkg);
 
 // init.c
 t_meta		*init_meta(char	**envp);
@@ -57,7 +58,7 @@ char		**init_paths(t_meta	*pkg);
 t_token		*init_token(t_meta *pkg);
 
 // memory.c
-void		free_tokens(t_meta 	*pkg);
+void		free_tokens(t_meta	*pkg);
 void		free_all(t_meta *pkg);
 
 // list_utils.c
@@ -88,7 +89,7 @@ void		print_cmd_token(t_token	*tok);
 void		print_operator_tok(t_token	*tok);
 void		print_all_tokens(t_meta	*pkg);
 
-void 		update_variable_status_process(t_meta *pkg, int status);
+void		update_variable_status_process(t_meta *pkg, int status);
 
 //void		rl_replace_line (const char *text, int clear_undo);
 #endif
