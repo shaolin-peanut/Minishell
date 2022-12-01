@@ -68,7 +68,7 @@ int	echo(t_bltn *cmd);
 int	cd(t_bltn *cmd, t_meta *pkg);
 int	env_built_in(t_bltn *bltn, t_meta *pkg);
 int	pwd(t_bltn *cmd);
-void exit_built_in(t_bltn *bltn, t_meta *pkg);
+int exit_built_in(t_bltn *bltn, t_meta *pkg);
 int	export_built_in(t_bltn *bltn, t_meta *pkg);
 int	unset(t_bltn *bltn, t_meta *pkg);
 

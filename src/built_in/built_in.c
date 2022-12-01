@@ -96,7 +96,7 @@ void	minishell_exit(int exit_code, t_meta *pkg)
 	exit(exit_code);
 }
 
-void	exit_built_in(t_bltn *bltn, t_meta *pkg)
+int	exit_built_in(t_bltn *bltn, t_meta *pkg)
 {
 	if (bltn->argc == 1)
 		minishell_exit(0, pkg);
@@ -108,11 +108,15 @@ void	exit_built_in(t_bltn *bltn, t_meta *pkg)
 			ft_putendl_fd(": numeric argument required", 2);
 			minishell_exit(255, pkg);
 		}
-		else if (bltn->argc == 2)
+		else
 			minishell_exit(ft_atoi(bltn->argv[1]), pkg);
 	}
 	else
+	{
 		ft_putendl_fd("exit: too many arguments", 2);
+		return (257);
+	}
+	return (0);
 }
 /*
 	 x exit -> signal = 0;

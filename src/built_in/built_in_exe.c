@@ -20,9 +20,6 @@ int	built_in_execution(t_meta *pkg, t_bltn *cmd)
 	else if (ft_strncmp(word, "pwd", 4) == 0)
 		status = pwd(cmd);
 	else if (ft_strncmp(word, "exit", 5) == 0)
-	{
-		status = 0;
-		exit_built_in(cmd, pkg);
-	}
+		status = exit_built_in(cmd, pkg);
 	return (status);
 }
