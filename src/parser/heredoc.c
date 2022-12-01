@@ -25,46 +25,57 @@ char	*return_delimiter(t_meta *pkg)
 	return (NULL);
 }
 
-int	return_concat_str_len(t_builder *current)
+bool	is_delimiter(char *str, char *delim)
+{
+	if (ft_strncmp(str, delim, ft_strlen(delim)) == 0 && ft_strlen(str) == ft_strlen(delim))
+		return (true);
+	return (false);
+}
+
+int	return_concat_str_len(t_builder *current, char *delim)
 {
 	int	len;
 
 	len = 0;
-	while (current != NULL)
+	if (is_delimiter(current->word, delim))
+		return (0);
+	while (current->next)
 	{
 		if (current->word != NULL && !ft_strlen(current->word))
 			len++;
 		else
-			len += ft_strlen(current->word);
+			len += ft_strlen(current->word) + 1;
 		current = current->next;
 	}
 	return (len);
 }
 
-char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg)
+char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg, char *delim)
 {
 	char		*output;
-	char		*tmp;
 	int			len;
+	t_builder	*tmp;
 
+	(void) pkg;
 	output = NULL;
-	tmp = NULL;
-	len = return_concat_str_len(head);
-	output = (char *)malloc(sizeof(char) * len + 1);
+	tmp = head;
+	len = return_concat_str_len(head, delim);
+	printf("\nlen:%d\n", len);
+	output = calloc((len + 1), sizeof(char));
+	if (!output)
+		return (free_list(head));
 	output[len] = '\0';
-	ft_strlcpy(output, head->word, len);
-	while (pkg->str[pkg->i])
-		pkg->i++;
-	while (head->next->next != NULL)
+	if (!len)
 	{
-		head = head->next;
-		if (!ft_strlen(head->word))
-			tmp = ft_strjoin(output, "\n");
-		else
-			tmp = ft_strjoin(output, head->word);
-		free(output);
-		output = ft_strdup(tmp);
-		free(tmp);
+		free_list(head);
+		return (output);
+	}
+	ft_strlcat(output, tmp->word, len);
+	while (tmp->next && !is_delimiter(tmp->next->word, delim))
+	{
+		tmp = tmp->next;
+		ft_strlcat(output, tmp->word, len);
+		ft_strlcat(output, "\n", len);
 	}
 	free_list(head);
 	return (output);
@@ -77,16 +88,21 @@ char	*capture_content(t_meta *pkg, char *delim)
 	t_builder	*last;
 
 	last = NULL;
-	head = init_builder(0, ft_strdup(pkg->str + pkg->i));
+	head = NULL;
 	while (1)
 	{
 		tmp = readline("> ");
-		last = add_to_back_of_list(0, head, ft_strdup(tmp));
+		if (!last)
+		{
+			head = init_builder(0, ft_strdup(tmp));
+			last = head;
+		}
+		else if (!is_delimiter(last->word, delim))
+			last = add_to_back_of_list(0, last, ft_strdup(tmp));
 		free(tmp);
-		if (ft_strncmp(last->word, delim, ft_strlen(delim)) == 0)
-			return (concatenate_list_to_str(head, pkg));
-	}	
-	return (NULL);
+		if (is_delimiter(last->word, delim))
+			return (concatenate_list_to_str(head, pkg, delim));
+	}
 }
 
 bool	capture_heredoc(t_meta *pkg)
@@ -94,17 +110,15 @@ bool	capture_heredoc(t_meta *pkg)
 	char		*delim;
 	char		*output;
 
+	output = NULL;
 	delim = return_delimiter(pkg);
-	if (delim)
-		printf("Delimiter found: <%s>\n", delim);
-	else
-	{
-		printf("delim not found, provide one plz\n");
+	if (!delim)
 		return (false);
-	}
-	pkg->i++;
 	output = capture_content(pkg, delim);
+	free(delim);
 	if (output)
-		create_word_token(output, pkg);
+		create_file_token(output, pkg, heredoc);
+	else
+		return (false);
 	return (true);
 }

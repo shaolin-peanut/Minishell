@@ -45,7 +45,7 @@ char	*return_var_value(char *str, t_meta *pkg, int index)
 	while (i < len)
 			word[i++] = str[index++];
 	index--;
-	value = ft_strdup(getenv(word));
+	value = ft_getenv(pkg, word);
 	free(word);
 	return (value);
 }

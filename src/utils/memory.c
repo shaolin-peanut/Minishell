@@ -46,24 +46,67 @@ void	free_word(t_token	*tok)
 	free(word);
 }
 
-void	free_tokens(t_token	*current)
+void	free_op(t_token *tok)
 {
-	t_token	*old;
+	t_op *op;
 
-	if (!current)
-		return ;
-	old = NULL;
-	while (current)
+	op = NULL;
+	op = cast_token((tok));
+	op->type = 0;
+	free(op);
+}
+
+void	free_file(t_token *tok)
+{
+	t_file *file;
+	t_op 	*op;
+
+	file = NULL;
+	op = NULL;
+	file = cast_token((tok));
+	tok = tok->prev;
+	if (tok->type == op_t)
 	{
-		if (current->type == cmd_t || current->type == builtin_t)
-			free_cmd(current);
-		else if (current->type == word_t)
-			free_word(current);
-		old = current;
-		current = current->next;
-		if (old)
-			free(old);
+		op = cast_token(tok);
+		if (op->type == heredoc)
+			return ;
 	}
+	if (file)
+	{
+		if (file->name)
+			free(file->name);
+		close(file->fd);
+		free(file);
+	}
+}
+
+void	free_token(t_token *self)
+{
+	if (self->type == cmd_t || self->type == builtin_t)
+		free_cmd(self);
+	else if (self->type == word_t)
+		free_word(self);
+	else if (self->type == op_t)
+		free_op(self);
+	else if (self->type == file_t)
+		free_file(self);
+	//@todo, free operator ''' and so on
+	free (self);
+}
+
+void	free_tokens(t_meta 	*pkg)
+{
+	t_token *curr;
+	t_token *prev;
+
+	curr = return_last_token(pkg);
+	while (curr)
+	{
+		prev = curr->prev;
+		free_token(curr);
+		curr = prev;
+	}
+	pkg->chain_head = NULL;
 }
 
 void	free_all(t_meta *pkg)
@@ -72,8 +115,7 @@ void	free_all(t_meta *pkg)
 		free_str_vector(pkg->paths);
 	if (pkg->envp)
 		free_str_vector(pkg->envp);
-	if (pkg->chain_head)
-		free_tokens(pkg->chain_head);
-	if (pkg)
-		free(pkg);
+//	if (pkg->chain_head)
+//		free_tokens(pkg->chain_head);
+	free(pkg);
 }

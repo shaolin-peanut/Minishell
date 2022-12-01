@@ -6,7 +6,7 @@
 /*   By: lanlan <lanlan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 17:39:41 by lanlan            #+#    #+#             */
-/*   Updated: 2022/10/26 13:22:14 by lanlan           ###   ########.fr       */
+/*   Updated: 2022/11/29 14:54:13 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_list
 
 size_t		ft_strlen(const char *s);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
+size_t		ft_strlcat(char *dst, const char *src, size_t size);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_atoi(const char *nptr);
 int			ft_atoi2(const char *nptr, long *nbr);
@@ -41,6 +42,7 @@ char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 void		*ft_calloc(size_t nmemb, size_t size);
 int			ft_isdigit(int c);
+int			ft_isdigit_str(char *str);
 void		*ft_memset(void *s, int c, size_t n);
 char		*ft_strchr(const char *s, int c);
 int			ft_strchr_i(const char *s, int c);
@@ -63,5 +65,9 @@ char		**ft_extend_matrix(char **in, char *newstr);
 t_list		*ft_matrixtolst(char **matrix);
 char		**ft_lsttomatrix(t_list *lst);
 char		**ft_matrix_replace_in(char ***big, char **small, int n);
+void		ft_matrix_del_elem(char **m, char *key);
+int			ft_matrix_search(char **m, char *key);
+void		ft_matrix_replace_elem(char **m, int i, char *elem);
+int			ft_putmatrix_fd_export(char **m, int nl, int fd);
 
 #endif

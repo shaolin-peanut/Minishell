@@ -47,35 +47,42 @@ void	*cast_token(t_token	*token)
 		return ((t_word *)token->token);
 	else if (token->type == op_t)
 		return ((t_op *)token->token);
+	else if (token->type == file_t)
+		return ((t_file *)token->token);
 	else
 		return (NULL);
 }
 
-void	free_list(t_builder	*node)
+void	*free_list(t_builder	*node)
 {
-	t_builder	*prev;
+	t_builder	*next;
 
-	prev = NULL;
-	while (node != NULL)
+	while (node)
 	{
-		if (prev)
-			free(prev);
-		free(node->word);
-		node = node->next;
-		prev = node;
+		next = node->next;
+		if (node->word)
+			free(node->word);
+		free(node);
+		node = next;
 	}
+	return (NULL);
 }
 
 char	**convert_list_to_vector(t_builder	*head, int size)
 {
 	char		**vector;
+	t_builder	*tmp;
 	int			i;
 
 	i = 0;
 	vector = NULL;
-	vector = (char **)malloc(sizeof(char *) * size + 1);
+	vector = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!vector)
+	{
+		free_list(head);
 		return (NULL);
+	}
+	tmp = head;
 	while (head)
 	{
 		vector[i] = NULL;
@@ -84,6 +91,7 @@ char	**convert_list_to_vector(t_builder	*head, int size)
 		head = head->next;
 	}
 	vector[size] = NULL;
+	free_list(tmp);
 	return (vector);
 }
 // echo "salut"|echo

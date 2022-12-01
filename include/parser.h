@@ -16,7 +16,7 @@
 # include "token.h"
 # include <stdbool.h>
 
-# define ITER 0 
+# define ITER 0
 # define LEN 1
 
 typedef struct s_meta		t_meta;
@@ -31,6 +31,7 @@ bool	is_quote(char c);
 // compound_char_checks.c
 bool	is_word(char *str, int i);
 bool	is_var(char *str, int i);
+bool	file_check_and_create(t_meta *pkg, int type);
 
 // operators_checks.c
 bool	is_operator(char *str, int i);
@@ -46,9 +47,9 @@ char	*is_relative_path(char *word);
 char	*is_binary_name(char *word, t_meta *pkg);
 
 // processing.c
-void	process_word(char *str, t_meta *pkg);
-void	process_operator(char *str, t_meta *pkg);
-void	process_dollar(char *str, t_meta *pkg);
+bool	process_word(char *str, t_meta *pkg);
+bool	process_operator(char *str, t_meta *pkg);
+bool	process_dollar(char *str, t_meta *pkg);
 
 // variables.c
 void	process_variable(t_meta	*pkg, char *str, int i);
@@ -68,19 +69,22 @@ int		add_quote_content(char *word, int i, t_meta *pkg);
 int		*quote_len(t_meta *pkg, int *counter);
 
 // heredoc.c
+bool	is_delimiter(char *str, char *delim);
 bool	capture_heredoc(t_meta *pkg);
 void	create_heredoc_output(t_meta *pkg);
 
 // create_tokens.c
-int		create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);
-int		create_builtin_token(char *cmd_name, t_meta *pkg);
-int		create_word_token(char *word, t_meta *pkg);
-int		create_operator_token(t_meta *pkg, int type);
+bool		create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);
+bool		create_builtin_token(char *cmd_name, t_meta *pkg);
+bool		create_word_token(char *word, t_meta *pkg);
+bool		create_operator_token(t_meta *pkg, int type);
+bool 		create_file_token(char *str, t_meta *pkg, int type);
 
 // token_init.c
 t_cmd	*init_cmd(t_meta	*pkg);
 t_word	*init_word(t_meta	*pkg);
 t_op	*init_op(t_meta	*pkg);
 t_bltn	*init_builtin(t_meta	*pkg);
+t_file	*init_file(t_meta	*pkg);
 
 #endif

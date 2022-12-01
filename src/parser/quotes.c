@@ -69,12 +69,16 @@ int	*quote_len(t_meta *pkg, int *l_i)
 		}
 		if (pkg->str[l_i[ITER]] == type)
 		{
+			if (value)
+				free(value);
 			l_i[ITER]++;
 			return (l_i);
 		}
 		else
 			smart_iter(&l_i[LEN], &l_i[ITER], 1, 1);
 	}
+	if (value)
+		free(value);
 	return (l_i);
 }
 

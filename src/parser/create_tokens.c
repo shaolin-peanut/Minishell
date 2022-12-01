@@ -12,10 +12,10 @@
 
 #include "../../include/minishell.h"
 
-int	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
+bool	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 {
-	t_token	*tok;	
-	t_cmd	*cmd;
+	t_token	*tok;
+	t_cmd   *cmd;
 
 	cmd = NULL;
 	tok = NULL;
@@ -25,12 +25,14 @@ int	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 	cmd = cast_token(tok);
 	cmd->binary_path = full_path;
 	cmd->argv = build_argument_vector(cmd_name, pkg);
+    cmd->argc = ft_matrixlen(cmd->argv);
 	cmd->fd_in = STDIN_FILENO;
 	cmd->fd_out = STDOUT_FILENO;
-	return (0);
+	cmd->pid = 0;
+	return (true);
 }
 
-int	create_builtin_token(char *name, t_meta	*pkg)
+bool	create_builtin_token(char *name, t_meta	*pkg)
 {
 	t_token		*tok;
 	t_bltn		*builtin;
@@ -42,12 +44,14 @@ int	create_builtin_token(char *name, t_meta	*pkg)
 	tok->token = init_builtin(pkg);
 	builtin = cast_token(tok);
 	builtin->argv = build_argument_vector(name, pkg);
+    builtin->argc = ft_matrixlen(builtin->argv);
 	builtin->fd_in = STDIN_FILENO;
 	builtin->fd_out = STDOUT_FILENO;
-	return (1);
+	builtin->pid = 0;
+	return (true);
 }
 
-int	create_word_token(char *str, t_meta *pkg)
+bool	create_word_token(char *str, t_meta *pkg)
 {
 	t_token	*tok;
 	t_word	*word;
@@ -59,10 +63,10 @@ int	create_word_token(char *str, t_meta *pkg)
 	tok->token = init_word(pkg);
 	word = cast_token(tok);
 	word->str = str;
-	return (0);
+	return (true);
 }
 
-int	create_operator_token(t_meta *pkg, int type)
+bool	create_operator_token(t_meta *pkg, int type)
 {
 	t_token	*tok;
 	t_op	*op;
@@ -73,10 +77,37 @@ int	create_operator_token(t_meta *pkg, int type)
 	tok->type = op_t;
 	tok->token = init_op(pkg);
 	op = cast_token(tok);
-	if (type == heredoc)
-		capture_heredoc(pkg);
 	op->type = type;
 	op->fd_in = STDIN_FILENO;
 	op->fd_out = STDOUT_FILENO;
-	return (0);
+	if (type == heredoc)
+		return (capture_heredoc(pkg));
+	return (true);
+}
+
+bool create_file_token(char *str, t_meta *pkg, int type)
+{
+	t_token	*tok;
+	t_file *file;
+
+	tok = NULL;
+	file = NULL;
+	tok = init_token(pkg);
+	tok->type = file_t;
+	tok->token = init_file(pkg);
+	file = cast_token(tok);
+	if (type == heredoc)
+	{
+		file->name = "tmp.txt";
+		file->fd = open("tmp.txt", O_CREAT | O_WRONLY, 0777);
+		write(file->fd, str, ft_strlen(str));
+		close(file->fd);
+		free(str);
+	}
+	else
+	{
+		file->name = str;
+		file->fd = 0;
+	}
+	return (true);
 }

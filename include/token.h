@@ -13,8 +13,8 @@
 #ifndef TOKEN_H
 # define TOKEN_H
 
-enum e_tok_type	{word_t, builtin_t, cmd_t, op_t};
-enum e_op_types	{pipe_t, redir_in, redir_out, append_out, heredoc};
+enum e_tok_type	{word_t, file_t, builtin_t, cmd_t, op_t};
+enum e_op_types	{pipe_t, redir_in, redir_out, append_out, heredoc, null};
 // enum cmd	{binary, builtin}
 
 typedef struct s_token		t_token;
@@ -38,15 +38,19 @@ typedef struct s_cmd
 {
 	char	*binary_path;
 	char	**argv;
+	int 	argc;
 	int		fd_in;
 	int		fd_out;
+	pid_t	pid;
 }	t_cmd;
 
 typedef struct s_bltn
 {
 	char	**argv;
+	int 	argc;
 	int		fd_in;
 	int		fd_out;
+	pid_t	pid;
 }	t_bltn;
 
 typedef struct s_op
@@ -61,4 +65,11 @@ typedef struct s_word
 	int		type;
 	char	*str;
 }	t_word;
+
+typedef struct s_file
+{
+	char	*name;
+	int		fd;
+
+}	t_file;
 #endif

@@ -23,6 +23,8 @@ t_meta	*init_meta(char	**envp)
 	meta->str = NULL;
 	meta->i = 0;
 	meta->chain_head = NULL;
+	meta->last_exit_status = 0;
+	meta->child_pid = 0;
 	return (meta);
 }
 
@@ -45,9 +47,7 @@ t_token	*init_token(t_meta *pkg)
 		tok->prev = last;
 	}
 	else
-	{
 		pkg->chain_head = tok;
-	}
 	return (tok);
 }
 
@@ -66,7 +66,7 @@ char	**init_paths(t_meta	*pkg)
 		{
 			tmp = ft_split(pkg->envp[i], '=');
 			paths = ft_split(tmp[1], ':');
-			free(tmp);
+			free_str_vector(tmp);
 			if (paths)
 				return (paths);
 		}

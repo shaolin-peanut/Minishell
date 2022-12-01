@@ -29,7 +29,7 @@ char	*return_word(char *str, t_meta *pkg)
 		return (NULL);
 	}
 	word = NULL;
-	word = (char *) malloc(sizeof(char) * l_i[LEN] + 1);
+	word = (char *) malloc(sizeof(char) * (l_i[LEN] + 1));
 	word[l_i[LEN]] = '\0';
 	while (i < l_i[LEN] && pkg->str[pkg->i])
 	{
@@ -82,11 +82,10 @@ char	*is_cmd(char *name, t_meta *pkg)
 	if (pkg->paths == NULL)
 		pkg->paths = init_paths(pkg);
 	if (is_absolute_path(name))
-		return (name);
+		return (ft_strdup(name));
 	path = is_relative_path(name);
 	if (path)
 		return (path);
-	free(path);
 	path = is_binary_name(name, pkg);
 	if (path)
 		return (path);

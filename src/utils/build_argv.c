@@ -18,14 +18,12 @@ void	free_str_vector(char **vector)
 	char	*tmp;
 
 	i = 0;
-	while (vector[i] != 0)
+	while (vector[i] != NULL)
 	{
 		tmp = vector[i];
 		free(tmp);
 		i++;
 	}
-	tmp = vector[i];
-	free(tmp);
 	free(vector);
 }
 
@@ -49,34 +47,25 @@ t_builder	*init_builder(int *i, char *str)
 	return (b);
 }
 
-static char	*get_next_word(char *str, t_meta *pkg)
+char	*get_next_word(char *str, t_meta *pkg)
 {
 	char		*word;
 
 	word = NULL;
 	if (is_dollar(str[pkg->i]))
 	{
-		printf("is dollar\n");
 		word = return_var_value(str, pkg, pkg->i);
 		pkg->i += var_name_len(str, pkg->i);
 	}
 	else
-	{
 		word = return_word(str, pkg);
-	}
 	return (word);
 }
 
-t_builder	*add_to_back_of_list(int *counter, t_builder *head, char *word)
+t_builder	*add_to_back_of_list(int *counter, t_builder *last, char *word)
 {
-	t_builder	*last;
-
-	last = head;
-	while (last->next != NULL)
-		last = last->next;
 	last->next = init_builder(counter, word);
-	last = last->next;
-	return (last);
+	return (last->next);
 }
 
 // What happens in there?
@@ -101,7 +90,7 @@ char	**build_argument_vector(char *name, t_meta *pkg)
 		{
 			word = get_next_word(pkg->str, pkg);
 			if (word)
-				add_to_back_of_list(&b_i, head, word);
+				last = add_to_back_of_list(&b_i, last, word);
 		}
 		pkg->i++;
 	}
@@ -111,8 +100,3 @@ char	**build_argument_vector(char *name, t_meta *pkg)
 	argument_vector = convert_list_to_vector(head, last->counter);
 	return (argument_vector);
 }
-
-/*
-echo "$user"|cat -e     === takes
-
-*/

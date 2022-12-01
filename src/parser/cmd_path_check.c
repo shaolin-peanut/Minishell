@@ -30,9 +30,9 @@ char	*is_relative_path(char *word)
 	if (!current_directory)
 		return (0);
 	path_and_slash = ft_strjoin(current_directory, "/");
+	free(current_directory);
 	full_path = ft_strjoin(path_and_slash, word);
 	free(path_and_slash);
-	free(current_directory);
 	if (is_absolute_path(full_path))
 		return (full_path);
 	else
@@ -57,6 +57,7 @@ char	*is_binary_name(char *word, t_meta *pkg)
 	{
 		path_and_slash = ft_strjoin(paths[i], "/");
 		full_path = ft_strjoin(path_and_slash, word);
+		free(path_and_slash);
 		if (is_absolute_path(full_path))
 			return (full_path);
 		else
