@@ -89,6 +89,8 @@ char	*is_cmd(char *name, t_meta *pkg)
 	path = is_binary_name(name, pkg);
 	if (path)
 		return (path);
+//	else
+//		print_cmd_not_found(name);
 	return (NULL);
 }
 

@@ -15,7 +15,7 @@
 bool	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 {
 	t_token	*tok;
-	t_cmd   *cmd;
+	t_cmd	*cmd;
 
 	cmd = NULL;
 	tok = NULL;
@@ -25,7 +25,7 @@ bool	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 	cmd = cast_token(tok);
 	cmd->binary_path = full_path;
 	cmd->argv = build_argument_vector(cmd_name, pkg);
-    cmd->argc = ft_matrixlen(cmd->argv);
+	cmd->argc = ft_matrixlen(cmd->argv);
 	cmd->fd_in = STDIN_FILENO;
 	cmd->fd_out = STDOUT_FILENO;
 	cmd->pid = 0;
@@ -44,7 +44,7 @@ bool	create_builtin_token(char *name, t_meta	*pkg)
 	tok->token = init_builtin(pkg);
 	builtin = cast_token(tok);
 	builtin->argv = build_argument_vector(name, pkg);
-    builtin->argc = ft_matrixlen(builtin->argv);
+	builtin->argc = ft_matrixlen(builtin->argv);
 	builtin->fd_in = STDIN_FILENO;
 	builtin->fd_out = STDOUT_FILENO;
 	builtin->pid = 0;
@@ -82,7 +82,7 @@ bool	create_operator_token(t_meta *pkg, int type)
 	op->fd_out = STDOUT_FILENO;
 	if (type == heredoc)
 		return (capture_heredoc(pkg));
-	return (true);
+	return (file_check_and_create(pkg, is_redirection(pkg->str, pkg->i)));
 }
 
 bool	create_file_token(char *str, t_meta *pkg, int type)

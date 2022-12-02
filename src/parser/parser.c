@@ -12,10 +12,6 @@
 
 #include "../../include/minishell.h"
 
-/* Reads the line given by readline(), interpret whatever input is given
-and creates tokens with all data necessary to understand the token's 
-relationships with its neighbors */
-
 bool	lexical_scan(char *str, t_meta *pkg)
 {
 	char	*word;
@@ -26,10 +22,14 @@ bool	lexical_scan(char *str, t_meta *pkg)
 		word = return_word(str, pkg);
 		return (process_word(word, pkg));
 	}
-	else if (is_dollar(str[pkg->i]))
-		return (process_dollar(str, pkg));
+	else if (is_var(str, pkg->i))
+		process_variable(pkg, str, pkg->i);
 	else if (is_operator(str, pkg->i))
 		return (process_operator(str, pkg));
+//	else
+//	{
+//		word = return_word(str, pkg);
+//	}
 	return (true);
 }
 

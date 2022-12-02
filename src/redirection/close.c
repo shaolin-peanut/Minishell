@@ -17,14 +17,6 @@ void	close_all_fd(t_meta *pkg)
 	}
 }
 
-void	close_fd_op(t_op *op)
-{
-	if (!is_standard_fd(op->fd_in))
-		close(op->fd_in);
-	if (!is_standard_fd(op->fd_out))
-		close(op->fd_out);
-}
-
 void	close_fd_bltn(t_bltn *bltn)
 {
 	if (!is_standard_fd(bltn->fd_in))

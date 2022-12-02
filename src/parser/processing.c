@@ -26,7 +26,10 @@ bool	process_word(char *word, t_meta *pkg)
 	}
 	path = is_cmd(word, pkg);
 	if (!path)
-		create_word_token(word, pkg);
+	{
+		print_cmd_not_found(word);
+		free(word);
+	}
 	else
 		create_cmd_token(word, path, pkg);
 	return (true);
@@ -34,31 +37,18 @@ bool	process_word(char *word, t_meta *pkg)
 
 bool	process_operator(char *str, t_meta *pkg)
 {
-	int	type;
-
-	type = 0;
 	if (is_pipe(str[pkg->i]))
 		create_operator_token(pkg, pipe_t);
 	else if (is_heredoc(str, pkg->i))
 		return (create_operator_token(pkg, heredoc));
 	else if (is_redirection(str, pkg->i))
-	{
-		type = is_redirection(str, pkg->i);
-		printf("process_op %d\n", type);
-		create_operator_token(pkg, type);
-		return (file_check_and_create(pkg, type));
-	}
+		return (create_operator_token(pkg, is_redirection(str, pkg->i)));
 	return (true);
 }
 
-bool	process_dollar(char *str, t_meta *pkg)
+void	print_cmd_not_found(char *str)
 {
-	if (is_var(str, pkg->i))
-		process_variable(pkg, pkg->str, pkg->i);
-	if (is_dollar_question(str, pkg->i))
-		(void) pkg;
-	// just_print_last_fd_exit_status;
-	else
-		(void) pkg;
-	return (true);
+	perror("minishell: ");
+	ft_putstr_fd(str, 2);
+	perror(": Command not found\n");
 }

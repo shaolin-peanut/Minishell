@@ -32,12 +32,9 @@ bool	file_check_and_create(t_meta *pkg, int type)
 	char *word;
 
 	word = NULL;
-	if (type == heredoc)
-		return (true);
-	else if (type == append_out)
+	if (type == append_out)
 		pkg->i++;
 	pkg->i++;
-//	printf("check check %s\n", pkg->str + pkg->i);
 	while (pkg->str[pkg->i])
 	{
 		if (is_word(pkg->str, pkg->i)/* || is_dollar(pkg->str[pkg->i])*/)

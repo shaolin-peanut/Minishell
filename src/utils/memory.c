@@ -48,7 +48,7 @@ void	free_word(t_token	*tok)
 
 void	free_op(t_token *tok)
 {
-	t_op *op;
+	t_op	*op;
 
 	op = NULL;
 	op = cast_token((tok));
@@ -58,8 +58,8 @@ void	free_op(t_token *tok)
 
 void	free_file(t_token *tok)
 {
-	t_file *file;
-	t_op 	*op;
+	t_file	*file;
+	t_op	*op;
 
 	file = NULL;
 	op = NULL;
@@ -91,13 +91,13 @@ void	free_token(t_token *self)
 	else if (self->type == file_t)
 		free_file(self);
 	//@todo, free operator ''' and so on
-	free (self);
+	free(self);
 }
 
 void	free_tokens(t_meta 	*pkg)
 {
-	t_token *curr;
-	t_token *prev;
+	t_token	*curr;
+	t_token	*prev;
 
 	curr = return_last_token(pkg);
 	while (curr)
@@ -115,7 +115,5 @@ void	free_all(t_meta *pkg)
 		free_str_vector(pkg->paths);
 	if (pkg->envp)
 		free_str_vector(pkg->envp);
-//	if (pkg->chain_head)
-//		free_tokens(pkg->chain_head);
 	free(pkg);
 }

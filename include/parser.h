@@ -50,6 +50,7 @@ char	*is_binary_name(char *word, t_meta *pkg);
 bool	process_word(char *str, t_meta *pkg);
 bool	process_operator(char *str, t_meta *pkg);
 bool	process_dollar(char *str, t_meta *pkg);
+void	print_cmd_not_found(char *str);
 
 // variables.c
 void	process_variable(t_meta	*pkg, char *str, int i);
