@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   close.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/14 22:29:13 by gmontaur          #+#    #+#             */
+/*   Updated: 2021/07/14 22:29:15 by gmontaur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minishell.h"
 
 void	close_all_fd(t_meta *pkg)
@@ -15,14 +26,6 @@ void	close_all_fd(t_meta *pkg)
 			close_fd_file((t_file *)token->token);
 		token = token->next;
 	}
-}
-
-void	close_fd_op(t_op *op)
-{
-	if (!is_standard_fd(op->fd_in))
-		close(op->fd_in);
-	if (!is_standard_fd(op->fd_out))
-		close(op->fd_out);
 }
 
 void	close_fd_bltn(t_bltn *bltn)

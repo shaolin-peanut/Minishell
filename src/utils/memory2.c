@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bin_exe.c                                          :+:      :+:    :+:   */
+/*   memory2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,25 +11,26 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-void	bin_execution(t_meta *pkg, t_cmd *cmd)
+void	free_tokens(t_meta	*pkg)
 {
-	int		pid;
-	char	*path;
+	t_token	*curr;
+	t_token	*prev;
 
-	path = cmd->binary_path;
-	pid = fork();
-	if (pid == 0)
+	curr = return_last_token(pkg);
+	while (curr)
 	{
-		if (!cmd_have_standart_fd(cmd))
-		{
-			redirect_cmd(cmd);
-			close_all_fd(pkg);
-		}
-		execve(path, cmd->argv, pkg->envp);
-		perror("Command failure : ");
-		exit(1);
+		prev = curr->prev;
+		free_token(curr);
+		curr = prev;
 	}
-	else
-		cmd->pid = pid;
-	pkg->child_pid = cmd->pid;
+	pkg->chain_head = NULL;
+}
+
+void	free_all(t_meta *pkg)
+{
+	if (pkg->paths != NULL)
+		free_str_vector(pkg->paths);
+	if (pkg->envp)
+		free_str_vector(pkg->envp);
+	free(pkg);
 }

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_redirection.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/14 22:29:13 by gmontaur          #+#    #+#             */
+/*   Updated: 2021/07/14 22:29:15 by gmontaur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minishell.h"
 
 void	manage_fd_for_redirection(t_token *token)
@@ -11,31 +22,11 @@ void	manage_fd_for_redirection(t_token *token)
 		manage_fd_pipe(token);
 }
 
-/*
-void	manage_fd_heredoc(t_token *token)
-{
-	t_cmd	*prev_cmd;
-	t_redir	*redir;
-	char	*tmp_file_name;
-	int		fd_tmp;
-
-	redir = get_class(token);
-	prev_cmd = get_prev_cmd(token);
-	tmp_file_name = heredoc_prompt(redir->limiter);
-	fd_tmp = open(tmp_file_name, O_RDONLY, 0777);
-	redir->tmp_file = init_file(tmp_file_name, fd_tmp);
-	if (prev_cmd)
-	{
-		change_fd_cmd(prev_cmd, fd_tmp, prev_cmd->fd_out);
-	}
-}
- */
-
 void	manage_fd_pipe(t_token *token)
 {
-	t_token *prev_cmd;
+	t_token	*prev_cmd;
 	t_token	*next_cmd;
-	t_op 	*pipe_tok;
+	t_op	*pipe_tok;
 	int		fd[2];
 
 	prev_cmd = get_prev_token_cmd(token);
@@ -66,12 +57,7 @@ void	manage_fd_basic_redirection(t_token *token)
 		open_next_file_with_flags(op->type, next_file);
 		change_fd_cmd(prev_token, next_file->fd, get_fd_out(prev_token));
 	}
-	else if (op->type == redir_out)
-	{
-		open_next_file_with_flags(op->type, next_file);
-		change_fd_cmd(prev_token, get_fd_in(prev_token), next_file->fd);
-	}
-	else if (op->type == append_out)
+	else if (op->type == redir_out || op->type == append_out)
 	{
 		open_next_file_with_flags(op->type, next_file);
 		change_fd_cmd(prev_token, get_fd_in(prev_token), next_file->fd);

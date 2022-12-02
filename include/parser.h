@@ -23,9 +23,9 @@ typedef struct s_meta		t_meta;
 typedef struct s_cmd		t_cmd;
 
 // basic_char_checks.c
-bool	is_blank(char *str, int i);
+bool	is_blank(const char *str, int i);
 bool	is_dollar(char c);
-bool	is_dollar_question(char *str, int i);
+bool	is_dollar_question(const char *str, int i);
 bool	is_quote(char c);
 
 // compound_char_checks.c
