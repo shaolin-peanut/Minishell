@@ -38,7 +38,7 @@ typedef struct s_cmd
 {
 	char	*binary_path;
 	char	**argv;
-	int 	argc;
+	int		argc;
 	int		fd_in;
 	int		fd_out;
 	pid_t	pid;
@@ -47,7 +47,7 @@ typedef struct s_cmd
 typedef struct s_bltn
 {
 	char	**argv;
-	int 	argc;
+	int		argc;
 	int		fd_in;
 	int		fd_out;
 	pid_t	pid;

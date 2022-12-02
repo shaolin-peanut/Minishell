@@ -9,7 +9,6 @@
 /*   Updated: 2022/11/18 16:01:29 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef PARSER_H
 # define PARSER_H
 
@@ -74,11 +73,11 @@ bool	capture_heredoc(t_meta *pkg);
 void	create_heredoc_output(t_meta *pkg);
 
 // create_tokens.c
-bool		create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);
-bool		create_builtin_token(char *cmd_name, t_meta *pkg);
-bool		create_word_token(char *word, t_meta *pkg);
-bool		create_operator_token(t_meta *pkg, int type);
-bool 		create_file_token(char *str, t_meta *pkg, int type);
+bool	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);
+bool	create_builtin_token(char *cmd_name, t_meta *pkg);
+bool	create_word_token(char *word, t_meta *pkg);
+bool	create_operator_token(t_meta *pkg, int type);
+bool	create_file_token(char *str, t_meta *pkg, int type);
 
 // token_init.c
 t_cmd	*init_cmd(t_meta	*pkg);
