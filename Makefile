@@ -32,6 +32,7 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/built_in/built_in.c \
 						$(SRCS_DIR)/built_in/built_in_exe.c \
 						$(SRCS_DIR)/built_in/export.c \
+						$(SRCS_DIR)/built_in/exit.c \
 						$(SRCS_DIR)/redirection/close.c \
 						$(SRCS_DIR)/redirection/heredoc.c \
 						$(SRCS_DIR)/redirection/manage_redirection.c \
@@ -42,6 +43,7 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/execution/status.c \
 						$(SRCS_DIR)/execution/variable.c \
 						$(SRCS_DIR)/execution/get.c \
+						$(SRCS_DIR)/execution/get2.c \
 						$(SRCS_DIR)/processing/bin_processing.c \
 						$(SRCS_DIR)/processing/processing_built.c \
 						$(SRCS_DIR)/processing/processing_cmd.c \

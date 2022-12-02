@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   status.c                                           :+:      :+:    :+:   */
+/*   exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,39 +11,34 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-int	get_last_status(int bin_status, int ret_built_in)
+void	minishell_exit(int exit_code, t_meta *pkg)
 {
-	if (ret_built_in == -1)
-		return (bin_status);
-	else if (bin_status == -1)
-		return (ret_built_in);
-	return (0);
+	ft_putendl_fd("exit", 2);
+	free_tokens(pkg);
+	free_all(pkg);
+	clear_history();
+	exit(exit_code);
 }
 
-int	convert_status_process_value(int status)
+int	exit_built_in(t_bltn *bltn, t_meta *pkg)
 {
-	if (WIFSIGNALED(status))
-		status = WEXITSTATUS(status);
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	return (status);
-}
-
-void	update_variable_status_process(t_meta *pkg, int status)
-{
-	char	*value;
-	char	*env_val;
-
-	value = ft_itoa(status);
-	if (!value)
-		return ;
-	env_val = ft_getenv(pkg, "?");
-	if (!env_val)
+	if (bltn->argc == 1)
+		minishell_exit(0, pkg);
+	else if (bltn->argc == 2)
 	{
-		free(value);
-		return ;
+		if (ft_isdigit_str(bltn->argv[1]) == 0)
+		{
+			ft_putstr_fd(bltn->argv[1], 2);
+			ft_putendl_fd(": numeric argument required", 2);
+			minishell_exit(255, pkg);
+		}
+		else
+			minishell_exit(ft_atoi(bltn->argv[1]), pkg);
 	}
-	ft_setenv(pkg, "?", value);
-	free(env_val);
-	free(value);
+	else
+	{
+		ft_putendl_fd("exit: too many arguments", 2);
+		return (257);
+	}
+	return (0);
 }

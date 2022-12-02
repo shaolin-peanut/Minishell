@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_line.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/14 22:29:13 by gmontaur          #+#    #+#             */
+/*   Updated: 2021/07/14 22:29:15 by gmontaur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minishell.h"
 
 bool	execute_line(t_meta *pkg, char *line)
@@ -10,65 +20,13 @@ bool	execute_line(t_meta *pkg, char *line)
 	free_tokens(pkg);
 	return (true);
 }
-/*
-int	env_have_multi_line(t_env *env)
-{
-	t_line	*line;
-	int		nbr;
-
-	line = get_first_line(env);
-	nbr = 1;
-	while (line)
-	{
-		nbr++;
-		line = line->next;
-	}
-	if (nbr > 1)
-		return (1);
-	return (0);
-}
-
-void	execute_multi_line(t_env *env, t_line *line)
-{
-	while (line)
-	{
-		execute_line(env, line->content);
-		line = line->next;
-	}
-}
-
-void	parse_line_with_semicolon(t_env *env, char *line)
-{
-	int		index;
-	int		start;
-	int		end;
-	char	*sub_line;
-
-	index = 0;
-	start = index;
-	while (line[index])
-	{
-		if (line[index] == ';' || is_finish(line[index + 1]))
-		{
-			if (is_finish(line[index + 1]))
-				end = index;
-			else
-				end = index - 1;
-			sub_line = malloc_substrcpy(line, start, end);
-			add_line_to_env(env, sub_line);
-			start = index + 1;
-		}
-		index++;
-	}
-}
- */
 
 char	*get_line(t_meta *pkg)
 {
 	struct termios	saved;
 	struct termios	attributes;
 	char			*line;
-	char 			*p_line;
+	char			*p_line;
 
 	tcgetattr(STDIN_FILENO, &saved);
 	tcgetattr(STDIN_FILENO, &attributes);
