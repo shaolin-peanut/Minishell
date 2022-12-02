@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void) argc;
 	(void) argv;
-    pkg = init_meta(envp);
+	pkg = init_meta(envp);
 	g_pkg = pkg;
 	prompt(pkg);
 	free_all(pkg);
