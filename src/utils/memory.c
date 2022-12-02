@@ -90,30 +90,5 @@ void	free_token(t_token *self)
 		free_op(self);
 	else if (self->type == file_t)
 		free_file(self);
-	//@todo, free operator ''' and so on
-	free(self);
-}
-
-void	free_tokens(t_meta 	*pkg)
-{
-	t_token	*curr;
-	t_token	*prev;
-
-	curr = return_last_token(pkg);
-	while (curr)
-	{
-		prev = curr->prev;
-		free_token(curr);
-		curr = prev;
-	}
-	pkg->chain_head = NULL;
-}
-
-void	free_all(t_meta *pkg)
-{
-	if (pkg->paths != NULL)
-		free_str_vector(pkg->paths);
-	if (pkg->envp)
-		free_str_vector(pkg->envp);
-	free(pkg);
+	free (self);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   status.c                                           :+:      :+:    :+:   */
+/*   memory2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,39 +11,26 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-int	get_last_status(int bin_status, int ret_built_in)
+void	free_tokens(t_meta	*pkg)
 {
-	if (ret_built_in == -1)
-		return (bin_status);
-	else if (bin_status == -1)
-		return (ret_built_in);
-	return (0);
-}
+	t_token	*curr;
+	t_token	*prev;
 
-int	convert_status_process_value(int status)
-{
-	if (WIFSIGNALED(status))
-		status = WEXITSTATUS(status);
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	return (status);
-}
-
-void	update_variable_status_process(t_meta *pkg, int status)
-{
-	char	*value;
-	char	*env_val;
-
-	value = ft_itoa(status);
-	if (!value)
-		return ;
-	env_val = ft_getenv(pkg, "?");
-	if (!env_val)
+	curr = return_last_token(pkg);
+	while (curr)
 	{
-		free(value);
-		return ;
+		prev = curr->prev;
+		free_token(curr);
+		curr = prev;
 	}
-	ft_setenv(pkg, "?", value);
-	free(env_val);
-	free(value);
+	pkg->chain_head = NULL;
+}
+
+void	free_all(t_meta *pkg)
+{
+	if (pkg->paths != NULL)
+		free_str_vector(pkg->paths);
+	if (pkg->envp)
+		free_str_vector(pkg->envp);
+	free(pkg);
 }

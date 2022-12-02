@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/14 22:29:13 by gmontaur          #+#    #+#             */
+/*   Updated: 2021/07/14 22:29:15 by gmontaur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minishell.h"
 
 int	export_built_in(t_bltn *bltn, t_meta *pkg)
@@ -45,8 +56,8 @@ int	unset(t_bltn *bltn, t_meta *pkg)
 
 void	ft_setenv(t_meta *pkg, char *key, char *value)
 {
-	char *tmp;
-	char *str;
+	char	*tmp;
+	char	*str;
 
 	tmp = ft_strjoin(key, "=");
 	str = ft_strjoin(tmp, value);
@@ -55,18 +66,18 @@ void	ft_setenv(t_meta *pkg, char *key, char *value)
 	free(str);
 }
 
-char *ft_getenv(t_meta *pkg, char *key)
+char	*ft_getenv(t_meta *pkg, char *key)
 {
-	int	i;
-	int j;
-	char *tmp;
+	int		i;
+	int		j;
+	char	*tmp;
+
 	j = 0;
 	i = ft_matrix_search(pkg->envp, key);
 	if (i != -1)
 	{
-		while((pkg->envp[i])[j] != '=')
+		while ((pkg->envp[i])[j] != '=')
 			++j;
-		//peut =etre j + 1 ??
 		tmp = ft_substr(pkg->envp[i], j + 1, ft_strlen(pkg->envp[i]) - j);
 		return (tmp);
 	}

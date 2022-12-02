@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 13:12:06 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/11 17:37:43 by sbars            ###   ########.fr       */
+/*   Updated: 2022/12/02 15:34:09 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ char	*return_delimiter(t_meta *pkg)
 	}
 	errormsg("syntax error near unexpected token `newline'", pkg);
 	return (NULL);
-}
-
-bool	is_delimiter(char *str, char *delim)
-{
-	if (ft_strncmp(str, delim, ft_strlen(delim)) == 0 && ft_strlen(str) == ft_strlen(delim))
-		return (true);
-	return (false);
 }
 
 int	return_concat_str_len(t_builder *current, char *delim)
@@ -50,17 +43,15 @@ int	return_concat_str_len(t_builder *current, char *delim)
 	return (len);
 }
 
-char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg, char *delim)
+char	*concatenate_list_to_str(t_builder	*head, char *delim)
 {
 	char		*output;
 	int			len;
 	t_builder	*tmp;
 
-	(void) pkg;
 	output = NULL;
 	tmp = head;
 	len = return_concat_str_len(head, delim);
-	printf("\nlen:%d\n", len);
 	output = calloc((len + 1), sizeof(char));
 	if (!output)
 		return (free_list(head));
@@ -81,7 +72,7 @@ char	*concatenate_list_to_str(t_builder	*head, t_meta *pkg, char *delim)
 	return (output);
 }
 
-char	*capture_content(t_meta *pkg, char *delim)
+char	*capture_content(char *delim)
 {
 	char		*tmp;
 	t_builder	*head;
@@ -101,7 +92,7 @@ char	*capture_content(t_meta *pkg, char *delim)
 			last = add_to_back_of_list(0, last, ft_strdup(tmp));
 		free(tmp);
 		if (is_delimiter(last->word, delim))
-			return (concatenate_list_to_str(head, pkg, delim));
+			return (concatenate_list_to_str(head, delim));
 	}
 }
 
@@ -114,7 +105,7 @@ bool	capture_heredoc(t_meta *pkg)
 	delim = return_delimiter(pkg);
 	if (!delim)
 		return (false);
-	output = capture_content(pkg, delim);
+	output = capture_content(delim);
 	free(delim);
 	if (output)
 		create_file_token(output, pkg, heredoc);

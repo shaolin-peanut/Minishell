@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-bool	is_blank(char *str, int i)
+bool	is_blank(const char *str, int i)
 {
 	if (str[i] == 32 || str[i] == 9)
 		return (1);
@@ -27,7 +27,7 @@ bool	is_dollar(char c)
 		return (0);
 }
 
-bool	is_dollar_question(char *str, int i)
+bool	is_dollar_question(const char *str, int i)
 {
 	if (str[i] == '$' && str[i + 1] == '?')
 		return (1);

@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_token.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/14 22:29:13 by gmontaur          #+#    #+#             */
+/*   Updated: 2021/07/14 22:29:15 by gmontaur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minishell.h"
 
 bool	is_token_heredoc(t_meta *pkg)
 {
-	t_token *head;
-	t_op 	*op;
+	t_token	*head;
+	t_op	*op;
 
 	head = pkg->chain_head;
 	op = NULL;

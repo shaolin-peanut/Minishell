@@ -42,6 +42,14 @@ bool	process_operator(char *str, t_meta *pkg)
 	else if (is_heredoc(str, pkg->i))
 		return (create_operator_token(pkg, heredoc));
 	else if (is_redirection(str, pkg->i))
+		return (create_operator_token(pkg, is_redirection(str, pkg->i));
+	return (true);
+}
+
+bool	process_dollar(char *str, t_meta *pkg)
+{
+	if (is_var(str, pkg->i))
+		process_variable(pkg, pkg->str, pkg->i);
 		return (create_operator_token(pkg, is_redirection(str, pkg->i)));
 	return (true);
 }

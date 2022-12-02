@@ -25,7 +25,7 @@ int	ft_isdigit_str(char *str)
 	len = ft_strlen(str);
 	while (i < len)
 	{
-		if(!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]))
 			return (0);
 		++i;
 	}

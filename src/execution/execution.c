@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/14 22:29:13 by gmontaur          #+#    #+#             */
+/*   Updated: 2021/07/14 22:29:15 by gmontaur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minishell.h"
 
 void	executor(t_meta *pkg)
@@ -54,10 +65,9 @@ int	wait_all_pid(t_meta *pkg)
 	status = -1;
 	while (token)
 	{
-		if(token->type == cmd_t)
+		if (token->type == cmd_t)
 		{
 			cmd = cast_token(token);
-			//printf("waiting for pid cmd -> %d\n", cmd->pid);
 			waitpid(cmd->pid, &status, 0);
 		}
 		status = convert_status_process_value(status);

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/24 11:33:56 by sbars             #+#    #+#             */
+/*   Updated: 2022/11/18 16:01:29 by sbars            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #ifndef EXECUTION_H
 # define EXECUTION_H
 # include <fcntl.h>
@@ -9,9 +20,9 @@ int		wait_all_pid(t_meta *pkg);
 
 void	close_all_fd(t_meta *pkg);
 void	close_fd_cmd(t_cmd *cmd);
-void 	close_fd_bltn(t_bltn *bltn);
-void 	close_fd_file(t_file *file);
-void 	close_fd_op(t_op *op);
+void	close_fd_bltn(t_bltn *bltn);
+void	close_fd_file(t_file *file);
+void	close_fd_op(t_op *op);
 void	remove_tmp_file(t_meta *pkg);
 
 bool	is_standard_fd(int fd);
@@ -24,8 +35,8 @@ t_token	*get_prev_token_cmd(t_token *this);
 t_token	*get_first_token_redirection(t_meta *pkg);
 t_token	*get_next_token_redirection(t_token *this);
 t_file	*get_next_token_file(t_token *token);
-int	get_fd_in(t_token *this);
-int	get_fd_out(t_token *this);
+int		get_fd_in(t_token *this);
+int		get_fd_out(t_token *this);
 char	*get_current_path(void);
 t_file	*get_heredoc_file(t_meta *pkg);
 
@@ -41,8 +52,8 @@ void	bin_execution(t_meta *pkg, t_cmd *cmd);
 
 void	redirect_cmd(t_cmd *cmd);
 
-int	convert_status_process_value(int status);
-int	get_last_status(int bin_status, int ret_built_in);
+int		convert_status_process_value(int status);
+int		get_last_status(int bin_status, int ret_built_in);
 //void update_variable_status_process(t_meta *pkg, int status);
 
 /*redirectionfonctions */
@@ -64,15 +75,15 @@ void	processing_cmd(t_meta *pkg);
 
 void	processing_built_in(t_meta *pkg);
 
-int	echo(t_bltn *cmd);
-int	cd(t_bltn *cmd, t_meta *pkg);
-int	env_built_in(t_bltn *bltn, t_meta *pkg);
-int	pwd(t_bltn *cmd);
-int exit_built_in(t_bltn *bltn, t_meta *pkg);
-int	export_built_in(t_bltn *bltn, t_meta *pkg);
-int	unset(t_bltn *bltn, t_meta *pkg);
+int		echo(t_bltn *cmd);
+int		cd(t_bltn *cmd, t_meta *pkg);
+int		env_built_in(t_bltn *bltn, t_meta *pkg);
+int		pwd(t_bltn *cmd);
+int		exit_built_in(t_bltn *bltn, t_meta *pkg);
+int		export_built_in(t_bltn *bltn, t_meta *pkg);
+int		unset(t_bltn *bltn, t_meta *pkg);
 
-int	built_in_execution(t_meta *pkg, t_bltn *cmd);
+int		built_in_execution(t_meta *pkg, t_bltn *cmd);
 
 void	pass(int key);
 void	call_prompt(int key);

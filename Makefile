@@ -23,6 +23,7 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/utils/init_structs.c \
 						$(SRCS_DIR)/utils/error.c \
 						$(SRCS_DIR)/utils/memory.c \
+						$(SRCS_DIR)/utils/memory2.c \
 						$(SRCS_DIR)/utils/list_utils.c \
 						$(SRCS_DIR)/utils/build_argv.c \
 						$(SRCS_DIR)/utils/parser_utils.c \
@@ -31,21 +32,16 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/built_in/built_in.c \
 						$(SRCS_DIR)/built_in/built_in_exe.c \
 						$(SRCS_DIR)/built_in/export.c \
+						$(SRCS_DIR)/built_in/exit.c \
 						$(SRCS_DIR)/redirection/close.c \
-						$(SRCS_DIR)/redirection/heredoc.c \
 						$(SRCS_DIR)/redirection/manage_redirection.c \
-						$(SRCS_DIR)/redirection/redirect.c \
-						$(SRCS_DIR)/execution/access.c \
 						$(SRCS_DIR)/execution/bin_exe.c \
 						$(SRCS_DIR)/execution/execution.c \
 						$(SRCS_DIR)/execution/status.c \
 						$(SRCS_DIR)/execution/variable.c \
 						$(SRCS_DIR)/execution/get.c \
-						$(SRCS_DIR)/processing/bin_processing.c \
-						$(SRCS_DIR)/processing/processing_built.c \
-						$(SRCS_DIR)/processing/processing_cmd.c \
+						$(SRCS_DIR)/execution/get2.c \
 						$(SRCS_DIR)/processing/processing_redirection.c \
-						$(SRCS_DIR)/processing/variable_value.c \
 						$(SRCS_DIR)/is/is_redirection.c \
 						$(SRCS_DIR)/is/is_token.c \
 						$(SRCS_DIR)/env/signal.c \
