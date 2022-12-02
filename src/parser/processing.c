@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/18 15:18:59 by sbars            ###   ########.fr       */
+/*   Updated: 2022/12/02 15:06:16 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ bool	process_operator(char *str, t_meta *pkg)
 	else if (is_redirection(str, pkg->i))
 	{
 		type = is_redirection(str, pkg->i);
-		printf("process_op %d\n", type);
 		create_operator_token(pkg, type);
 		return (file_check_and_create(pkg, type));
 	}
@@ -55,10 +54,5 @@ bool	process_dollar(char *str, t_meta *pkg)
 {
 	if (is_var(str, pkg->i))
 		process_variable(pkg, pkg->str, pkg->i);
-	if (is_dollar_question(str, pkg->i))
-		(void) pkg;
-	// just_print_last_fd_exit_status;
-	else
-		(void) pkg;
 	return (true);
 }

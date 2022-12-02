@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   testing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 17:16:45 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/21 15:33:03 by sbars            ###   ########.fr       */
+/*   Updated: 2022/12/02 15:09:40 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	print_file_token(t_token *tok)
-{
-	t_file	*file;
-
-	file = cast_token(tok);
-	printf("|> TOKEN:FILE\n");
-	printf("|> name: %s\n", file->name);
-	printf("|> fd: %d\n", file->fd);
-}
 void	print_cmd_token(t_token	*tok)
 {
 	t_cmd	*cmd;

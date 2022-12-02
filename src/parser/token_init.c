@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 16:19:35 by sbars             #+#    #+#             */
-/*   Updated: 2022/10/31 12:10:52 by sbars            ###   ########.fr       */
+/*   Updated: 2022/12/02 15:07:26 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmd	*init_cmd(t_meta	*pkg)
 		errormsg("malloc error in init_cmd\n", pkg);
 	command->binary_path = 0;
 	command->argv = 0;
-    command->argc = 0;
+	command->argc = 0;
 	command->fd_in = 0;
 	command->fd_out = 0;
 	return (command);
@@ -35,7 +35,7 @@ t_bltn	*init_builtin(t_meta	*pkg)
 	if (!builtin)
 		errormsg("malloc error in init-builtin\n", pkg);
 	builtin->argv = 0;
-    builtin->argc = 0;
+	builtin->argc = 0;
 	builtin->fd_in = 0;
 	builtin->fd_out = 0;
 	return (builtin);
@@ -67,7 +67,7 @@ t_word	*init_word(t_meta	*pkg)
 
 t_file	*init_file(t_meta	*pkg)
 {
-	t_file *file;
+	t_file	*file;
 
 	file = (t_file *) malloc(sizeof(t_file) * 1);
 	if (!file)

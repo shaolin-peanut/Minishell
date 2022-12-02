@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   compound_char_checks.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:03 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/18 15:48:02 by sbars            ###   ########.fr       */
+/*   Updated: 2022/12/02 15:24:17 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,19 @@ bool	is_var(char	*str, int i)
 
 bool	file_check_and_create(t_meta *pkg, int type)
 {
-	char *word;
+	char	*word;
 
 	word = NULL;
-	if (type == heredoc)
-		return (true);
-	else if (type == append_out)
+	if (type == append_out)
 		pkg->i++;
-	pkg->i++;
-//	printf("check check %s\n", pkg->str + pkg->i);
-	while (pkg->str[pkg->i])
+	while (pkg->str[pkg->i] && !word)
 	{
-		if (is_word(pkg->str, pkg->i)/* || is_dollar(pkg->str[pkg->i])*/)
-		{
-			word = return_word(pkg->str, pkg);
-			break ;
-		}
 		pkg->i++;
+		if (is_word(pkg->str, pkg->i))
+			word = return_word(pkg->str, pkg);
 	}
-	if (word && ((type == redir_in && access(word, R_OK) == 0) || type == redir_out || (type == append_out)))
+	if (word && ((type == redir_in && access(word, R_OK) == 0)
+			|| type == redir_out || (type == append_out)))
 		create_file_token(word, pkg, type);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:28:34 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/15 17:30:22 by sbars            ###   ########.fr       */
+/*   Updated: 2022/12/02 15:14:05 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char		*get_next_word(char *str, t_meta *pkg);
 
 // parser
 void		smart_iter(int *a, int *b, int incr_a, int incr_b);
+void		print_file_token(t_token *tok);
 
 // executor/
 // executor.c

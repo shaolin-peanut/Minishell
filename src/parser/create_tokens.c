@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:22 by sbars             #+#    #+#             */
-/*   Updated: 2022/11/18 15:20:17 by sbars            ###   ########.fr       */
+/*   Updated: 2022/12/02 15:03:17 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 {
 	t_token	*tok;
-	t_cmd   *cmd;
+	t_cmd	*cmd;
 
 	cmd = NULL;
 	tok = NULL;
@@ -25,7 +25,7 @@ bool	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg)
 	cmd = cast_token(tok);
 	cmd->binary_path = full_path;
 	cmd->argv = build_argument_vector(cmd_name, pkg);
-    cmd->argc = ft_matrixlen(cmd->argv);
+	cmd->argc = ft_matrixlen(cmd->argv);
 	cmd->fd_in = STDIN_FILENO;
 	cmd->fd_out = STDOUT_FILENO;
 	cmd->pid = 0;
@@ -44,7 +44,7 @@ bool	create_builtin_token(char *name, t_meta	*pkg)
 	tok->token = init_builtin(pkg);
 	builtin = cast_token(tok);
 	builtin->argv = build_argument_vector(name, pkg);
-    builtin->argc = ft_matrixlen(builtin->argv);
+	builtin->argc = ft_matrixlen(builtin->argv);
 	builtin->fd_in = STDIN_FILENO;
 	builtin->fd_out = STDOUT_FILENO;
 	builtin->pid = 0;
