@@ -42,7 +42,7 @@ bool	process_operator(char *str, t_meta *pkg)
 	else if (is_heredoc(str, pkg->i))
 		return (create_operator_token(pkg, heredoc));
 	else if (is_redirection(str, pkg->i))
-		return (create_operator_token(pkg, is_redirection(str, pkg->i));
+		return (create_operator_token(pkg, is_redirection(str, pkg->i)));
 	return (true);
 }
 
@@ -50,13 +50,12 @@ bool	process_dollar(char *str, t_meta *pkg)
 {
 	if (is_var(str, pkg->i))
 		process_variable(pkg, pkg->str, pkg->i);
-		return (create_operator_token(pkg, is_redirection(str, pkg->i)));
 	return (true);
 }
 
 void	print_cmd_not_found(char *str)
 {
-	perror("minishell: ");
-	ft_putstr_fd(str, 2);
-	perror(": Command not found\n");
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd(": Command not found\n", STDERR_FILENO);
 }
