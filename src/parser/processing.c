@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   processing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:26:36 by sbars             #+#    #+#             */
-/*   Updated: 2022/12/02 15:06:16 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 15:18:59 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/errno.h>
 #include "../../include/minishell.h"
 
 bool	process_word(char *word, t_meta *pkg)
@@ -17,42 +18,33 @@ bool	process_word(char *word, t_meta *pkg)
 	char	*path;
 
 	path = NULL;
-	if (!word)
-		errormsg("minishell: : command not found\n", pkg);
 	if (is_builtin(word, pkg))
-	{
-		create_builtin_token(word, pkg);
-		return (true);
-	}
-	path = is_cmd(word, pkg);
-	if (!path)
-		create_word_token(word, pkg);
+		return (create_builtin_token(word, pkg));
 	else
+	{
+		path = is_cmd(word, pkg);
 		create_cmd_token(word, path, pkg);
+	}
 	return (true);
 }
 
 bool	process_operator(char *str, t_meta *pkg)
 {
-	int	type;
-
-	type = 0;
 	if (is_pipe(str[pkg->i]))
 		create_operator_token(pkg, pipe_t);
 	else if (is_heredoc(str, pkg->i))
 		return (create_operator_token(pkg, heredoc));
 	else if (is_redirection(str, pkg->i))
-	{
-		type = is_redirection(str, pkg->i);
-		create_operator_token(pkg, type);
-		return (file_check_and_create(pkg, type));
-	}
+		return (create_operator_token(pkg, is_redirection(str, pkg->i)));
 	return (true);
 }
 
-bool	process_dollar(char *str, t_meta *pkg)
+void	print_cmd_not_found(char *str)
 {
-	if (is_var(str, pkg->i))
-		process_variable(pkg, pkg->str, pkg->i);
-	return (true);
+	perror(str);
 }
+//	ft_putstr_fd("minishell: ", STDERR_FILENO);
+//	ft_putstr_fd(str, STDERR_FILENO);
+//	ft_putstr_fd(": Command not found\n", STDERR_FILENO);
+//	perror("minishell: ");
+//	strerror(ENOENT);

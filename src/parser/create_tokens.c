@@ -51,21 +51,6 @@ bool	create_builtin_token(char *name, t_meta	*pkg)
 	return (true);
 }
 
-bool	create_word_token(char *str, t_meta *pkg)
-{
-	t_token	*tok;
-	t_word	*word;
-
-	tok = NULL;
-	word = NULL;
-	tok = init_token(pkg);
-	tok->type = word_t;
-	tok->token = init_word(pkg);
-	word = cast_token(tok);
-	word->str = str;
-	return (true);
-}
-
 bool	create_operator_token(t_meta *pkg, int type)
 {
 	t_token	*tok;
@@ -82,7 +67,10 @@ bool	create_operator_token(t_meta *pkg, int type)
 	op->fd_out = STDOUT_FILENO;
 	if (type == heredoc)
 		return (capture_heredoc(pkg));
-	return (true);
+	else if (is_redirection(pkg->str, pkg->i))
+		return (file_check_and_create(pkg, type));
+	else
+		return (true);
 }
 
 bool	create_file_token(char *str, t_meta *pkg, int type)

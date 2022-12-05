@@ -36,11 +36,9 @@ int	echo(t_bltn *cmd)
 	return (0);
 }
 
-int	cd(t_bltn *cmd, t_meta *pkg)
+char	*check_cd(t_bltn *cmd, t_meta *pkg)
 {
 	char	*path;
-	char	*new_path;
-	char	*last_path;
 
 	if (cmd->argc < 2)
 		path = ft_getenv(pkg, "HOME");
@@ -48,14 +46,27 @@ int	cd(t_bltn *cmd, t_meta *pkg)
 		path = cmd->argv[1];
 	else
 	{
-		perror("cd : too many arguments\n");
-		return (1);
+		errno = E2BIG;
+		perror("cd");
+		return (NULL);
 	}
 	if (chdir(path) == -1)
 	{
-		printf("%s: No such file or directory\n", path);
-		return (1);
+		perror(path);
+		return (NULL);
 	}
+	return (path);
+}
+
+int	cd(t_bltn *cmd, t_meta *pkg)
+{
+	char	*path;
+	char	*new_path;
+	char	*last_path;
+
+	path = check_cd(cmd, pkg);
+	if (!path)
+		return (1);
 	new_path = get_current_path();
 	last_path = ft_getenv(pkg, "PWD");
 	ft_setenv(pkg, "PWD", new_path);

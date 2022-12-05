@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   compound_char_checks.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbars <sbars@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbars <sbars@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:56:03 by sbars             #+#    #+#             */
-/*   Updated: 2022/12/02 15:24:17 by sbars            ###   ########.fr       */
+/*   Updated: 2022/11/18 15:48:02 by sbars            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	file_check_and_create(t_meta *pkg, int type)
 		create_file_token(word, pkg, type);
 	else
 	{
-		printf("%s: Permission Denied\n", word);
+		perror(word);
 		while (pkg->str[pkg->i])
 			pkg->i++;
 		return (false);

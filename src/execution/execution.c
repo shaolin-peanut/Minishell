@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
+int	check_cmd(t_cmd *cmd);
+
 void	executor(t_meta *pkg)
 {
 	t_token	*token;
@@ -45,7 +47,14 @@ int	execute_cmd(t_meta *pkg, t_token *token)
 	if (token->type == cmd_t)
 	{
 		cmd = cast_token(token);
-		bin_execution(pkg, cmd);
+		status_built = check_cmd(cmd);
+		if (status_built != 0)
+			return (status_built);
+		else
+		{
+			bin_execution(pkg, cmd);
+			status_built = -1;
+		}
 	}
 	else if (token->type == builtin_t)
 	{

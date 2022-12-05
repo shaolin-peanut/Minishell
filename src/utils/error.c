@@ -19,7 +19,7 @@ int	errormsg(char *str, t_meta	*pkg)
 	i = -1;
 	(void) pkg;
 	while (str[++i])
-		write(1, &str[i], 1);
-	write(1, "\n", 1);
+		write(2, &str[i], 1);
+	write(2, "\n", 1);
 	return (-1);
 }

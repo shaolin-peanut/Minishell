@@ -44,7 +44,6 @@ char	*return_var_value(char *str, t_meta *pkg, int index)
 	word[len] = '\0';
 	while (i < len)
 			word[i++] = str[index++];
-	index--;
 	value = ft_getenv(pkg, word);
 	free(word);
 	return (value);
@@ -58,7 +57,7 @@ void	process_variable(t_meta *pkg, char *str, int i)
 	(void) i;
 	value = NULL;
 	path = NULL;
-	value = return_var_value(str, pkg, pkg->i);
+	value = return_var_value(str, pkg, i);
 	pkg->i += var_name_len(str, i);
 	if (!value || ft_strlen(value) < 2)
 		return ;
@@ -69,8 +68,8 @@ void	process_variable(t_meta *pkg, char *str, int i)
 			create_cmd_token(value, path, pkg);
 		else
 		{
-			free(path);
-			process_word(value, pkg);
+			print_cmd_not_found(value);
+			free(value);
 		}
 	}
 }

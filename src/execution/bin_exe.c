@@ -11,6 +11,25 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
+int	check_cmd(t_cmd *cmd)
+{
+	if (access(cmd->binary_path, F_OK))
+	{
+		ft_putstr_fd("minishell: Command not found: ", STDERR_FILENO);
+		ft_putendl_fd(cmd->argv[0], STDERR_FILENO);
+		g_pkg->last_exit_status = 127;
+		return (1);
+	}
+	if (access(cmd->binary_path, X_OK) && cmd->binary_path)
+	{
+		ft_putstr_fd("minishell: Permission denied: ", STDERR_FILENO);
+		ft_putendl_fd(cmd->binary_path, STDERR_FILENO);
+		g_pkg->last_exit_status = 126;
+		return (2);
+	}
+	return (0);
+}
+
 void	bin_execution(t_meta *pkg, t_cmd *cmd)
 {
 	int		pid;
@@ -26,7 +45,7 @@ void	bin_execution(t_meta *pkg, t_cmd *cmd)
 			close_all_fd(pkg);
 		}
 		execve(path, cmd->argv, pkg->envp);
-		perror("Command failure : ");
+		perror(path);
 		exit(1);
 	}
 	else
