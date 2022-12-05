@@ -24,7 +24,7 @@ int	check_cmd(t_cmd *cmd)
 	{
 		ft_putstr_fd("minishell: Permission denied: ", STDERR_FILENO);
 		ft_putendl_fd(cmd->binary_path, STDERR_FILENO);
-		g_pkg->last_exit_status= 126;
+		g_pkg->last_exit_status = 126;
 		return (2);
 	}
 	return (0);
@@ -45,7 +45,7 @@ void	bin_execution(t_meta *pkg, t_cmd *cmd)
 			close_all_fd(pkg);
 		}
 		execve(path, cmd->argv, pkg->envp);
-//		perror(path);
+		perror(path);
 		exit(1);
 	}
 	else

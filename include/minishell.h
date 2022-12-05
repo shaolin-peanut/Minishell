@@ -23,6 +23,7 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <signal.h>
+# include <errno.h>
 
 extern t_meta	*g_pkg;
 
