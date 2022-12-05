@@ -109,12 +109,6 @@ fclean : clean
 				@$(MAKE) fclean -C libft
 				@$(RM_FILE) $(NAME)
 
-debug : 		$(OBJS)
-				@echo "debug mode activated"
-				@$(CC) $(OBJS) $(FLAGS) $(READLINE) $(SANITIZE) $(LIBFT) -o $(NAME)
-				$(DEBUGGER) $(NAME)
-				@cat "$(TEMPLATE)"
-
-
 re : fclean all
-.PHONY			: all clean fclean re leak sanitize
+
+.PHONY			: all clean fclean re

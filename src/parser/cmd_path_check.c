@@ -53,6 +53,8 @@ char	*is_binary_name(char *word, t_meta *pkg)
 	path_and_slash = NULL;
 	full_path = NULL;
 	paths = pkg->paths;
+	if (!paths)
+		return (NULL);
 	while (paths[++i])
 	{
 		path_and_slash = ft_strjoin(paths[i], "/");

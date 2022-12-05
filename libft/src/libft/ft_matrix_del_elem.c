@@ -19,6 +19,8 @@ int	ft_matrix_search(char **m, char *key)
 	int		i;
 
 	i = 0;
+	if (!m)
+		return (-1);
 	key_s = ft_strlen(key);
 	key_f = ft_calloc(sizeof (char), key_s + 2);
 	ft_strlcpy(key_f, key, key_s + 1);

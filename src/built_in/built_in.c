@@ -20,7 +20,7 @@ int	echo(t_bltn *cmd)
 	flag = false;
 	if (cmd->argc > 1)
 	{
-		if (strncmp(cmd->argv[1], "-n", 2) == 0)
+		if (ft_strncmp(cmd->argv[1], "-n", 2) == 0)
 		{
 			flag = true;
 			i++;
