@@ -18,19 +18,13 @@ bool	process_word(char *word, t_meta *pkg)
 	char	*path;
 
 	path = NULL;
-	if (!word)
-		errormsg("minishell: : command not found\n", pkg);
 	if (is_builtin(word, pkg))
 		return (create_builtin_token(word, pkg));
-	path = is_cmd(word, pkg);
-	if (!path)
-	{
-		perror(word);
-		free(word);
-		return (false);
-	}
 	else
+	{
+		path = is_cmd(word, pkg);
 		create_cmd_token(word, path, pkg);
+	}
 	return (true);
 }
 

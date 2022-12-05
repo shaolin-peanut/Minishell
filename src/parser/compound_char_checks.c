@@ -45,7 +45,7 @@ bool	file_check_and_create(t_meta *pkg, int type)
 		create_file_token(word, pkg, type);
 	else
 	{
-		printf("%s: Permission Denied\n", word);
+		perror(word);
 		while (pkg->str[pkg->i])
 			pkg->i++;
 		return (false);
