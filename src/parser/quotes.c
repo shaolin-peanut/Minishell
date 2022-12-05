@@ -29,20 +29,29 @@ int	add_var_value(char	*word, int i, t_meta *pkg)
 }
 	//printf("STR[%d]: %c", pkg->i, pkg->str[pkg->i]);
 
-int	add_var_len(t_meta *pkg, int len, int iter)
-{
-	char	*value;
-	int		copy;
+//int	add_var_len(t_meta *pkg, int len, int iter)
+//{
+//	char	*value;
+//	int		copy;
+//
+//	copy = iter;
+//	value = NULL;
+//	value = return_var_value(pkg->str, pkg, copy);
+//	if (value)
+//		len += ft_strlen(value);
+//	else
+//		printf("no value returned\n");
+//	printf("add_var_len resulting len: %d\n", len);
+//	return (len);
+//}
 
-	copy = iter;
-	value = NULL;
-	value = return_var_value(pkg->str, pkg, copy);
+char	*handle_var(int *l_i, char *value, t_meta *pkg)
+{
+	value = return_var_value(pkg->str, pkg, l_i[ITER]);
 	if (value)
-		len += ft_strlen(value);
-	else
-		printf("no value returned\n");
-	printf("add_var_len resulting len: %d\n", len);
-	return (len);
+		l_i[LEN] += (int) ft_strlen(value);
+	l_i[ITER] += var_name_len(pkg->str, l_i[ITER]) + 1;
+	return (value);
 }
 
 // two purposes:
@@ -57,17 +66,12 @@ int	*quote_len(t_meta *pkg, int *l_i)
 	char	type;
 	char	*value;
 
-	value = NULL;
 	type = pkg->str[l_i[ITER]++];
+	value = NULL;
 	while (pkg->str[l_i[ITER]] != '\0')
 	{
 		if (type == 34 && is_var(pkg->str, l_i[ITER]))
-		{
-			value = return_var_value(pkg->str, pkg, l_i[ITER]);
-			if (value)
-				l_i[LEN] += (int) ft_strlen(value);
-			l_i[ITER] += var_name_len(pkg->str, l_i[ITER]) + 1;
-		}
+			value = handle_var(l_i, value, pkg);
 		if (pkg->str[l_i[ITER]] == type)
 		{
 			if (value != NULL)

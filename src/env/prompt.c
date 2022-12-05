@@ -21,7 +21,7 @@ void	prompt(t_meta	*pkg)
 		line = get_line(pkg);
 		if (!line)
 		{
-			printf("exit\n");
+			ft_putendl_fd("exit", 2);
 			break ;
 		}
 		if (ft_strlen(line) > 0)
