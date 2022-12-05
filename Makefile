@@ -35,15 +35,15 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/built_in/exit.c \
 						$(SRCS_DIR)/redirection/close.c \
 						$(SRCS_DIR)/redirection/manage_redirection.c \
+						$(SRCS_DIR)/redirection/processing_redirection.c \
 						$(SRCS_DIR)/execution/bin_exe.c \
 						$(SRCS_DIR)/execution/execution.c \
 						$(SRCS_DIR)/execution/status.c \
 						$(SRCS_DIR)/execution/variable.c \
 						$(SRCS_DIR)/execution/get.c \
 						$(SRCS_DIR)/execution/get2.c \
-						$(SRCS_DIR)/processing/processing_redirection.c \
-						$(SRCS_DIR)/is/is_redirection.c \
-						$(SRCS_DIR)/is/is_token.c \
+						$(SRCS_DIR)/execution/is_redirection.c \
+						$(SRCS_DIR)/execution/is_token.c \
 						$(SRCS_DIR)/env/signal.c \
 						$(SRCS_DIR)/env/read_line.c \
 						$(SRCS_DIR)/env/prompt.c
