@@ -39,3 +39,13 @@ bool	is_delimiter(char *str, char *delim)
 		return (true);
 	return (false);
 }
+
+bool	str_append(char *dst, char *src, int len)
+{
+	size_t	l;
+
+	l = len;
+	ft_strlcat(dst, src, l);
+	ft_strlcat(dst, "\n", l);
+	return (true);
+}

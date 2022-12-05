@@ -26,10 +26,6 @@ bool	lexical_scan(char *str, t_meta *pkg)
 		process_variable(pkg, str, pkg->i);
 	else if (is_operator(str, pkg->i))
 		return (process_operator(str, pkg));
-//	else
-//	{
-//		word = return_word(str, pkg);
-//	}
 	return (true);
 }
 
@@ -52,4 +48,3 @@ bool	parser(char *str, t_meta *pkg)
 	}
 	return (ret);
 }
-		// printf("STR[%d]:'%c'\n", pkg->i, str[pkg->i]);

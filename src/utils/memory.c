@@ -84,8 +84,6 @@ void	free_token(t_token *self)
 {
 	if (self->type == cmd_t || self->type == builtin_t)
 		free_cmd(self);
-	else if (self->type == word_t)
-		free_word(self);
 	else if (self->type == op_t)
 		free_op(self);
 	else if (self->type == file_t)

@@ -80,8 +80,6 @@ void	print_all_tokens(t_meta	*pkg)
 			print_builtin_token(token);
 		if (token->type == op_t)
 			print_operator_tok(token);
-		if (token->type == word_t)
-			print_word(token);
 		if (token->type == file_t)
 			print_file_token(token);
 		token = token->next;

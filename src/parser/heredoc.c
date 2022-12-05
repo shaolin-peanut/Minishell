@@ -32,12 +32,14 @@ int	return_concat_str_len(t_builder *current, char *delim)
 	len = 0;
 	if (is_delimiter(current->word, delim))
 		return (0);
+	if (!current->next)
+		len += (int) ft_strlen(current->word) + 1;
 	while (current->next)
 	{
 		if (current->word != NULL && !ft_strlen(current->word))
 			len++;
 		else
-			len += ft_strlen(current->word) + 1;
+			len += (int) ft_strlen(current->word) + 1;
 		current = current->next;
 	}
 	return (len);
@@ -61,12 +63,11 @@ char	*concatenate_list_to_str(t_builder	*head, char *delim)
 		free_list(head);
 		return (output);
 	}
-	ft_strlcat(output, tmp->word, len);
+	str_append(output, tmp->word, len + 1);
 	while (tmp->next && !is_delimiter(tmp->next->word, delim))
 	{
 		tmp = tmp->next;
-		ft_strlcat(output, tmp->word, len);
-		ft_strlcat(output, "\n", len);
+		str_append(output, tmp->word, len + 1);
 	}
 	free_list(head);
 	return (output);

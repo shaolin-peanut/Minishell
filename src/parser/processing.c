@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/errno.h>
 #include "../../include/minishell.h"
 
 bool	process_word(char *word, t_meta *pkg)
@@ -20,15 +21,13 @@ bool	process_word(char *word, t_meta *pkg)
 	if (!word)
 		errormsg("minishell: : command not found\n", pkg);
 	if (is_builtin(word, pkg))
-	{
-		create_builtin_token(word, pkg);
-		return (true);
-	}
+		return (create_builtin_token(word, pkg));
 	path = is_cmd(word, pkg);
 	if (!path)
 	{
-		print_cmd_not_found(word);
+		perror(word);
 		free(word);
+		return (false);
 	}
 	else
 		create_cmd_token(word, path, pkg);
@@ -46,16 +45,12 @@ bool	process_operator(char *str, t_meta *pkg)
 	return (true);
 }
 
-bool	process_dollar(char *str, t_meta *pkg)
-{
-	if (is_var(str, pkg->i))
-		process_variable(pkg, pkg->str, pkg->i);
-	return (true);
-}
-
 void	print_cmd_not_found(char *str)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putstr_fd(": Command not found\n", STDERR_FILENO);
+	perror(str);
 }
+//	ft_putstr_fd("minishell: ", STDERR_FILENO);
+//	ft_putstr_fd(str, STDERR_FILENO);
+//	ft_putstr_fd(": Command not found\n", STDERR_FILENO);
+//	perror("minishell: ");
+//	strerror(ENOENT);
