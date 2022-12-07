@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-
+/*
 int	ft_matrix_search(char **m, char *key)
 {
 	char	*key_f;
@@ -35,6 +35,29 @@ int	ft_matrix_search(char **m, char *key)
 		++i;
 	}
 	free(key_f);
+	return (-1);
+}
+*/
+int	ft_matrix_search(char **m, char *key)
+{
+	size_t	key_s;
+	int		i;
+
+	i = 0;
+	if (!m)
+		return (-1);
+	key_s = ft_strlen(key);
+	while (m[i])
+	{
+		if (ft_strncmp(m[i], key, key_s) == 0)
+		{
+			if (ft_strlen(m[i]) == key_s)
+				return (i);
+			else if (*(m[i] + key_s) && *(m[i] + key_s) == '=')
+				return (i);
+		}
+		++i;
+	}
 	return (-1);
 }
 
