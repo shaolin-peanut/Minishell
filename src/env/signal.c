@@ -25,14 +25,12 @@ void	call_prompt(int key)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_pkg->last_exit_status = (1);
+		g_pkg->last_exit_status = (128 + key);
 	}
 	else
 	{
 		kill(g_pkg->child_pid, SIGINT);
 		g_pkg->last_exit_status = (128 + key);
-		//g_pkg->last_exit_status = (130);
-		printf("last exit status in signal %d\n", g_pkg->last_exit_status);
 	}
 }
 
