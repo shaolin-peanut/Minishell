@@ -25,12 +25,12 @@ void	call_prompt(int key)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		update_variable_status_process(g_pkg, 1);
+		g_pkg->last_exit_status = (1);;
 	}
 	else
 	{
 		kill(g_pkg->child_pid, SIGINT);
-		update_variable_status_process(g_pkg, 128 + key);
+		g_pkg->last_exit_status = (128 + key);
 	}
 }
 
@@ -43,7 +43,7 @@ void	pass(int key)
 	}
 	else
 	{
-		update_variable_status_process(g_pkg, 128 + key);
+		g_pkg->last_exit_status = (128 + key);;
 		ft_putendl_fd("Quit: 3", 2);
 	}
 	g_pkg->child_pid = 0;

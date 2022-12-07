@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   status.c                                           :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/14 22:29:13 by gmontaur          #+#    #+#             */
-/*   Updated: 2021/07/14 22:29:15 by gmontaur         ###   ########.fr       */
+/*   Created: 2021/07/13 10:19:17 by gmontaur          #+#    #+#             */
+/*   Updated: 2021/07/13 10:19:20 by gmontaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minishell.h"
+#include "libft.h"
 
-int	get_last_status(int bin_status, int ret_built_in)
+int	ft_strcmp(char *s1, char *s2)
 {
-	if (ret_built_in == -1)
-		return (bin_status);
-	else if (bin_status == -1)
-		return (ret_built_in);
-	return (0);
-}
+	int	i;
 
-int	convert_status_process_value(int status)
-{
-	if (WIFSIGNALED(status))
-		status = WEXITSTATUS(status);
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	return (status);
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
 }

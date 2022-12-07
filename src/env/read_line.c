@@ -34,6 +34,7 @@ bool	execute_line(t_meta *pkg, char *line)
 		return (false);
 //	printf("new line after parser:%s\n", line);
 	processing_redirection(pkg);
+	print_all_tokens(pkg);
 	executor(pkg);
 	free_tokens(pkg);
 	return (true);
