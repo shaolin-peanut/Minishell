@@ -22,9 +22,18 @@ int	get_last_status(int bin_status, int ret_built_in)
 
 int	convert_status_process_value(int status)
 {
+	printf("converting status process value:%d", status);
 	if (WIFSIGNALED(status))
+	{
+		printf(" WIFSIGNALED");
+		status = 128 + status;
+	}
+
+	else if (WIFEXITED(status))
+	{
+		printf(" WIFexited");
 		status = WEXITSTATUS(status);
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
+	}
+	printf(" to %d\n", status);
 	return (status);
 }
