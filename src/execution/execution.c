@@ -30,7 +30,10 @@ void	executor(t_meta *pkg)
 	if (is_token_heredoc(pkg))
 		remove_tmp_file(pkg);
 	status = wait_all_pid(pkg);
+	printf("last exit status exec %d\n", g_pkg->last_exit_status);
+	printf("status in exec %d, status build %d\n", status, status_built);
 	pkg->last_exit_status = get_last_status(status, status_built);
+	printf("last exit status after exec %d\n", g_pkg->last_exit_status);
 }
 
 int	execute_cmd(t_meta *pkg, t_token *token)

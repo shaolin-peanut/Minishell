@@ -25,12 +25,14 @@ void	call_prompt(int key)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_pkg->last_exit_status = (1);;
+		g_pkg->last_exit_status = (1);
 	}
 	else
 	{
 		kill(g_pkg->child_pid, SIGINT);
 		g_pkg->last_exit_status = (128 + key);
+		//g_pkg->last_exit_status = (130);
+		printf("last exit status in signal %d\n", g_pkg->last_exit_status);
 	}
 }
 
@@ -43,7 +45,7 @@ void	pass(int key)
 	}
 	else
 	{
-		g_pkg->last_exit_status = (128 + key);;
+		g_pkg->last_exit_status = (128 + key);
 		ft_putendl_fd("Quit: 3", 2);
 	}
 	g_pkg->child_pid = 0;
