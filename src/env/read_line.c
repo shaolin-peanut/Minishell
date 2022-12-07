@@ -32,7 +32,7 @@ bool	execute_line(t_meta *pkg, char *line)
 	if (!line || parser(line, pkg) == false)
 		return (false);
 	processing_redirection(pkg);
-	//print_all_tokens(pkg);
+	print_all_tokens(pkg);
 	executor(pkg);
 	free_tokens(pkg);
 	return (true);

@@ -88,8 +88,11 @@ char	*is_cmd(char *name, t_meta *pkg)
 		return (path);
 	path = is_binary_name(name, pkg);
 	if (path)
-		return (path);
-	return (NULL);
+        return (path);
+    else if (access(name, F_OK) == 0)
+        return (ft_strdup(name));
+    else
+	    return (NULL);
 }
 
 bool	is_builtin(char *word, t_meta *pkg)
