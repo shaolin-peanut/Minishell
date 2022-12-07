@@ -72,6 +72,8 @@ char	*ft_getenv(t_meta *pkg, char *key)
 	int		j;
 	char	*tmp;
 
+	if (ft_strcmp("?", key) == 0)
+		return (ft_itoa(pkg->last_exit_status));
 	j = 0;
 	i = ft_matrix_search(pkg->envp, key);
 	if (i != -1)

@@ -47,6 +47,7 @@ void	ft_matrix_del_elem(char **m, char *key)
 	if (i >= 0)
 	{
 		free(m[i]);
+		m[i] = NULL;
 		next_elem = m[i + 1];
 		while (next_elem)
 		{

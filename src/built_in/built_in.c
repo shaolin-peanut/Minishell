@@ -28,6 +28,8 @@ int	echo(t_bltn *cmd)
 		while (i < cmd->argc)
 		{
 			ft_putstr_fd(cmd->argv[i], cmd->fd_out);
+			if (i < cmd->argc - 1)
+				ft_putstr_fd(" ", cmd->fd_out);
 			++i;
 		}
 	}

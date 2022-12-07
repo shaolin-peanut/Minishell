@@ -92,7 +92,5 @@ void		print_cmd_token(t_token	*tok);
 void		print_operator_tok(t_token	*tok);
 void		print_all_tokens(t_meta	*pkg);
 
-void		update_variable_status_process(t_meta *pkg, int status);
-
 //void		rl_replace_line (const char *text, int clear_undo);
 #endif
