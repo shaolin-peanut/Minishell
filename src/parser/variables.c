@@ -48,7 +48,7 @@ char	*return_var_value(char *str, t_meta *pkg, int index)
 	free(word);
 	return (value);
 }
-
+/*
 void	process_variable(t_meta *pkg, char *str, int i)
 {
 	char	*value;
@@ -73,7 +73,7 @@ void	process_variable(t_meta *pkg, char *str, int i)
 		}
 	}
 }
-
+*/
 void	calc_line_len(char *line, int *l_i, t_meta	*pkg)
 {
 	(void) pkg;
