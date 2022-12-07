@@ -14,6 +14,7 @@
 int	export_built_in(t_bltn *bltn, t_meta *pkg)
 {
 	char	*key;
+	int 	i;
 
 	if (bltn->argc < 2)
 	{
@@ -21,14 +22,19 @@ int	export_built_in(t_bltn *bltn, t_meta *pkg)
 		ft_putmatrix_fd_export(pkg->envp, bltn->fd_out);
 		return (0);
 	}
-	key = get_export_variable_name(bltn->argv[1]);
-	if (!key)
+	i = 1;
+	while (i < bltn->argc)
 	{
-		ft_putstr_fd("export: not a valid identifier\n", 1);
-		return (1);
+		key = get_export_variable_name(bltn->argv[i]);
+		if (!key)
+		{
+			ft_putstr_fd("export: not a valid identifier\n", STDERR_FILENO);
+			return (1);
+		}
+		change_or_create_var(pkg, key, bltn->argv[i]);
+		free(key);
+		++i;
 	}
-	change_or_create_var(pkg, key, bltn->argv[1]);
-	free(key);
 	return (0);
 }
 
@@ -37,10 +43,11 @@ void	change_or_create_var(t_meta *pkg, char *key, char *export_string)
 	int		i;
 
 	i = ft_matrix_search(pkg->envp, key);
-	if (i >= 0)
-		ft_matrix_replace_elem(pkg->envp, i, export_string);
-	else
+	if (i < 0)
 		pkg->envp = ft_extend_matrix(pkg->envp, export_string);
+	else if (*(export_string + ft_strlen(key)) && *(export_string + ft_strlen(key)) == '=')
+		ft_matrix_replace_elem(pkg->envp, i, export_string);
+
 	if (ft_strncmp(key, "PATH", 4) == 0)
 	{
 		free_str_vector(pkg->paths);
