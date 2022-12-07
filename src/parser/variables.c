@@ -125,6 +125,7 @@ char	*expand_variable(char *line, t_meta *pkg)
 		else
 			new_line[i++] = line[l_i[ITER]++];
 	}
+	free(l_i);
 	free(line);
 	line = NULL;
 	return (new_line);

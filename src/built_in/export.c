@@ -18,7 +18,7 @@ int	export_built_in(t_bltn *bltn, t_meta *pkg)
 	if (bltn->argc < 2)
 	{
 		sort(pkg->envp);
-		ft_putmatrix_fd_export(pkg->envp, 1, bltn->fd_out);
+		ft_putmatrix_fd_export(pkg->envp, bltn->fd_out);
 		return (0);
 	}
 	key = get_export_variable_name(bltn->argv[1]);
