@@ -18,7 +18,6 @@ void	executor(t_meta *pkg)
 	t_token	*token;
 	int		status;
 	int		status_built;
-	char	*val;
 
 	status_built = -1;
 	token = get_first_token_cmd(pkg);
@@ -32,9 +31,6 @@ void	executor(t_meta *pkg)
 		remove_tmp_file(pkg);
 	status = wait_all_pid(pkg);
 	pkg->last_exit_status = get_last_status(status, status_built);
-	val = ft_itoa(pkg->last_exit_status);
-	ft_setenv(pkg, "?", val);
-	free(val);
 }
 
 int	execute_cmd(t_meta *pkg, t_token *token)
