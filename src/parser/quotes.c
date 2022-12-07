@@ -45,13 +45,18 @@ int	add_var_value(char	*word, int i, t_meta *pkg)
 //	return (len);
 //}
 
-char	*handle_var(int *l_i, char *value, t_meta *pkg)
+int	*handle_var(int *l_i, t_meta *pkg, char *str)
 {
-	value = return_var_value(pkg->str, pkg, l_i[ITER]);
+	char	*value;
+
+	value = return_var_value(str, pkg, l_i[ITER]);
 	if (value)
+	{
 		l_i[LEN] += (int) ft_strlen(value);
-	l_i[ITER] += var_name_len(pkg->str, l_i[ITER]) + 1;
-	return (value);
+		free(value);
+	}
+	l_i[ITER] += var_name_len(str, l_i[ITER]) + 1;
+	return (l_i);
 }
 
 // two purposes:
@@ -64,26 +69,24 @@ char	*handle_var(int *l_i, char *value, t_meta *pkg)
 int	*quote_len(t_meta *pkg, int *l_i)
 {
 	char	type;
-	char	*value;
 
 	type = pkg->str[l_i[ITER]++];
-	value = NULL;
 	while (pkg->str[l_i[ITER]] != '\0')
 	{
 		if (type == 34 && is_var(pkg->str, l_i[ITER]))
-			value = handle_var(l_i, value, pkg);
+			l_i = handle_var(l_i, pkg, pkg->str);
 		if (pkg->str[l_i[ITER]] == type)
 		{
-			if (value != NULL)
-				free(value);
+//			if (value != NULL)
+//				free(value);
 			l_i[ITER]++;
 			return (l_i);
 		}
 		else
 			smart_iter(&l_i[LEN], &l_i[ITER], 1, 1);
 	}
-	if (value)
-		free(value);
+//	if (value)
+//		free(value);
 	return (l_i);
 }
 

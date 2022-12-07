@@ -26,7 +26,7 @@ void	prompt(t_meta	*pkg)
 		}
 		if (ft_strlen(line) > 0)
 			execute_line(pkg, line);
-		free(line);
+		//free(line);
 	}
 }
 

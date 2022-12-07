@@ -32,5 +32,7 @@ void	free_all(t_meta *pkg)
 		free_str_vector(pkg->paths);
 	if (pkg->envp)
 		free_str_vector(pkg->envp);
+	if (pkg->str)
+		free(pkg->str);
 	free(pkg);
 }

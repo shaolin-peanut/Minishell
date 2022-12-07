@@ -11,10 +11,28 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
+bool	contains_dollar(char *str)
+{
+	char	*this;
+
+	this = str;
+	while (*this)
+	{
+		if (*this == '$')
+			return (true);
+		++this;
+	}
+	return (false);
+}
+
 bool	execute_line(t_meta *pkg, char *line)
 {
-	if (parser(line, pkg) == false)
+	while (contains_dollar(line))
+		line = expand_variable(line, pkg);
+	//printf("new line after expand var:%s\n", line);
+	if (!line || parser(line, pkg) == false)
 		return (false);
+//	printf("new line after parser:%s\n", line);
 	processing_redirection(pkg);
 	executor(pkg);
 	free_tokens(pkg);

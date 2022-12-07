@@ -41,6 +41,12 @@ void	change_or_create_var(t_meta *pkg, char *key, char *export_string)
 		ft_matrix_replace_elem(pkg->envp, i, export_string);
 	else
 		pkg->envp = ft_extend_matrix(pkg->envp, export_string);
+	if (ft_strncmp(key, "PATH", 4) == 0)
+	{
+		free_str_vector(pkg->paths);
+		pkg->paths = NULL;
+		pkg->paths = init_paths(pkg);
+	}
 }
 
 int	unset(t_bltn *bltn, t_meta *pkg)
@@ -50,6 +56,11 @@ int	unset(t_bltn *bltn, t_meta *pkg)
 	if (bltn->argc < 2)
 		return (0);
 	key = bltn->argv[1];
+	if (ft_strncmp(key, "PATH", 4) == 0)
+	{
+		free_str_vector(pkg->paths);
+		pkg->paths = NULL;
+	}
 	ft_matrix_del_elem(pkg->envp, key);
 	return (0);
 }

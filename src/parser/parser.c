@@ -46,5 +46,7 @@ bool	parser(char *str, t_meta *pkg)
 		if ((int) ft_strlen(str) < pkg->i)
 			break ;
 	}
+	free(pkg->str);
+	pkg->str = NULL;
 	return (ret);
 }

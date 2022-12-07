@@ -73,3 +73,59 @@ void	process_variable(t_meta *pkg, char *str, int i)
 		}
 	}
 }
+
+void	calc_line_len(char *line, int *l_i, t_meta	*pkg)
+{
+	(void) pkg;
+	while (line[l_i[ITER]])
+	{
+		if (is_var(line, l_i[ITER]))
+			l_i = handle_var(l_i, pkg, line);
+		else
+			smart_iter(&l_i[LEN], &l_i[ITER], 1, 1);
+	}
+}
+
+int	add_line_var_value(char *source, int i, char	*dest, t_meta *pkg)
+{
+	char	*value;
+	int		value_i;
+
+	value_i = 0;
+	value = NULL;
+	value = return_var_value(source, pkg, i);
+	if (!value)
+		return (i);
+	while (value[value_i])
+		dest[i++] = value[value_i++];
+	free(value);
+	return (i);
+}
+
+char	*expand_variable(char *line, t_meta *pkg)
+{
+	int		*l_i;
+	int		i;
+	char	*new_line;
+
+	i = 0;
+	l_i = init_int_array(2);
+	calc_line_len(line, l_i, pkg);
+	new_line = ft_calloc(l_i[LEN] + 1, sizeof(char));
+	if (!new_line)
+		return (NULL);
+	l_i[ITER] = 0;
+	while (i < l_i[LEN] && line[l_i[ITER]])
+	{
+		if (is_var(line, l_i[ITER]))
+		{
+			i = add_line_var_value(line, i, new_line, pkg);
+			l_i[ITER] += var_name_len(line, l_i[ITER]) + 1;
+		}
+		else
+			new_line[i++] = line[l_i[ITER]++];
+	}
+	free(line);
+	line = NULL;
+	return (new_line);
+}
