@@ -68,9 +68,9 @@ int	add_line_var_value(char *source, int i, int *iter, char	*dest)
 	value_i = 0;
 	value = NULL;
 	value = return_var_value(source, *iter);
+	*iter += var_name_len(source, *iter) + 1;
 	if (!value)
 		return (i);
-	*iter += var_name_len(source, *iter) + 1;
 	while (value[value_i])
 		dest[i++] = value[value_i++];
 	free(value);
