@@ -47,21 +47,6 @@ t_builder	*init_builder(int *i, char *str)
 	return (b);
 }
 
-char	*get_next_word(char *str, t_meta *pkg)
-{
-	char		*word;
-
-	word = NULL;
-	if (is_dollar(str[pkg->i]))
-	{
-		word = return_var_value(str, pkg, pkg->i);
-		pkg->i += var_name_len(str, pkg->i);
-	}
-	else
-		word = return_word(str, pkg);
-	return (word);
-}
-
 t_builder	*add_to_back_of_list(int *counter, t_builder *last, char *word)
 {
 	last->next = init_builder(counter, word);
@@ -88,7 +73,7 @@ char	**build_argument_vector(char *name, t_meta *pkg)
 	{
 		if (is_word(pkg->str, pkg->i) || is_dollar(pkg->str[pkg->i]))
 		{
-			word = get_next_word(pkg->str, pkg);
+			word = return_word(pkg->str, pkg);
 			if (word)
 				last = add_to_back_of_list(&b_i, last, word);
 		}

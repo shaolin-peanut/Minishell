@@ -53,7 +53,7 @@ void	print_cmd_not_found(char *str);
 
 // variables.c
 void	process_variable(t_meta	*pkg, char *str, int i);
-char	*return_var_value(char *str, t_meta *pkg, int index);
+char	*return_var_value(char *str, int index);
 char	*expand_variable(char *line, t_meta	*pkg);
 
 // word_processing.c
@@ -64,11 +64,10 @@ bool	is_builtin(char *word, t_meta *pkg);
 
 // quotes.c
 int		var_name_len(char *str, int index);
-int		add_var_value(char *word, int i, t_meta *pkg);
-int		quote_in_word(char *str);
-int		add_quote_content(char *word, int i, t_meta *pkg);
-int		*quote_len(t_meta *pkg, int *counter);
-int		*handle_var(int *l_i, t_meta *pkg, char *str);
+int		add_var_value(char	*word, int i, int *iter, char *str);
+int		add_quote_content(char *word, int i, int *iter, char *str);
+int		*quote_len(char *str, int *counter);
+int		*handle_var(int *l_i, char *str);
 
 // heredoc.c
 bool	is_delimiter(char *str, char *delim);

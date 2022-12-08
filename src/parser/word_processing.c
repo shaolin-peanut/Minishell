@@ -31,10 +31,10 @@ char	*return_word(char *str, t_meta *pkg)
 	word = NULL;
 	word = (char *) malloc(sizeof(char) * (l_i[LEN] + 1));
 	word[l_i[LEN]] = '\0';
-	while (i < l_i[LEN] && pkg->str[pkg->i])
+	while (i < l_i[LEN] && str[pkg->i])
 	{
 		if (is_quote(str[pkg->i]))
-			i = add_quote_content(word, i, pkg);
+			i = add_quote_content(word, i, &pkg->i, pkg->str);
 		else if (is_word(str, pkg->i))
 			word[i++] = str[pkg->i++];
 	}
@@ -61,7 +61,7 @@ int	*word_len(char *str, t_meta *pkg)
 	while (is_word(str, len_iter[ITER]))
 	{
 		if (is_quote(str[len_iter[ITER]]) && (str[len_iter[ITER] + 1] != '\0'))
-			len_iter = quote_len(pkg, len_iter);
+			len_iter = quote_len(pkg->str, len_iter);
 		else
 			smart_iter(&len_iter[LEN], &len_iter[ITER], 1, 1);
 	}
@@ -88,11 +88,11 @@ char	*is_cmd(char *name, t_meta *pkg)
 		return (path);
 	path = is_binary_name(name, pkg);
 	if (path)
-        return (path);
-    else if (access(name, F_OK) == 0)
-        return (ft_strdup(name));
-    else
-	    return (NULL);
+		return (path);
+	else if (access(name, F_OK) == 0)
+		return (ft_strdup(name));
+	else
+		return (NULL);
 }
 
 bool	is_builtin(char *word, t_meta *pkg)

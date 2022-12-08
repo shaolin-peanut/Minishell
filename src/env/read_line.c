@@ -29,6 +29,7 @@ bool	execute_line(t_meta *pkg, char *line)
 {
 	while (contains_dollar(line))
 		line = expand_variable(line, pkg);
+	printf("line after expansion %s\n", line);
 	if (!line || parser(line, pkg) == false)
 		return (false);
 	processing_redirection(pkg);
