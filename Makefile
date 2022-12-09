@@ -45,6 +45,8 @@ SRCS					= $(SRCS_DIR)main.c \
 						$(SRCS_DIR)/execution/is_redirection.c \
 						$(SRCS_DIR)/execution/is_token.c \
 						$(SRCS_DIR)/env/signal.c \
+						$(SRCS_DIR)/env/dollar.c \
+						$(SRCS_DIR)/env/env.c \
 						$(SRCS_DIR)/env/read_line.c \
 						$(SRCS_DIR)/env/prompt.c
 
@@ -55,8 +57,8 @@ TEMPLATE = include/header.txt
 EXE = @./$(NAME)
 LIBFT = libft/libft.a
 # ==== Debug && Leak ==== #
-#SANITIZE 		= -fsanitize=address -fno-omit-frame-pointer
-#LEAKS 			= -fsanitize=leak
+SANITIZE 		= -fsanitize=address -fno-omit-frame-pointer
+LEAKS 			= -fsanitize=leak
 DEBUGGER		= lldb
 
 # ==== Remove ==== #
@@ -67,7 +69,7 @@ OBJS			= $(SRCS:.c=.o)
 CC				?= gcc
 FLAGS			= -g3
 FLAGS 			+= -Wall -Werror -Wextra
-FLAGS 			+= $(SANITIZE)
+FLAGS 			+= $(SANITIZE) $(LEAKS)
 READLINE		= -lreadline
 MAKE			= make -s
 
