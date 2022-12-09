@@ -96,6 +96,8 @@ char	*capture_content(char *delim)
 			return (concatenate_list_to_str(head, delim));
 	}
 }
+//if (tmp)
+//tmp = expand_variable(tmp);
 
 bool	capture_heredoc(t_meta *pkg)
 {

@@ -35,4 +35,5 @@ void	free_all(t_meta *pkg)
 	if (pkg->str)
 		free(pkg->str);
 	free(pkg);
+	free(g_data);
 }

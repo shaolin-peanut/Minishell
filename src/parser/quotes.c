@@ -12,27 +12,23 @@
 
 #include "../../include/minishell.h"
 
-int	add_var_value(char	*word, int i, int *iter, char *str)
+void	handle_squote(int *a, int *b, bool	*flag)
 {
-	char	*value;
-	int		value_i;
-
-	value_i = 0;
-	value = NULL;
-	value = return_var_value(str, *iter);
-	if (!value)
-		return (i);
-	while (value[value_i])
-		word[i++] = value[value_i++];
-	free(value);
-	return (i);
+	if (*flag == false)
+		*flag = true;
+	else if (*flag == true)
+		*flag = false;
+	if (a)
+		(*a)++;
+	if (b)
+		(*b)++;
 }
 
-int	*handle_var(int *l_i, char *str)
+int	*handle_var(int *l_i, char *str, t_meta *pkg)
 {
 	char	*value;
 
-	value = return_var_value(str, l_i[ITER]);
+	value = return_var_value(str, l_i[ITER], pkg);
 	if (value)
 	{
 		l_i[LEN] += (int) ft_strlen(value);
@@ -56,13 +52,13 @@ int	*quote_len(char	*str,	int *l_i)
 	type = str[l_i[ITER]++];
 	while (str[l_i[ITER]] != '\0')
 	{
-		if (type == 34 && is_var(str, l_i[ITER]))
-			l_i = handle_var(l_i, str);
 		if (str[l_i[ITER]] == type)
 		{
 			l_i[ITER]++;
 			return (l_i);
 		}
+		else if (is_slash_dollar(str, l_i[ITER]))
+			l_i[ITER]++;
 		else
 			smart_iter(&l_i[LEN], &l_i[ITER], 1, 1);
 	}
@@ -79,16 +75,13 @@ int	add_quote_content(char *word, int i, int *iter, char *str)
 	*iter += 1;
 	while (str[*iter] != '\0')
 	{
-		if (type == 34 && is_var(str, *iter))
-		{
-			i = add_var_value(word, i, iter, str);
-			*iter += var_name_len(str, *iter) + 1;
-		}
 		if (str[*iter] == type)
 		{
 			*iter += 1;
 			return (i);
 		}
+		else if (is_slash_dollar(str, *iter))
+			(*iter)++;
 		else
 		{
 			word[i] = str[*iter];

@@ -24,7 +24,7 @@ int	var_name_len(char *str, int index)
 	return (len);
 }
 
-char	*return_var_value(char *str, int index)
+char	*return_var_value(char *str, int index, t_meta *pkg)
 {
 	char	*word;
 	char	*value;
@@ -43,67 +43,73 @@ char	*return_var_value(char *str, int index)
 	word[len] = '\0';
 	while (i < len)
 		word[i++] = str[index++];
-	value = ft_getenv(g_pkg, word);
+	value = ft_getenv(pkg, word);
 	free(word);
 	return (value);
 }
 
-void	calc_line_len(char *line, int *l_i, t_meta	*pkg)
+int	*calc_line_len(char *line, t_meta *pkg)
 {
-	(void) pkg;
-	while (line[l_i[ITER]])
+	int	*array;
+
+	array = init_int_array(2);
+	while (line[array[ITER]])
 	{
-		if (is_var(line, l_i[ITER]))
-			l_i = handle_var(l_i, line);
+		if (is_var(line, array[ITER]))
+			array = handle_var(array, line, pkg);
 		else
-			smart_iter(&l_i[LEN], &l_i[ITER], 1, 1);
+			smart_iter(&array[LEN], &array[ITER], 1, 1);
 	}
+	return (array);
 }
 
-int	add_line_var_value(char *source, int i, int *iter, char	*dest)
+int	add_line_var_value(char **lines, int i, int *iter, t_meta *pkg)
 {
 	char	*value;
 	int		value_i;
 
 	value_i = 0;
 	value = NULL;
-	value = return_var_value(source, *iter);
-	*iter += var_name_len(source, *iter) + 1;
+	value = return_var_value(lines[0], *iter, pkg);
+	*iter += var_name_len(lines[0], *iter) + 1;
 	if (!value)
 		return (i);
 	while (value[value_i])
-		dest[i++] = value[value_i++];
+		lines[1][i++] = value[value_i++];
 	free(value);
 	return (i);
 }
+
+//		printf("> line[%d]: %c\n", l_i[ITER], line[l_i[ITER]]);
+//		printf("> new_line[%d]: %c\n", i, new_line[i]);
+//printf("line w/ expand vars len: %d\n", l_i[LEN]);
 
 char	*expand_variable(char *line, t_meta *pkg)
 {
 	int		*l_i;
 	int		i;
-	char	*new_line;
+	char	*new_line[2];
+	bool	is_open_quote;
 
 	i = 0;
-	l_i = init_int_array(2);
-	calc_line_len(line, l_i, pkg);
-	printf("line w/ expand vars len: %d\n", l_i[LEN]);
-	new_line = ft_calloc(l_i[LEN] + 1, sizeof(char));
-	if (!new_line)
+	is_open_quote = false;
+	l_i = calc_line_len(line, pkg);
+	new_line[1] = ft_calloc(l_i[LEN] + 1, sizeof(char));
+	new_line[0] = line;
+	if (!new_line[1])
 		return (NULL);
 	l_i[ITER] = 0;
 	while (i < l_i[LEN] && line[l_i[ITER]])
 	{
-//		printf("> line[%d]: %c\n", l_i[ITER], line[l_i[ITER]]);
-//		printf("> new_line[%d]: %c\n", i, new_line[i]);
-//		if (is_quote(line[l_i[ITER]]))
-//			i = add_quote_content(new_line, i, &l_i[ITER], line);
-		if (is_var(line, l_i[ITER]))
-			i = add_line_var_value(line, i, &l_i[ITER], new_line);
+		if (is_single_quote(line[l_i[ITER]]))
+			handle_squote(&l_i[ITER], &i, &is_open_quote);
+		else if (is_var(line, l_i[ITER]) && !is_open_quote)
+			i = add_line_var_value(new_line, i, &l_i[ITER], pkg);
 		else
-			new_line[i++] = line[l_i[ITER]++];
+			new_line[1][i++] = line[l_i[ITER]++];
 	}
 	free(l_i);
 	free(line);
 	line = NULL;
-	return (new_line);
+	return (new_line[1]);
 }

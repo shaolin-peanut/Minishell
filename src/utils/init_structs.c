@@ -23,9 +23,17 @@ t_meta	*init_meta(char	**envp)
 	meta->str = NULL;
 	meta->i = 0;
 	meta->chain_head = NULL;
-	meta->last_exit_status = 0;
-	meta->child_pid = 0;
 	return (meta);
+}
+
+t_last_data	*init_data(void)
+{
+	t_last_data	*self;
+
+	self = malloc(sizeof(t_last_data));
+	self->last_exit_status = 0;
+	self->child_pid = 0;
+	return (self);
 }
 
 t_token	*init_token(t_meta *pkg)

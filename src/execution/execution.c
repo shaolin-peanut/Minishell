@@ -30,7 +30,7 @@ void	executor(t_meta *pkg)
 	if (is_token_heredoc(pkg))
 		remove_tmp_file(pkg);
 	status = wait_all_pid(pkg);
-	pkg->last_exit_status = get_last_status(status, status_built);
+	g_data->last_exit_status = get_last_status(status, status_built);
 }
 
 int	execute_cmd(t_meta *pkg, t_token *token)
@@ -78,6 +78,6 @@ int	wait_all_pid(t_meta *pkg)
 		status = convert_status_process_value(status);
 		token = get_next_token_cmd(token);
 	}
-	pkg->child_pid = 0;
+	g_data->child_pid = 0;
 	return (status);
 }

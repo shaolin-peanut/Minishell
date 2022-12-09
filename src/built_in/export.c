@@ -51,7 +51,7 @@ void	error_msg_export(const char *str, char *key)
 int	export_built_in(t_bltn *bltn, t_meta *pkg)
 {
 	char	*key;
-	int 	i;
+	int		i;
 
 	if (bltn->argc < 2)
 	{
@@ -68,29 +68,34 @@ int	export_built_in(t_bltn *bltn, t_meta *pkg)
 			error_msg_export(bltn->argv[i], key);
 			return (1);
 		}
-		change_or_create_var(pkg, key, bltn->argv[i]);
+		change_or_create_var(pkg, key, &(bltn->argv[i]));
+		printf("export builtin :%s\n", bltn->argv[i]);
 		free(key);
 		++i;
 	}
 	return (0);
 }
 
-void	change_or_create_var(t_meta *pkg, char *key, char *export_string)
+void	change_or_create_var(t_meta *pkg, char *key, char **export_string)
 {
 	int		i;
 
+	if (contains_dollar(*export_string))
+		add_escaped_dollar(*&export_string);
+	printf("change begin: %s\n", *export_string);
 	i = ft_matrix_search(pkg->envp, key);
 	if (i < 0)
-		pkg->envp = ft_extend_matrix(pkg->envp, export_string);
-	else if (*(export_string + ft_strlen(key)) && *(export_string + ft_strlen(key)) == '=')
-		ft_matrix_replace_elem(pkg->envp, i, export_string);
-
+		pkg->envp = ft_extend_matrix(pkg->envp, *export_string);
+	else if (*(*export_string + ft_strlen(key))
+		&& *(*export_string + ft_strlen(key)) == '=')
+		ft_matrix_replace_elem(pkg->envp, i, *export_string);
 	if (ft_strncmp(key, "PATH", 4) == 0)
 	{
 		free_str_vector(pkg->paths);
 		pkg->paths = NULL;
 		pkg->paths = init_paths(pkg);
 	}
+	printf("change end: %s\n", *export_string);
 }
 
 int	unset(t_bltn *bltn, t_meta *pkg)
@@ -117,7 +122,7 @@ void	ft_setenv(t_meta *pkg, char *key, char *value)
 	tmp = ft_strjoin(key, "=");
 	str = ft_strjoin(tmp, value);
 	free(tmp);
-	change_or_create_var(pkg, key, str);
+	change_or_create_var(pkg, key, &str);
 	free(str);
 }
 
@@ -130,9 +135,8 @@ char	*ft_getenv(t_meta *pkg, char *key)
 
 	if (ft_strcmp("?", key) == 0)
 	{
-		check = ft_itoa(pkg->last_exit_status);
+		check = ft_itoa(g_data->last_exit_status);
 		return (check);
-		//return (ft_itoa(pkg->last_exit_status));
 	}
 	j = 0;
 	i = ft_matrix_search(pkg->envp, key);

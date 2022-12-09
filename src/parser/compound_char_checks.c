@@ -15,7 +15,7 @@
 bool	is_word(char	*str, int i)
 {
 	return (str[i] != '\0' && !is_blank(str, i)
-		&& !is_operator(str, i) && !is_dollar(str[i]));
+		&& !is_operator(str, i));
 }
 
 bool	is_var(char	*str, int i)

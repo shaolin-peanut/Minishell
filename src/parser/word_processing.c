@@ -12,6 +12,11 @@
 
 #include "../../include/minishell.h"
 
+bool	is_slash_dollar(char *str, int i)
+{
+	return (str[i] == '\\' && is_dollar(str[i + 1]));
+}
+
 // LENs the length of the word, including when it is made of one or more quote
 // allocates memory for that length, then copies characters from the main string
 // to the word string, omitting the quotes and copying the rest
@@ -29,12 +34,13 @@ char	*return_word(char *str, t_meta *pkg)
 		return (NULL);
 	}
 	word = NULL;
-	word = (char *) malloc(sizeof(char) * (l_i[LEN] + 1));
-	word[l_i[LEN]] = '\0';
+	word = ft_calloc((l_i[LEN] + 1), sizeof(char));
 	while (i < l_i[LEN] && str[pkg->i])
 	{
 		if (is_quote(str[pkg->i]))
 			i = add_quote_content(word, i, &pkg->i, pkg->str);
+		else if (is_slash_dollar(str, pkg->i))
+			pkg->i++;
 		else if (is_word(str, pkg->i))
 			word[i++] = str[pkg->i++];
 	}
@@ -51,17 +57,17 @@ char	*return_word(char *str, t_meta *pkg)
 int	*word_len(char *str, t_meta *pkg)
 {
 	int	*len_iter;
-	int	copy;
 
-	copy = pkg->i;
 	len_iter = malloc(sizeof(int) * 2);
 	len_iter[LEN] = 0;
 	len_iter[ITER] = 0;
-	len_iter[ITER] = copy;
+	len_iter[ITER] = pkg->i;
 	while (is_word(str, len_iter[ITER]))
 	{
 		if (is_quote(str[len_iter[ITER]]) && (str[len_iter[ITER] + 1] != '\0'))
 			len_iter = quote_len(pkg->str, len_iter);
+		else if (is_slash_dollar(str, len_iter[ITER]))
+			len_iter[ITER]++;
 		else
 			smart_iter(&len_iter[LEN], &len_iter[ITER], 1, 1);
 	}

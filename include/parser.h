@@ -24,7 +24,7 @@ typedef struct s_cmd		t_cmd;
 // basic_char_checks.c
 bool	is_blank(const char *str, int i);
 bool	is_dollar(char c);
-bool	is_dollar_question(const char *str, int i);
+bool	is_single_quote(char c);
 bool	is_quote(char c);
 
 // compound_char_checks.c
@@ -48,26 +48,24 @@ char	*is_binary_name(char *word, t_meta *pkg);
 // processing.c
 bool	process_word(char *str, t_meta *pkg);
 bool	process_operator(char *str, t_meta *pkg);
-bool	process_dollar(char *str, t_meta *pkg);
-void	print_cmd_not_found(char *str);
 
 // variables.c
-void	process_variable(t_meta	*pkg, char *str, int i);
-char	*return_var_value(char *str, int index);
-char	*expand_variable(char *line, t_meta	*pkg);
+char	*return_var_value(char *str, int index, t_meta *pkg);
+char	*expand_variable(char *line, t_meta *pkg);
 
 // word_processing.c
 char	*return_word(char *str, t_meta *pkg);
 int		*word_len(char *str, t_meta *pkg);
 char	*is_cmd(char *name, t_meta *pkg);
 bool	is_builtin(char *word, t_meta *pkg);
+bool	is_slash_dollar(char *str, int i);
 
 // quotes.c
+void	handle_squote(int *a, int *b, bool *flag);
 int		var_name_len(char *str, int index);
-int		add_var_value(char	*word, int i, int *iter, char *str);
 int		add_quote_content(char *word, int i, int *iter, char *str);
 int		*quote_len(char *str, int *counter);
-int		*handle_var(int *l_i, char *str);
+int		*handle_var(int *l_i, char *str, t_meta *pkg);
 
 // heredoc.c
 bool	is_delimiter(char *str, char *delim);

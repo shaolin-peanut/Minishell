@@ -11,14 +11,67 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-bool	contains_dollar(char *str)
+size_t	count_dollar(char *str)
+{
+	size_t	count;
+
+	count = 0;
+	while (*str)
+	{
+		if (*str == '$')
+			++count;
+		++str;
+	}
+	return (count);
+}
+
+void	add_escaped_dollar(char **str)
+{
+	char	*tmp;
+	char	*this;
+	char	*that;
+
+	tmp = ft_calloc(ft_strlen(*str) + count_dollar(*str) + 1, sizeof (char));
+	this = tmp;
+	that = *str;
+	while (*that)
+	{
+		if (*that == '$')
+		{
+			*this = '\\';
+			++this;
+		}
+		*this = *that;
+		++this;
+		++that;
+	}
+	that = *str;
+	*str = tmp;
+	free(that);
+}
+
+bool	is_expandable(char *str)
 {
 	char	*this;
 
 	this = str;
+	if (*(this - 1) && *(this - 1) == '\\')
+		return (false);
+	return (true);
+}
+
+bool	contains_dollar(char *str)
+{
+	char	*this;
+	bool	is_open_quote;
+
+	this = str;
+	is_open_quote = false;
 	while (*this)
 	{
-		if (*this == '$')
+		if (is_single_quote(*this))
+			is_open_quote = !is_open_quote;
+		else if (*this == '$' && !is_open_quote && is_expandable(this))
 			return (true);
 		++this;
 	}
@@ -29,11 +82,9 @@ bool	execute_line(t_meta *pkg, char *line)
 {
 	while (contains_dollar(line))
 		line = expand_variable(line, pkg);
-	printf("line after expansion %s\n", line);
 	if (!line || parser(line, pkg) == false)
 		return (false);
 	processing_redirection(pkg);
-	print_all_tokens(pkg);
 	executor(pkg);
 	free_tokens(pkg);
 	return (true);
