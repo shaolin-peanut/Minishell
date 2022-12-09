@@ -68,6 +68,7 @@ int	add_line_var_value(char **lines, int i, int *iter, t_meta *pkg)
 	char	*value;
 	int		value_i;
 
+    printf("add_line_var_value triggered\n");
 	value_i = 0;
 	value = NULL;
 	value = return_var_value(lines[0], *iter, pkg);
@@ -95,6 +96,7 @@ char	*expand_variable(char *line, t_meta *pkg)
 	is_open_quote = false;
 	l_i = calc_line_len(line, pkg);
 	new_line[1] = ft_calloc(l_i[LEN] + 1, sizeof(char));
+    new_line[1][l_i[LEN]] = '\0';
 	new_line[0] = line;
 	if (!new_line[1])
 		return (NULL);

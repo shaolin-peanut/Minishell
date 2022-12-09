@@ -71,7 +71,7 @@ bool	contains_dollar(char *str)
 	{
 		if (is_single_quote(*this))
 			is_open_quote = !is_open_quote;
-		else if (*this == '$' && !is_open_quote && is_expandable(this))
+		else if (*this == '$' && is_word(this, 1) && !is_quote(*(this + 1)) && !is_open_quote && is_expandable(this))
 			return (true);
 		++this;
 	}
