@@ -31,6 +31,7 @@ char	*return_word(char *str, t_meta *pkg)
 	if (!l_i[LEN])
 	{
 		pkg->i = l_i[ITER] - 1;
+		free(l_i);
 		return (NULL);
 	}
 	word = NULL;
