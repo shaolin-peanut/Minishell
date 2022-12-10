@@ -109,7 +109,7 @@ TEMPLATE = include/header.txt
 EXE = @./$(NAME)
 LIBFT = libft/libft.a
 # ==== Debug && Leak ==== #
-SANITIZE 		= -fsanitize=address -fno-omit-frame-pointer
+#SANITIZE 		= -fsanitize=address -fno-omit-frame-pointer
 #LEAKS 			= -fsanitize=leak
 DEBUGGER		= lldb
 

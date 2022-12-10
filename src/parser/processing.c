@@ -10,22 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/errno.h>
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 bool	process_word(char *word, t_meta *pkg)
 {
 	char	*path;
 
 	path = NULL;
-	if (is_builtin(word, pkg))
-		return (create_builtin_token(word, pkg));
-	else
+	if (word)
 	{
-		path = is_cmd(word, pkg);
-		create_cmd_token(word, path, pkg);
+		if (is_builtin(word, pkg))
+			return (create_builtin_token(word, pkg));
+		else
+		{
+			path = is_cmd(word, pkg);
+			create_cmd_token(word, path, pkg);
+		}
+		return (true);
 	}
-	return (true);
+	return (false);
 }
 
 bool	process_operator(char *str, t_meta *pkg)
@@ -38,13 +41,3 @@ bool	process_operator(char *str, t_meta *pkg)
 		return (create_operator_token(pkg, is_redirection(str, pkg->i)));
 	return (true);
 }
-
-void	print_cmd_not_found(char *str)
-{
-	perror(str);
-}
-//	ft_putstr_fd("minishell: ", STDERR_FILENO);
-//	ft_putstr_fd(str, STDERR_FILENO);
-//	ft_putstr_fd(": Command not found\n", STDERR_FILENO);
-//	perror("minishell: ");
-//	strerror(ENOENT);

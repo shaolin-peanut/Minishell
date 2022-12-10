@@ -14,7 +14,6 @@
 # include <fcntl.h>
 
 /*executionfonctions */
-void	execution(t_meta *pkg);
 int		execute_cmd(t_meta *pkg, t_token *token);
 int		wait_all_pid(t_meta *pkg);
 
@@ -22,7 +21,6 @@ void	close_all_fd(t_meta *pkg);
 void	close_fd_cmd(t_cmd *cmd);
 void	close_fd_bltn(t_bltn *bltn);
 void	close_fd_file(t_file *file);
-void	close_fd_op(t_op *op);
 void	remove_tmp_file(t_meta *pkg);
 
 bool	is_standard_fd(int fd);
@@ -41,8 +39,6 @@ char	*get_current_path(void);
 t_file	*get_heredoc_file(t_meta *pkg);
 
 char	*get_export_variable_name(char *variable);
-char	*get_variable_name(char *variable);
-char	*get_env_variable_value(char *variable);
 
 void	change_or_create_var(t_meta *pkg, char *key, char **export_string);
 void	ft_setenv(t_meta *pkg, char *key, char *value);
@@ -54,7 +50,6 @@ void	redirect_cmd(t_cmd *cmd);
 
 int		convert_status_process_value(int status);
 int		get_last_status(int bin_status, int ret_built_in);
-//void update_variable_status_process(t_meta *pkg, int status);
 
 /*redirectionfonctions */
 
@@ -70,10 +65,6 @@ void	manage_fd_for_redirection(t_token *token);
 void	manage_fd_pipe(t_token *token);
 void	manage_fd_basic_redirection(t_token *token);
 void	open_next_file_with_flags(int type, t_file *file);
-
-void	processing_cmd(t_meta *pkg);
-
-void	processing_built_in(t_meta *pkg);
 
 int		echo(t_bltn *cmd);
 int		cd(t_bltn *cmd, t_meta *pkg);

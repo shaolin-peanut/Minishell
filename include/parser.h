@@ -70,7 +70,6 @@ int		*handle_var(int *l_i, char *str, t_meta *pkg);
 // heredoc.c
 bool	is_delimiter(char *str, char *delim);
 bool	capture_heredoc(t_meta *pkg);
-void	create_heredoc_output(t_meta *pkg);
 
 // create_tokens.c
 bool	create_cmd_token(char *cmd_name, char *full_path, t_meta *pkg);

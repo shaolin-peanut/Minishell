@@ -41,7 +41,6 @@ typedef struct s_last_data
 }	t_last_data;
 
 extern t_last_data	*g_data;
-// pid_t	pid;
 
 // parser/
 // parser.c
@@ -81,7 +80,6 @@ char		**build_argument_vector(char *name, t_meta *pkg);
 t_builder	*init_builder(int *i, char *str);
 t_builder	*add_to_back_of_list(int *counter, t_builder *last, char *word);
 void		free_str_vector(char **vector);
-char		*get_next_word(char *str, t_meta *pkg);
 
 // parser
 void		smart_iter(int *a, int *b, int incr_a, int incr_b);
@@ -98,5 +96,4 @@ void		print_cmd_token(t_token	*tok);
 void		print_operator_tok(t_token	*tok);
 void		print_all_tokens(t_meta	*pkg);
 
-//void		rl_replace_line (const char *text, int clear_undo);
 #endif

@@ -19,6 +19,7 @@ void	print_cmd_token(t_token	*tok)
 	cmd = cast_token(tok);
 	printf("|> TOKEN:CMD\n");
 	printf("|> binary_path:%s\n", cmd->binary_path);
+	printf("|> argc:%d\n", cmd->argc);
 	print_2d_vector(cmd->argv);
 	printf("|> fd_in:%d\n", cmd->fd_in);
 	printf("|> fd_out:%d\n", cmd->fd_out);

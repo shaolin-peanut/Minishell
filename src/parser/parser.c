@@ -20,6 +20,8 @@ bool	lexical_scan(char *str, t_meta *pkg)
 	if (is_word(str, pkg->i))
 	{
 		word = return_word(str, pkg);
+		if (!word)
+			word = ft_strdup("");
 		return (process_word(word, pkg));
 	}
 	else if (is_operator(str, pkg->i))
