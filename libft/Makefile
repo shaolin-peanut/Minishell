@@ -95,7 +95,7 @@ PRINTF_SOURCES_LIST = \
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 SOURCES_LIST = \
 	$(addprefix $(LIBFT_DIRECTORY), $(LIBFT_SOURCES_LIST)) \
-	$(addprefix $(PRINTF_DIRECTORY), $(PRINTF_SOURCES_LIST)) \
+	$(addprefix $(PRINTF_DIRECTORY), $(PRINTF_SOURCES_LIST))
 
 ##################################################################
 #OBJECTS PART OF MAKEFILE
