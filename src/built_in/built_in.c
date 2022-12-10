@@ -82,7 +82,10 @@ int	cd(t_bltn *cmd, t_meta *pkg)
 
 int	env_built_in(t_bltn *bltn, t_meta *pkg)
 {
-	ft_putmatrix_fd(pkg->envp, 1, bltn->fd_out);
+	if (bltn->argc == 0)
+		ft_putmatrix_fd(pkg->envp, 1, bltn->fd_out);
+	else
+		ft_putendl_fd("env: too many arguments (check pdf bro)", 2);
 	return (0);
 }
 
@@ -90,9 +93,14 @@ int	pwd(t_bltn *cmd)
 {
 	char	*path;
 
-	path = get_current_path();
-	ft_putstr_fd(path, cmd->fd_out);
-	ft_putstr_fd("\n", cmd->fd_out);
-	free(path);
+	if (cmd->argc == 0)
+	{
+		path = get_current_path();
+		ft_putstr_fd(path, cmd->fd_out);
+		ft_putstr_fd("\n", cmd->fd_out);
+		free(path);
+	}
+	else
+		ft_putendl_fd("pwd: too many arguments (check pdf bro)", 2);
 	return (0);
 }

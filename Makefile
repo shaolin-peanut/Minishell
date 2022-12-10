@@ -35,6 +35,7 @@ BUILT_IN_LIST			= \
 	built_in.c \
     built_in_exe.c \
     exit.c \
+    error.c \
     export.c
 
 ENV_LIST				= \

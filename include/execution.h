@@ -83,6 +83,9 @@ int		exit_built_in(t_bltn *bltn, t_meta *pkg);
 int		export_built_in(t_bltn *bltn, t_meta *pkg);
 int		unset(t_bltn *bltn, t_meta *pkg);
 
+void	error_msg_export(const char *str, char *key);
+void	error_msg_unset(const char *str);
+
 int		built_in_execution(t_meta *pkg, t_bltn *cmd);
 
 void	pass(int key);

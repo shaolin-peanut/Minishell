@@ -27,27 +27,6 @@ bool	ft_is_valid_key(char *key)
 	return (true);
 }
 
-void	error_msg_export(const char *str, char *key)
-{
-	char	*tmp;
-	char	*tmp2;
-
-	if (key)
-		free(key);
-	if (!str)
-		ft_putendl_fd("export: not a valid identifier", STDERR_FILENO);
-	else
-	{
-		tmp = ft_strdup("export: `");
-		tmp2 = ft_strjoin(tmp, str);
-		free(tmp);
-		tmp = ft_strjoin(tmp2, "': not a valid identifier");
-		ft_putendl_fd(tmp, STDERR_FILENO);
-		free(tmp);
-		free(tmp2);
-	}
-}
-
 int	export_built_in(t_bltn *bltn, t_meta *pkg)
 {
 	char	*key;
@@ -66,6 +45,7 @@ int	export_built_in(t_bltn *bltn, t_meta *pkg)
 		if (!ft_is_valid_key(key))
 		{
 			error_msg_export(bltn->argv[i], key);
+			free(key);
 			return (1);
 		}
 		change_or_create_var(pkg, key, &(bltn->argv[i]));
@@ -106,6 +86,11 @@ int	unset(t_bltn *bltn, t_meta *pkg)
 	while (i < bltn->argc)
 	{
 		key = bltn->argv[i];
+		if (key && !ft_is_valid_key(key))
+		{
+			error_msg_unset(bltn->argv[i]);
+			return (1);
+		}
 		if (ft_strncmp(key, "PATH", 4) == 0)
 		{
 			if (pkg->paths)
