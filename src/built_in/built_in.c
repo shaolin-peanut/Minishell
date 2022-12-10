@@ -82,7 +82,7 @@ int	cd(t_bltn *cmd, t_meta *pkg)
 
 int	env_built_in(t_bltn *bltn, t_meta *pkg)
 {
-	if (bltn->argc == 0)
+	if (bltn->argc == 1)
 		ft_putmatrix_fd(pkg->envp, 1, bltn->fd_out);
 	else
 		ft_putendl_fd("env: too many arguments (check pdf bro)", 2);
@@ -93,7 +93,7 @@ int	pwd(t_bltn *cmd)
 {
 	char	*path;
 
-	if (cmd->argc == 0)
+	if (cmd->argc == 1)
 	{
 		path = get_current_path();
 		ft_putstr_fd(path, cmd->fd_out);
