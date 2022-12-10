@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_line.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,35 +11,39 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-bool	execute_line(t_meta *pkg, char *line)
+void	ft_setenv(t_meta *pkg, char *key, char *value)
 {
-	while (contains_dollar(line))
-		line = expand_variable(line, pkg);
-	if (!line || parser(line, pkg) == false)
-		return (false);
-	processing_redirection(pkg);
-	executor(pkg);
-	free_tokens(pkg);
-	return (true);
+	char	*tmp;
+	char	*str;
+
+	tmp = ft_strjoin(key, "=");
+	str = ft_strjoin(tmp, value);
+	free(tmp);
+	change_or_create_var(pkg, key, &str);
+	free(str);
 }
 
-char	*get_line(t_meta *pkg)
+char	*ft_getenv(t_meta *pkg, char *key)
 {
-	struct termios	saved;
-	struct termios	attributes;
-	char			*line;
-	char			*p_line;
+	int		i;
+	int		j;
+	char	*tmp;
+	char	*check;
 
-	tcgetattr(STDIN_FILENO, &saved);
-	tcgetattr(STDIN_FILENO, &attributes);
-	attributes.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attributes);
-	p_line = get_prompt(pkg);
-	line = readline(p_line);
-	free(p_line);
-	if (!line)
+	if (ft_strcmp("?", key) == 0)
+	{
+		check = ft_itoa(g_data->last_exit_status);
+		return (check);
+	}
+	j = 0;
+	i = ft_matrix_search(pkg->envp, key);
+	if (i != -1)
+	{
+		while ((pkg->envp[i])[j] != '=')
+			++j;
+		tmp = ft_substr(pkg->envp[i], j + 1, ft_strlen(pkg->envp[i]) - j);
+		return (tmp);
+	}
+	else
 		return (NULL);
-	add_history(line);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &saved);
-	return (line);
 }

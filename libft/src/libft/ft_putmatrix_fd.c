@@ -30,10 +30,10 @@ int	ft_putmatrix_fd(char **m, int nl, int fd)
 	return (count);
 }
 
-int ft_putstr_until(char *str, char c, int fd)
+int	ft_putstr_until(char *str, char c, int fd)
 {
 	char	*this;
-	int 	i;
+	int		i;
 
 	this = str;
 	i = 0;
@@ -48,8 +48,8 @@ int ft_putstr_until(char *str, char c, int fd)
 int	ft_putmatrix_fd_export(char **m, int fd)
 {
 	int		i;
+	int		j;
 	int		count;
-	int 	j;
 	char	*val;
 
 	count = 0;

@@ -95,7 +95,7 @@ PRINTF_SOURCES_LIST = \
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 SOURCES_LIST = \
 	$(addprefix $(LIBFT_DIRECTORY), $(LIBFT_SOURCES_LIST)) \
-	$(addprefix $(PRINTF_DIRECTORY), $(PRINTF_SOURCES_LIST)) \
+	$(addprefix $(PRINTF_DIRECTORY), $(PRINTF_SOURCES_LIST))
 
 ##################################################################
 #OBJECTS PART OF MAKEFILE
@@ -114,26 +114,25 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS_DIRECTORY) $(OBJECTS)
 	@ar rcs $(NAME) $(OBJECTS)
-	@echo "\n$(NAME): $(GREEN)object files were created$(RESET)"
-	@echo "$(NAME): $(GREEN)$(NAME) was created$(RESET)"
+	@echo "\n\t$(NAME):\t$(GREEN)object files were created$(RESET)"
+	@echo "\t$(NAME):\t$(GREEN)$(NAME) was created$(RESET)"
 
 $(OBJECTS_DIRECTORY):
 	@mkdir -p $(OBJECTS_DIRECTORY)
 	@mkdir -p $(OBJECTS_DIRECTORY)/$(LIBFT_DIRECTORY)
 	@mkdir -p $(OBJECTS_DIRECTORY)/$(PRINTF_DIRECTORY)
-	@echo "$(NAME): $(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
+	@echo "\t$(NAME):\t$(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
 
 $(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS)
 	@$(CC) $(FLAGS) $(INCLUDES) $< -o $@
 	@echo "$(GREEN).$(RESET)\c"
 clean:
 	@rm -rf $(OBJECTS_DIRECTORY)
-	@echo "$(NAME): $(RED)$(OBJECTS_DIRECTORY) was deleted$(RESET)"
-	@echo "$(NAME): $(RED)object files were deleted$(RESET)"
+	@echo "\t$(NAME):\t$(RED)object files were deleted$(RESET)"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "$(NAME): $(RED)$(NAME) was deleted$(RESET)"
+	@echo "\t$(NAME):\t$(RED)$(NAME) was deleted$(RESET)"
 
 re: fclean all
 

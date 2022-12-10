@@ -19,7 +19,7 @@ t_meta	*init_meta(char	**envp)
 	meta = NULL;
 	meta = (t_meta *) malloc(sizeof(t_meta) * 1);
 	meta->envp = ft_dup_matrix(envp);
-	meta->paths = NULL;
+	meta->paths = init_paths(meta);
 	meta->str = NULL;
 	meta->i = 0;
 	meta->chain_head = NULL;

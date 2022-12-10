@@ -100,53 +100,25 @@ void	change_or_create_var(t_meta *pkg, char *key, char **export_string)
 
 int	unset(t_bltn *bltn, t_meta *pkg)
 {
+	int		i;
 	char	*key;
 
 	if (bltn->argc < 2)
 		return (0);
-	key = bltn->argv[1];
-	if (ft_strncmp(key, "PATH", 4) == 0)
+	i = 1;
+	while (i < bltn->argc)
 	{
-		free_str_vector(pkg->paths);
-		pkg->paths = NULL;
+		key = bltn->argv[i];
+		if (ft_strncmp(key, "PATH", 4) == 0)
+		{
+			if (pkg->paths)
+			{
+				free_str_vector(pkg->paths);
+				pkg->paths = NULL;
+			}
+		}
+		ft_matrix_del_elem(pkg->envp, key);
+		++i;
 	}
-	ft_matrix_del_elem(pkg->envp, key);
 	return (0);
-}
-
-void	ft_setenv(t_meta *pkg, char *key, char *value)
-{
-	char	*tmp;
-	char	*str;
-
-	tmp = ft_strjoin(key, "=");
-	str = ft_strjoin(tmp, value);
-	free(tmp);
-	change_or_create_var(pkg, key, &str);
-	free(str);
-}
-
-char	*ft_getenv(t_meta *pkg, char *key)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-	char	*check;
-
-	if (ft_strcmp("?", key) == 0)
-	{
-		check = ft_itoa(g_data->last_exit_status);
-		return (check);
-	}
-	j = 0;
-	i = ft_matrix_search(pkg->envp, key);
-	if (i != -1)
-	{
-		while ((pkg->envp[i])[j] != '=')
-			++j;
-		tmp = ft_substr(pkg->envp[i], j + 1, ft_strlen(pkg->envp[i]) - j);
-		return (tmp);
-	}
-	else
-		return (NULL);
 }
