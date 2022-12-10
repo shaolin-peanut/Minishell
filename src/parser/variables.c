@@ -108,8 +108,6 @@ char	*expand_variable(char *line, t_meta *pkg)
 		else
 			new_line[1][i++] = line[l_i[ITER]++];
 	}
-	free(l_i);
-	free(line);
-	line = NULL;
+	specific_normi_free(l_i, line);
 	return (new_line[1]);
 }

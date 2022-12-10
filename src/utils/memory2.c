@@ -37,3 +37,10 @@ void	free_all(t_meta *pkg)
 	free(pkg);
 	free(g_data);
 }
+
+void	specific_normi_free(int *a, char *b)
+{
+	free(a);
+	free(b);
+	b = NULL;
+}

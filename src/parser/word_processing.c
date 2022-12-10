@@ -34,7 +34,6 @@ char	*return_word(char *str, t_meta *pkg)
 		free(l_i);
 		return (NULL);
 	}
-	word = NULL;
 	word = ft_calloc((l_i[LEN] + 1), sizeof(char));
 	while (i < l_i[LEN] && str[pkg->i])
 	{
