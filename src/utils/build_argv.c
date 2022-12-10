@@ -18,13 +18,16 @@ void	free_str_vector(char **vector)
 	char	*tmp;
 
 	i = 0;
-	while (vector[i] != NULL)
+	if (vector)
 	{
-		tmp = vector[i];
-		free(tmp);
-		i++;
+		while (vector[i] != NULL)
+		{
+			tmp = vector[i];
+			free(tmp);
+			i++;
+		}
+		free(vector);
 	}
-	free(vector);
 }
 
 t_builder	*init_builder(int *i, char *str)
