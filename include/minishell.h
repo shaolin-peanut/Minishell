@@ -25,8 +25,6 @@
 # include <signal.h>
 # include <errno.h>
 
-extern t_meta	*g_pkg;
-
 typedef struct s_meta
 {
 	char		**envp;
@@ -34,10 +32,15 @@ typedef struct s_meta
 	char		*str;
 	int			i;
 	t_token		*chain_head;
-	int			last_exit_status;
-	pid_t		child_pid;
 }			t_meta;
 
+typedef struct s_last_data
+{
+	int			last_exit_status;
+	pid_t		child_pid;
+}	t_last_data;
+
+extern t_last_data	*g_data;
 // pid_t	pid;
 
 // parser/
@@ -55,6 +58,7 @@ int			errormsg(char *str, t_meta	*pkg);
 
 // init.c
 t_meta		*init_meta(char	**envp);
+t_last_data	*init_data(void);
 char		**init_paths(t_meta	*pkg);
 t_token		*init_token(t_meta *pkg);
 
@@ -62,6 +66,8 @@ t_token		*init_token(t_meta *pkg);
 void		free_tokens(t_meta	*pkg);
 void		free_token(t_token *self);
 void		free_all(t_meta *pkg);
+void		specific_normi_free(int *a, char *b);
+char		*heredoc_free_return(t_builder	*head);
 
 // list_utils.c
 t_token		*return_last_token(t_meta	*pkg);

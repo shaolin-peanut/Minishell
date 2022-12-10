@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,41 +11,39 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-void	prompt(t_meta	*pkg)
+void	ft_setenv(t_meta *pkg, char *key, char *value)
 {
-	char	*line;
+	char	*tmp;
+	char	*str;
 
-	while (1)
-	{
-		use_signal();
-		line = get_line(pkg);
-		if (!line)
-		{
-			ft_putendl_fd("exit", 2);
-			break ;
-		}
-		if (ft_strlen(line) > 0)
-			execute_line(pkg, line);
-	}
+	tmp = ft_strjoin(key, "=");
+	str = ft_strjoin(tmp, value);
+	free(tmp);
+	change_or_create_var(pkg, key, &str);
+	free(str);
 }
 
-char	*get_prompt(t_meta *pkg)
+char	*ft_getenv(t_meta *pkg, char *key)
 {
-	char	*str;
+	int		i;
+	int		j;
 	char	*tmp;
-	char	*tmp2;
+	char	*check;
 
-	str = "[";
-	tmp = ft_getenv(pkg, "USER");
-	tmp2 = ft_strjoin(str, tmp);
-	free(tmp);
-	str = ft_strjoin(tmp2, "@minishell: ");
-	free(tmp2);
-	tmp = ft_getenv(pkg, "PWD");
-	tmp2 = ft_strjoin(str, tmp);
-	free(tmp);
-	free(str);
-	str = ft_strjoin(tmp2, "]$ ");
-	free(tmp2);
-	return (str);
+	if (ft_strcmp("?", key) == 0)
+	{
+		check = ft_itoa(g_data->last_exit_status);
+		return (check);
+	}
+	j = 0;
+	i = ft_matrix_search(pkg->envp, key);
+	if (i != -1)
+	{
+		while ((pkg->envp[i])[j] != '=')
+			++j;
+		tmp = ft_substr(pkg->envp[i], j + 1, ft_strlen(pkg->envp[i]) - j);
+		return (tmp);
+	}
+	else
+		return (NULL);
 }

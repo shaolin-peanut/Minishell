@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmontaur <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,41 +11,42 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-void	prompt(t_meta	*pkg)
+int	error_msg_unset(const char *str)
 {
-	char	*line;
-
-	while (1)
-	{
-		use_signal();
-		line = get_line(pkg);
-		if (!line)
-		{
-			ft_putendl_fd("exit", 2);
-			break ;
-		}
-		if (ft_strlen(line) > 0)
-			execute_line(pkg, line);
-	}
-}
-
-char	*get_prompt(t_meta *pkg)
-{
-	char	*str;
 	char	*tmp;
 	char	*tmp2;
 
-	str = "[";
-	tmp = ft_getenv(pkg, "USER");
-	tmp2 = ft_strjoin(str, tmp);
-	free(tmp);
-	str = ft_strjoin(tmp2, "@minishell: ");
-	free(tmp2);
-	tmp = ft_getenv(pkg, "PWD");
-	tmp2 = ft_strjoin(str, tmp);
-	free(tmp);
-	free(str);
-	str = ft_strjoin(tmp2, "]$ ");
-	free(tmp2);
-	return (str);
+	if (str)
+	{
+		tmp = ft_strdup("unset: `");
+		tmp2 = ft_strjoin(tmp, str);
+		free(tmp);
+		tmp = ft_strjoin(tmp2, "': not a valid identifier");
+		ft_putendl_fd(tmp, STDERR_FILENO);
+		free(tmp);
+		free(tmp2);
+	}
+	return (1);
+}
+
+int	error_msg_export(const char *str, char *key)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	if (key)
+		free(key);
+	if (!str)
+		ft_putendl_fd("export: not a valid identifier", STDERR_FILENO);
+	else
+	{
+		tmp = ft_strdup("export: `");
+		tmp2 = ft_strjoin(tmp, str);
+		free(tmp);
+		tmp = ft_strjoin(tmp2, "': not a valid identifier");
+		ft_putendl_fd(tmp, STDERR_FILENO);
+		free(tmp);
+		free(tmp2);
+	}
+	return (1);
 }

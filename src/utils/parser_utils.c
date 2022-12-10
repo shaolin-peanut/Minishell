@@ -49,3 +49,13 @@ bool	str_append(char *dst, char *src, int len)
 	ft_strlcat(dst, "\n", l);
 	return (true);
 }
+
+int	*init_int_array(int num)
+{
+	int	*l_i;
+
+	l_i = ft_calloc(sizeof(int), num);
+	l_i[LEN] = 0;
+	l_i[ITER] = 0;
+	return (l_i);
+}

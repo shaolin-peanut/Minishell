@@ -23,8 +23,8 @@ int	get_last_status(int bin_status, int ret_built_in)
 int	convert_status_process_value(int status)
 {
 	if (WIFSIGNALED(status))
-		status = WEXITSTATUS(status);
-	if (WIFEXITED(status))
+		status = 128 + status;
+	else if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
 	return (status);
 }

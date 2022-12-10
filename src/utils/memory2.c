@@ -32,5 +32,22 @@ void	free_all(t_meta *pkg)
 		free_str_vector(pkg->paths);
 	if (pkg->envp)
 		free_str_vector(pkg->envp);
+	if (pkg->str)
+		free(pkg->str);
 	free(pkg);
+	free(g_data);
+}
+
+void	specific_normi_free(int *a, char *b)
+{
+	free(a);
+	free(b);
+	b = NULL;
+}
+
+char	*heredoc_free_return(t_builder	*head)
+{
+	if (head)
+		free_list(head);
+	return (NULL);
 }

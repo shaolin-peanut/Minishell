@@ -24,14 +24,13 @@ int	var_name_len(char *str, int index)
 	return (len);
 }
 
-char	*return_var_value(char *str, t_meta *pkg, int index)
+char	*return_var_value(char *str, int index, t_meta *pkg)
 {
 	char	*word;
 	char	*value;
 	int		len;
 	int		i;
 
-	(void) pkg;
 	i = 0;
 	value = NULL;
 	len = 0;
@@ -40,36 +39,71 @@ char	*return_var_value(char *str, t_meta *pkg, int index)
 	while (is_word(str, len + index) && !is_quote(str[len + index]))
 		len++;
 	word = NULL;
-	word = (char *) malloc(sizeof(char) * len + 1);
+	word = ft_calloc(len + 1, sizeof(char));
 	word[len] = '\0';
 	while (i < len)
-			word[i++] = str[index++];
+		word[i++] = str[index++];
 	value = ft_getenv(pkg, word);
 	free(word);
 	return (value);
 }
 
-void	process_variable(t_meta *pkg, char *str, int i)
+int	*calc_line_len(char *line, t_meta *pkg)
+{
+	int	*array;
+
+	array = init_int_array(2);
+	while (line[array[ITER]])
+	{
+		if (is_var(line, array[ITER]))
+			array = handle_var(array, line, pkg);
+		else
+			smart_iter(&array[LEN], &array[ITER], 1, 1);
+	}
+	return (array);
+}
+
+int	add_line_var_value(char **lines, int i, int *iter, t_meta *pkg)
 {
 	char	*value;
-	char	*path;
+	int		value_i;
 
-	(void) i;
+	value_i = 0;
 	value = NULL;
-	path = NULL;
-	value = return_var_value(str, pkg, i);
-	pkg->i += var_name_len(str, i);
-	if (!value || ft_strlen(value) < 2)
-		return ;
-	if (is_word(value, 0))
+	value = return_var_value(lines[0], *iter, pkg);
+	*iter += var_name_len(lines[0], *iter) + 1;
+	if (!value)
+		return (i);
+	while (value[value_i])
+		lines[1][i++] = value[value_i++];
+	free(value);
+	return (i);
+}
+
+char	*expand_variable(char *line, t_meta *pkg)
+{
+	int		*l_i;
+	int		i;
+	char	*new_line[2];
+	bool	is_open_quote;
+
+	i = 0;
+	is_open_quote = false;
+	l_i = calc_line_len(line, pkg);
+	new_line[1] = ft_calloc(l_i[LEN] + 1, sizeof(char));
+	new_line[0] = line;
+	if (!new_line[1])
+		return (NULL);
+	l_i[ITER] = 0;
+	while (i < l_i[LEN] && line[l_i[ITER]])
 	{
-		path = is_cmd(value, pkg);
-		if (path)
-			create_cmd_token(value, path, pkg);
+		if (is_single_quote(line[l_i[ITER]]))
+			handle_squote(&l_i[ITER], &i, &is_open_quote);
+		else if (is_var(line, l_i[ITER]) && !is_open_quote)
+			i = add_line_var_value(new_line, i, &l_i[ITER], pkg);
 		else
-		{
-			print_cmd_not_found(value);
-			free(value);
-		}
+			new_line[1][i++] = line[l_i[ITER]++];
 	}
+	specific_normi_free(l_i, line);
+	return (new_line[1]);
 }

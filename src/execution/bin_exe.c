@@ -13,19 +13,17 @@
 
 int	check_cmd(t_cmd *cmd)
 {
-	if (access(cmd->binary_path, F_OK))
+	if (!cmd->binary_path || access(cmd->binary_path, F_OK))
 	{
 		ft_putstr_fd("minishell: Command not found: ", STDERR_FILENO);
 		ft_putendl_fd(cmd->argv[0], STDERR_FILENO);
-		g_pkg->last_exit_status = 127;
-		return (1);
+		return (127);
 	}
-	if (access(cmd->binary_path, X_OK) && cmd->binary_path)
+	else if (cmd->binary_path && access(cmd->binary_path, X_OK))
 	{
 		ft_putstr_fd("minishell: Permission denied: ", STDERR_FILENO);
 		ft_putendl_fd(cmd->binary_path, STDERR_FILENO);
-		g_pkg->last_exit_status = 126;
-		return (2);
+		return (126);
 	}
 	return (0);
 }
@@ -50,5 +48,5 @@ void	bin_execution(t_meta *pkg, t_cmd *cmd)
 	}
 	else
 		cmd->pid = pid;
-	pkg->child_pid = cmd->pid;
+	g_data->child_pid = cmd->pid;
 }

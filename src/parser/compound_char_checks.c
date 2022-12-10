@@ -15,7 +15,7 @@
 bool	is_word(char	*str, int i)
 {
 	return (str[i] != '\0' && !is_blank(str, i)
-		&& !is_operator(str, i) && !is_dollar(str[i]));
+		&& !is_operator(str, i));
 }
 
 bool	is_var(char	*str, int i)
@@ -23,8 +23,7 @@ bool	is_var(char	*str, int i)
 	if (i > 0)
 		if (is_dollar(str[i - 1]) && is_word(str, i))
 			i--;
-	return (is_dollar(str[i]) && is_word(str, i + 1)
-		&& !is_dollar_question(str, i));
+	return (is_dollar(str[i]) && is_word(str, i + 1));
 }
 
 bool	file_check_and_create(t_meta *pkg, int type)

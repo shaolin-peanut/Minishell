@@ -15,28 +15,28 @@
 bool	is_blank(const char *str, int i)
 {
 	if (str[i] == 32 || str[i] == 9)
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }
 
 bool	is_dollar(char c)
 {
 	if (c == '$')
-		return (1);
+		return (true);
 	else
-		return (0);
+		return (false);
 }
 
-bool	is_dollar_question(const char *str, int i)
+bool	is_single_quote(char c)
 {
-	if (str[i] == '$' && str[i + 1] == '?')
-		return (1);
-	return (0);
+	if (c == 39)
+		return (true);
+	return (false);
 }
 
 bool	is_quote(char c)
 {
 	if (c == 39 || c == 34)
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }

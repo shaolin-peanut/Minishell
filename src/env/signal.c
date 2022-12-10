@@ -10,6 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
+/*
+ SIGINT: process interrupt ctrl+c
+ SIGQUIT: process interrupt w/ ctrl+\
+*/
 
 void	use_signal(void)
 {
@@ -19,32 +23,32 @@ void	use_signal(void)
 
 void	call_prompt(int key)
 {
-	if (g_pkg->child_pid == 0)
+	if (g_data->child_pid == 0)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_pkg->last_exit_status = (1);;
+		g_data->last_exit_status = (128 + key);
 	}
 	else
 	{
-		kill(g_pkg->child_pid, SIGINT);
-		g_pkg->last_exit_status = (128 + key);
+		kill(g_data->child_pid, SIGINT);
+		g_data->last_exit_status = (128 + key);
 	}
 }
 
 void	pass(int key)
 {
-	if (!g_pkg->child_pid)
+	if (!g_data->child_pid)
 	{
 		rl_on_new_line();
 		rl_redisplay();
 	}
 	else
 	{
-		g_pkg->last_exit_status = (128 + key);;
+		g_data->last_exit_status = (128 + key);
 		ft_putendl_fd("Quit: 3", 2);
 	}
-	g_pkg->child_pid = 0;
+	g_data->child_pid = 0;
 }

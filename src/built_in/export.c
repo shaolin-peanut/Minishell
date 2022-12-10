@@ -11,78 +11,89 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
+bool	ft_is_valid_key(char *key)
+{
+	if (!key)
+		return (false);
+	if (!ft_isalpha(*key))
+		return (false);
+	++key;
+	while (*key)
+	{
+		if (!ft_isalnum(*key))
+			return (false);
+		++key;
+	}
+	return (true);
+}
+
 int	export_built_in(t_bltn *bltn, t_meta *pkg)
 {
 	char	*key;
+	int		i;
 
 	if (bltn->argc < 2)
 	{
 		sort(pkg->envp);
-		ft_putmatrix_fd_export(pkg->envp, 1, bltn->fd_out);
+		ft_putmatrix_fd_export(pkg->envp, bltn->fd_out);
 		return (0);
 	}
-	key = get_export_variable_name(bltn->argv[1]);
-	if (!key)
+	i = 1;
+	while (i < bltn->argc)
 	{
-		ft_putstr_fd("export: not a valid identifier\n", 1);
-		return (1);
+		key = get_export_variable_name(bltn->argv[i]);
+		if (!ft_is_valid_key(key))
+			return (error_msg_export(bltn->argv[i], key));
+		change_or_create_var(pkg, key, &(bltn->argv[i]));
+		free(key);
+		++i;
 	}
-	change_or_create_var(pkg, key, bltn->argv[1]);
-	free(key);
 	return (0);
 }
 
-void	change_or_create_var(t_meta *pkg, char *key, char *export_string)
+void	change_or_create_var(t_meta *pkg, char *key, char **export_string)
 {
 	int		i;
 
+	if (contains_dollar(*export_string))
+		add_escaped_dollar(*&export_string);
 	i = ft_matrix_search(pkg->envp, key);
-	if (i >= 0)
-		ft_matrix_replace_elem(pkg->envp, i, export_string);
-	else
-		pkg->envp = ft_extend_matrix(pkg->envp, export_string);
+	if (i < 0)
+		pkg->envp = ft_extend_matrix(pkg->envp, *export_string);
+	else if (*(*export_string + ft_strlen(key))
+		&& *(*export_string + ft_strlen(key)) == '=')
+		ft_matrix_replace_elem(pkg->envp, i, *export_string);
+	if (ft_strncmp(key, "PATH", 4) == 0)
+	{
+		free_str_vector(pkg->paths);
+		pkg->paths = NULL;
+		pkg->paths = init_paths(pkg);
+	}
 }
 
 int	unset(t_bltn *bltn, t_meta *pkg)
 {
+	int		i;
 	char	*key;
 
 	if (bltn->argc < 2)
 		return (0);
-	key = bltn->argv[1];
-	ft_matrix_del_elem(pkg->envp, key);
-	return (0);
-}
-
-void	ft_setenv(t_meta *pkg, char *key, char *value)
-{
-	char	*tmp;
-	char	*str;
-
-	tmp = ft_strjoin(key, "=");
-	str = ft_strjoin(tmp, value);
-	free(tmp);
-	change_or_create_var(pkg, key, str);
-	free(str);
-}
-
-char	*ft_getenv(t_meta *pkg, char *key)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	if (ft_strcmp("?", key) == 0)
-		return (ft_itoa(pkg->last_exit_status));
-	j = 0;
-	i = ft_matrix_search(pkg->envp, key);
-	if (i != -1)
+	i = 1;
+	while (i < bltn->argc)
 	{
-		while ((pkg->envp[i])[j] != '=')
-			++j;
-		tmp = ft_substr(pkg->envp[i], j + 1, ft_strlen(pkg->envp[i]) - j);
-		return (tmp);
+		key = bltn->argv[i];
+		if (key && !ft_is_valid_key(key))
+			return (error_msg_unset(bltn->argv[i]));
+		if (ft_strncmp(key, "PATH", 4) == 0)
+		{
+			if (pkg->paths)
+			{
+				free_str_vector(pkg->paths);
+				pkg->paths = NULL;
+			}
+		}
+		ft_matrix_del_elem(pkg->envp, key);
+		++i;
 	}
-	else
-		return (NULL);
+	return (0);
 }

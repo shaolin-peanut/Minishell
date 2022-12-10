@@ -22,8 +22,6 @@ bool	lexical_scan(char *str, t_meta *pkg)
 		word = return_word(str, pkg);
 		return (process_word(word, pkg));
 	}
-	else if (is_var(str, pkg->i))
-		process_variable(pkg, str, pkg->i);
 	else if (is_operator(str, pkg->i))
 		return (process_operator(str, pkg));
 	return (true);
@@ -46,5 +44,7 @@ bool	parser(char *str, t_meta *pkg)
 		if ((int) ft_strlen(str) < pkg->i)
 			break ;
 	}
+	free(pkg->str);
+	pkg->str = NULL;
 	return (ret);
 }

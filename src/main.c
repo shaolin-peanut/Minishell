@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_meta	*g_pkg;
+t_last_data	*g_data;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	pkg = init_meta(envp);
-	g_pkg = pkg;
+	g_data = init_data();
 	prompt(pkg);
 	free_all(pkg);
 	return (0);

@@ -84,6 +84,8 @@ char	*capture_content(char *delim)
 	while (1)
 	{
 		tmp = readline("> ");
+		if (!tmp)
+			return (heredoc_free_return(head));
 		if (!last)
 		{
 			head = init_builder(0, ft_strdup(tmp));
@@ -96,6 +98,8 @@ char	*capture_content(char *delim)
 			return (concatenate_list_to_str(head, delim));
 	}
 }
+//if (tmp)
+//tmp = expand_variable(tmp);
 
 bool	capture_heredoc(t_meta *pkg)
 {

@@ -44,7 +44,7 @@ char	*get_export_variable_name(char *variable);
 char	*get_variable_name(char *variable);
 char	*get_env_variable_value(char *variable);
 
-void	change_or_create_var(t_meta *pkg, char *key, char *export_string);
+void	change_or_create_var(t_meta *pkg, char *key, char **export_string);
 void	ft_setenv(t_meta *pkg, char *key, char *value);
 char	*ft_getenv(t_meta *pkg, char *key);
 
@@ -83,6 +83,9 @@ int		exit_built_in(t_bltn *bltn, t_meta *pkg);
 int		export_built_in(t_bltn *bltn, t_meta *pkg);
 int		unset(t_bltn *bltn, t_meta *pkg);
 
+int		error_msg_export(const char *str, char *key);
+int		error_msg_unset(const char *str);
+
 int		built_in_execution(t_meta *pkg, t_bltn *cmd);
 
 void	pass(int key);
@@ -92,6 +95,8 @@ void	use_signal(void);
 void	prompt(t_meta	*pkg);
 
 bool	execute_line(t_meta *pkg, char *line);
+bool	contains_dollar(char *str);
+void	add_escaped_dollar(char **str);
 char	*get_line(t_meta *pkg);
 
 void	sort(char **tab);
