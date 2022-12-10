@@ -85,11 +85,7 @@ char	*capture_content(char *delim)
 	{
 		tmp = readline("> ");
 		if (!tmp)
-		{
-			if (head)
-				free_list(head);
-			return (NULL);
-		}
+			return (heredoc_free_return(head));
 		if (!last)
 		{
 			head = init_builder(0, ft_strdup(tmp));

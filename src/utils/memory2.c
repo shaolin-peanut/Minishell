@@ -44,3 +44,10 @@ void	specific_normi_free(int *a, char *b)
 	free(b);
 	b = NULL;
 }
+
+char	*heredoc_free_return(t_builder	*head)
+{
+	if (head)
+		free_list(head);
+	return (NULL);
+}

@@ -67,6 +67,7 @@ void		free_tokens(t_meta	*pkg);
 void		free_token(t_token *self);
 void		free_all(t_meta *pkg);
 void		specific_normi_free(int *a, char *b);
+char		*heredoc_free_return(t_builder	*head);
 
 // list_utils.c
 t_token		*return_last_token(t_meta	*pkg);
