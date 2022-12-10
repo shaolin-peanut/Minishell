@@ -93,7 +93,7 @@ int	pwd(t_bltn *cmd)
 {
 	char	*path;
 
-	if (cmd->argc == 1)
+	if (cmd->argc >= 1)
 	{
 		path = get_current_path();
 		ft_putstr_fd(path, cmd->fd_out);
