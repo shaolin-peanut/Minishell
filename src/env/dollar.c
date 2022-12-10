@@ -11,13 +11,16 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-bool	is_expandable(char *str)
+bool	is_expandable(char *str, size_t index)
 {
 	char	*this;
 
 	this = str;
-	if (*(this - 1) && *(this - 1) == '\\')
-		return (false);
+	if (index >= 1)
+	{
+		if (*(this - 1) && *(this - 1) == '\\')
+			return (false);
+	}
 	return (true);
 }
 
@@ -33,7 +36,7 @@ bool	contains_dollar(char *str)
 		if (is_single_quote(*this))
 			is_open_quote = !is_open_quote;
 		else if (*this == '$' && is_word(this, 1) && !is_quote(*(this + 1))
-			&& !is_open_quote && is_expandable(this))
+			&& !is_open_quote && is_expandable(this, (this - str)))
 			return (true);
 		++this;
 	}
