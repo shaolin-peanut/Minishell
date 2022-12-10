@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-void	error_msg_unset(const char *str)
+int	error_msg_unset(const char *str)
 {
 	char	*tmp;
 	char	*tmp2;
 
-	if(str)
+	if (str)
 	{
 		tmp = ft_strdup("unset: `");
 		tmp2 = ft_strjoin(tmp, str);
@@ -26,9 +26,10 @@ void	error_msg_unset(const char *str)
 		free(tmp);
 		free(tmp2);
 	}
+	return (1);
 }
 
-void	error_msg_export(const char *str, char *key)
+int	error_msg_export(const char *str, char *key)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -47,4 +48,5 @@ void	error_msg_export(const char *str, char *key)
 		free(tmp);
 		free(tmp2);
 	}
+	return (1);
 }

@@ -43,11 +43,7 @@ int	export_built_in(t_bltn *bltn, t_meta *pkg)
 	{
 		key = get_export_variable_name(bltn->argv[i]);
 		if (!ft_is_valid_key(key))
-		{
-			error_msg_export(bltn->argv[i], key);
-			free(key);
-			return (1);
-		}
+			return (error_msg_export(bltn->argv[i], key));
 		change_or_create_var(pkg, key, &(bltn->argv[i]));
 		free(key);
 		++i;
@@ -87,10 +83,7 @@ int	unset(t_bltn *bltn, t_meta *pkg)
 	{
 		key = bltn->argv[i];
 		if (key && !ft_is_valid_key(key))
-		{
-			error_msg_unset(bltn->argv[i]);
-			return (1);
-		}
+			return (error_msg_unset(bltn->argv[i]));
 		if (ft_strncmp(key, "PATH", 4) == 0)
 		{
 			if (pkg->paths)
