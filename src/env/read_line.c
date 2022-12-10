@@ -16,7 +16,10 @@ bool	execute_line(t_meta *pkg, char *line)
 	while (contains_dollar(line))
 		line = expand_variable(line, pkg);
 	if (!line || parser(line, pkg) == false)
+	{
+		free_tokens(pkg);
 		return (false);
+	}
 	processing_redirection(pkg);
 	executor(pkg);
 	free_tokens(pkg);

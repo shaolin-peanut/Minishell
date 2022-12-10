@@ -10,6 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
+/*
+ SIGINT: process interrupt ctrl+c
+ SIGQUIT: process interrupt w/ ctrl+\
+*/
 
 void	use_signal(void)
 {

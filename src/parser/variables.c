@@ -80,10 +80,6 @@ int	add_line_var_value(char **lines, int i, int *iter, t_meta *pkg)
 	return (i);
 }
 
-//		printf("> line[%d]: %c\n", l_i[ITER], line[l_i[ITER]]);
-//		printf("> new_line[%d]: %c\n", i, new_line[i]);
-//printf("line w/ expand vars len: %d\n", l_i[LEN]);
-
 char	*expand_variable(char *line, t_meta *pkg)
 {
 	int		*l_i;

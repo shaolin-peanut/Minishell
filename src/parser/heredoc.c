@@ -84,6 +84,12 @@ char	*capture_content(char *delim)
 	while (1)
 	{
 		tmp = readline("> ");
+		if (!tmp)
+		{
+			if (head)
+				free_list(head);
+			return (NULL);
+		}
 		if (!last)
 		{
 			head = init_builder(0, ft_strdup(tmp));

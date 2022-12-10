@@ -69,7 +69,6 @@ int	export_built_in(t_bltn *bltn, t_meta *pkg)
 			return (1);
 		}
 		change_or_create_var(pkg, key, &(bltn->argv[i]));
-		printf("export builtin :%s\n", bltn->argv[i]);
 		free(key);
 		++i;
 	}
@@ -82,7 +81,6 @@ void	change_or_create_var(t_meta *pkg, char *key, char **export_string)
 
 	if (contains_dollar(*export_string))
 		add_escaped_dollar(*&export_string);
-	printf("change begin: %s\n", *export_string);
 	i = ft_matrix_search(pkg->envp, key);
 	if (i < 0)
 		pkg->envp = ft_extend_matrix(pkg->envp, *export_string);
@@ -95,7 +93,6 @@ void	change_or_create_var(t_meta *pkg, char *key, char **export_string)
 		pkg->paths = NULL;
 		pkg->paths = init_paths(pkg);
 	}
-	printf("change end: %s\n", *export_string);
 }
 
 int	unset(t_bltn *bltn, t_meta *pkg)
