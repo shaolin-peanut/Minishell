@@ -92,8 +92,18 @@ int	env_built_in(t_bltn *bltn, t_meta *pkg)
 int	pwd(t_bltn *cmd)
 {
 	char	*path;
+	int		i;
+	bool	options;
 
-	if (cmd->argc >= 1)
+	i = 1;
+	options = false;
+	while (i < cmd->argc)
+	{
+		if (*cmd->argv[i] == '-')
+			options = true;
+		++i;
+	}
+	if (!options && cmd->argc >= 1)
 	{
 		path = get_current_path();
 		ft_putstr_fd(path, cmd->fd_out);
@@ -101,6 +111,6 @@ int	pwd(t_bltn *cmd)
 		free(path);
 	}
 	else
-		ft_putendl_fd("pwd: too many arguments (check pdf bro)", 2);
+		ft_putendl_fd("pwd: invalid identifier (check pdf bro)", 2);
 	return (0);
 }
